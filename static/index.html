@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Car Research Agent</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
+    <style>
+      :root {
+        --bg: #f6f7f9;
+        --card: #fff;
+        --text: #1a1d21;
+        --muted: #6b7280;
+        --border: #e5e7eb;
+        --accent: #2563eb;
+        --error: #dc2626;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0f1115;
+          --card: #181b21;
+          --text: #e6e8eb;
+          --muted: #9aa1ab;
+          --border: #2a2f37;
+          --accent: #60a5fa;
+          --error: #f87171;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        line-height: 1.6;
+      }
+      main {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 48px 20px;
+      }
+      h1 {
+        margin: 0 0 4px;
+        font-size: 1.6rem;
+      }
+      .subtitle {
+        color: var(--muted);
+        margin: 0 0 28px;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+      input,
+      textarea {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 12px;
+        font: inherit;
+        color: var(--text);
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+      }
+      textarea {
+        resize: vertical;
+      }
+      button {
+        width: 100%;
+        padding: 12px;
+        font: inherit;
+        font-weight: 600;
+        color: #fff;
+        background: var(--accent);
+        border: 0;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+      button:disabled {
+        opacity: 0.6;
+        cursor: wait;
+      }
+      #status:empty,
+      #answer:empty,
+      #meta:empty {
+        display: none;
+      }
+      #status {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .chip {
+        font-size: 0.85rem;
+        color: var(--muted);
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 4px 12px;
+      }
+      #answer a {
+        color: var(--accent);
+        word-break: break-all;
+      }
+      #answer h2 {
+        font-size: 1.15rem;
+        margin-top: 1.4em;
+      }
+      #meta {
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+      .error {
+        color: var(--error);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Car Research Agent</h1>
+      <p class="subtitle">
+        Answers car questions by searching the web and citing every source.
+      </p>
+
+      <div class="card">
+        <input id="key" type="password" placeholder="API key" />
+        <textarea
+          id="question"
+          rows="3"
+          placeholder="Is a 2015 Golf or a 2016 Focus better for city driving?"
+        ></textarea>
+        <button id="ask">Ask</button>
+      </div>
+
+      <div id="status" class="card"></div>
+      <div id="answer" class="card"></div>
+      <div id="meta"></div>
+    </main>
+
+    <script>
+      const $ = (id) => document.getElementById(id);
+      let answerText = "";
+
+      function renderAnswer() {
+        $("answer").innerHTML = DOMPurify.sanitize(marked.parse(answerText));
+      }
+
+      function addChip(text, isError = false) {
+        const chip = document.createElement("span");
+        chip.className = isError ? "chip error" : "chip";
+        chip.textContent = text; // textContent, never innerHTML: the query comes from the model
+        $("status").appendChild(chip);
+      }
+
+      $("ask").onclick = async () => {
+        answerText = "";
+        $("status").innerHTML = "";
+        $("answer").innerHTML = "";
+        $("meta").textContent = "";
+        $("ask").disabled = true;
+        $("ask").textContent = "Researching…";
+
+        try {
+          const res = await fetch("/ask/stream", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-API-Key": $("key").value,
+            },
+            body: JSON.stringify({ question: $("question").value }),
+          });
+
+          if (res.status === 401) throw new Error("Invalid API key");
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+          const reader = res.body.getReader();
+          const decoder = new TextDecoder();
+          let buffer = "";
+
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            buffer += decoder.decode(value, { stream: true });
+            const events = buffer.split("\n\n");
+            buffer = events.pop();
+
+            for (const raw of events) {
+              if (raw.startsWith("data: ")) handle(JSON.parse(raw.slice(6)));
+            }
+          }
+        } catch (err) {
+          addChip(err.message, true);
+        } finally {
+          $("ask").disabled = false;
+          $("ask").textContent = "Ask";
+        }
+      };
+
+      function handle(event) {
+        if (event.type === "searching") {
+          addChip(`🔍 ${event.query}`);
+          answerText = ""; // text before a search was preamble
+          renderAnswer();
+        } else if (event.type === "token") {
+          answerText += event.text;
+          renderAnswer();
+        } else if (event.type === "result") {
+          if (event.error) addChip(`Error: ${event.error}`, true);
+          $("meta").textContent =
+            `${event.tokens.toLocaleString()} tokens · ${event.searches} searches`;
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -5,3 +5,4 @@ langfuse==4.15.4
 python-dotenv==1.2.3
 pint==0.26.1
 sentence-transformers==6.0.1
+rich==15.0.0

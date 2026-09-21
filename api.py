@@ -35,3 +35,8 @@ def ask_stream(request: AskRequest, x_api_key: str = Header(None)):
             yield f"data: {json.dumps(event, ensure_ascii=False)}\n\n"
 
     return responses.StreamingResponse(event_stream(), media_type="text/event-stream")
+
+
+@app.get("/")
+def index():
+    return responses.FileResponse("static/index.html")
