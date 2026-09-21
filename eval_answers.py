@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 from anthropic import Anthropic
-from pydantic import BaseModel, ValidationError, Field
+from pydantic import BaseModel, Field
 
 load_dotenv()
 claude = Anthropic()
@@ -12,7 +12,7 @@ class Evaluation(BaseModel):
     reasoning: str = Field(description="Brief explanation of the score")
 
 
-JUDGE_PROMPT = """You are a strict evaluator of research assistant answers.
+CITATIONS_PROMPT = """You are a strict evaluator of research assistant answers.
 
 CRITERION: every concrete numeric fact (fuel consumption, measurements,
 prices, years) must be accompanied by its source URL.
@@ -27,8 +27,27 @@ QUESTION: {question}
 ANSWER TO EVALUATE:
 {answer}"""
 
+COMPARABILITY_PROMPT = """You are evaluating whether an answer makes valid comparisons.
 
-def evaluate(question: str, answer: str) -> Evaluation | None:
+CRITERION: when comparing two things, the figures must be comparable —
+same unit, same measurement basis, same conditions.
+
+Common violations:
+- Comparing curb weight against gross vehicle weight
+- Mixing metric and imperial (25 mpg vs 9.2 L/100km)
+- Comparing city fuel economy against combined
+- Different model trims presented as equivalent
+
+Score:
+5 = all comparisons use equivalent bases
+3 = minor inconsistencies
+1 = comparisons that mislead the reader
+
+QUESTION: {question}
+ANSWER: {answer}"""
+
+
+def evaluate(question: str, answer: str, prompt: str) -> Evaluation | None:
 
     # output_format goes with parse(), not with create()
     result = claude.messages.parse(
@@ -37,7 +56,7 @@ def evaluate(question: str, answer: str) -> Evaluation | None:
         messages=[
             {
                 "role": "user",
-                "content": JUDGE_PROMPT.format(question=question, answer=answer),
+                "content": prompt.format(question=question, answer=answer),
             }
         ],
         output_format=Evaluation,
@@ -54,7 +73,7 @@ if __name__ == "__main__":
 
     for label, answer in [("BAD", bad_answer), ("GOOD", good_answer)]:
         question = "Which uses less fuel?"
-        ev = evaluate(question, answer)
+        ev = evaluate(question, answer, CITATIONS_PROMPT)
         if ev is None:
             print(f"{label}: judge failed")
             continue

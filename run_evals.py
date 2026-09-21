@@ -1,5 +1,5 @@
 from agent import run_agent
-from eval_answers import evaluate
+from eval_answers import evaluate, CITATIONS_PROMPT, COMPARABILITY_PROMPT
 from rich import print as rprint
 import statistics
 
@@ -14,29 +14,36 @@ QUESTIONS = [
 
 def single_run():
     """Runs the N questions once and returns the aggregated metrics."""
-    scores = []
+    citation_scores = []
+    comparability_scores = []
     tokens = 0
     failures = 0
     searches = 0
 
     for question in QUESTIONS:
         result = run_agent(question)
-        if result["error"]:
+        if result.error:
+            rprint(f"[red]⚠️  {question} → {result.error}[/red]")
             failures += 1
             continue
 
-        ev = evaluate(question, result["answer"])
+        citations = evaluate(question, result.answer, CITATIONS_PROMPT)
+        comparability = evaluate(question, result.answer, COMPARABILITY_PROMPT)
 
-        if ev is None:
+        if citations is None or comparability is None:
             failures += 1
             continue
 
-        scores.append(ev.score)
-        tokens += result["tokens"]
-        searches += result["searches"]
+        citation_scores.append(citations.score)
+        comparability_scores.append(comparability.score)
+        tokens += result.tokens
+        searches += result.searches
 
     return {
-        "score": statistics.mean(scores) if scores else 0,
+        "citations": statistics.mean(citation_scores) if citation_scores else 0,
+        "comparability": (
+            statistics.mean(comparability_scores) if comparability_scores else 0
+        ),
         "tokens": tokens,
         "searches": searches,
         "failures": failures,
@@ -51,15 +58,20 @@ if __name__ == "__main__":
         sr = single_run()
         runs.append(sr)
         rprint(
-            f"Score: {sr["score"]:.2f} | Tokens: {sr["tokens"]} | Searches: {sr["searches"]} | Failures: {sr["failures"]}"
+            f"Citations: {sr['citations']:.2f} | Comparability: {sr['comparability']:.2f} | "
+            f"Tokens: {sr['tokens']} | Failures: {sr['failures']}"
         )
-    scores = [run["score"] for run in runs]
-    tokens = [run["tokens"] for run in runs]
+    citations = [r["citations"] for r in runs]
+    comparability = [r["comparability"] for r in runs]
+    tokens = [r["tokens"] for r in runs]
 
     rprint("\n[bold]--- SUMMARY ---[/bold]")
     rprint(
-        f"Scores --- mean: {statistics.mean(scores):.2f} --- median:{statistics.median(scores):.2f} --- range: {min(scores):.2f} - {max(scores):.2f}"
+        f"Citations     --- mean: {statistics.mean(citations):.2f} --- range: {min(citations):.2f} - {max(citations):.2f}"
     )
     rprint(
-        f"Tokens --- mean: {statistics.mean(tokens):.0f} --- median:{statistics.median(tokens):.0f} --- range: {min(tokens)} - {max(tokens)}"
+        f"Comparability --- mean: {statistics.mean(comparability):.2f} --- range: {min(comparability):.2f} - {max(comparability):.2f}"
+    )
+    rprint(
+        f"Tokens        --- mean: {statistics.mean(tokens):.0f} --- range: {min(tokens)} - {max(tokens)}"
     )
