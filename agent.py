@@ -1,13 +1,12 @@
 import os
 from dotenv import load_dotenv
-from anthropic import Anthropic
 from tavily import TavilyClient
 from rich import print as rprint
-import json
 from langfuse import get_client
 from typing import Iterator
 from pydantic import BaseModel
 from tools import CONVERT_UNITS_TOOL, convert_units
+import anthropic
 
 load_dotenv()
 
@@ -15,8 +14,19 @@ langfuse = get_client()
 
 MAX_CHARS_PER_SOURCE = 2000
 
+
+def classify_error(e: anthropic.APIError) -> str:
+    if isinstance(e, anthropic.RateLimitError):
+        return "rate_limited"
+    if isinstance(e, anthropic.APIConnectionError):
+        return "provider_unreachable"
+    if isinstance(e, anthropic.APIStatusError) and e.status_code >= 500:
+        return "provider_unavailable"
+    return "provider_error"
+
+
 tavily = TavilyClient(api_key=os.environ["TAVILY_API_KEY"])
-claude = Anthropic()
+claude = anthropic.Anthropic(max_retries=3, timeout=60.0)
 
 
 class AgentResult(BaseModel):
@@ -108,7 +118,11 @@ def run_agent_stream(question: str) -> Iterator[dict]:
             messages.append({"role": "assistant", "content": response.content})
 
             if used_tokens > TOKEN_BUDGET:
-                root.update(output="budget_exceeded")
+                root.update(
+                    output="budget_exceeded",
+                    level="ERROR",
+                    status_message=f"{used_tokens} tokens over a budget of {TOKEN_BUDGET}",
+                )
                 yield {
                     "type": "result",
                     "answer": None,
@@ -136,7 +150,7 @@ def run_agent_stream(question: str) -> Iterator[dict]:
 
             if response.stop_reason != "tool_use":
                 error = f"unexpected_stop: {response.stop_reason}"
-                root.update(output=error)
+                root.update(output=error, level="ERROR", status_message=error)
                 yield {
                     "type": "result",
                     "answer": None,
@@ -156,16 +170,29 @@ def run_agent_stream(question: str) -> Iterator[dict]:
                         span = root.start_observation(
                             name="search", as_type="span", input=query
                         )
-                        result = search_web(query)
-                        span.update(output=f"{len(result)} chars")
-                        span.end()
-                        tool_results.append(
-                            {
-                                "type": "tool_result",
-                                "tool_use_id": content.id,
-                                "content": result,
-                            }
-                        )
+                        try:
+                            result = search_web(query)
+                            span.update(output=f"{len(result)} chars")
+                            tool_results.append(
+                                {
+                                    "type": "tool_result",
+                                    "tool_use_id": content.id,
+                                    "content": result,
+                                }
+                            )
+                        except Exception as e:
+                            span.update(level="ERROR", status_message=str(e))
+                            tool_results.append(
+                                {
+                                    "type": "tool_result",
+                                    "tool_use_id": content.id,
+                                    "content": f"Search failed: {e}. Try a different query or answer with what you have.",
+                                    "is_error": True,
+                                }
+                            )
+                        finally:
+                            span.end()
+
                     elif content.name == "convert_units":
                         unit_from = content.input["unit_from"]
                         unit_to = content.input["unit_to"]
@@ -193,11 +220,25 @@ def run_agent_stream(question: str) -> Iterator[dict]:
 
             messages.append({"role": "user", "content": tool_results})
 
-        root.update(output="max_iterations")
+        root.update(
+            output="max_iterations",
+            level="ERROR",
+            status_message=f"no answer after {MAX_ITERATIONS} iterations",
+        )
         yield {
             "type": "result",
             "answer": None,
             "error": "max_iterations",
+            "tokens": used_tokens,
+            "searches": searches,
+        }
+    except anthropic.APIError as e:
+        code = classify_error(e)
+        root.update(output=code, level="ERROR", status_message=str(e))
+        yield {
+            "type": "result",
+            "answer": None,
+            "error": code,
             "tokens": used_tokens,
             "searches": searches,
         }

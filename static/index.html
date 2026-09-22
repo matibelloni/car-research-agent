@@ -146,8 +146,19 @@
     </main>
 
     <script>
+      const ERROR_MESSAGES = {
+        rate_limited: "Too many requests right now. Try again in a minute.",
+        provider_unavailable:
+          "The AI provider is overloaded. Try again shortly.",
+        provider_unreachable: "Couldn't reach the AI provider.",
+        provider_error: "The AI provider returned an error.",
+        budget_exceeded:
+          "This question needed too much research. Try a narrower one.",
+        max_iterations: "Couldn't reach an answer. Try rephrasing.",
+      };
       const $ = (id) => document.getElementById(id);
       let answerText = "";
+      let gotResult = false;
 
       function renderAnswer() {
         $("answer").innerHTML = DOMPurify.sanitize(marked.parse(answerText));
@@ -162,6 +173,7 @@
 
       $("ask").onclick = async () => {
         answerText = "";
+        gotResult = false;
         $("status").innerHTML = "";
         $("answer").innerHTML = "";
         $("meta").textContent = "";
@@ -184,7 +196,6 @@
           const reader = res.body.getReader();
           const decoder = new TextDecoder();
           let buffer = "";
-
           while (true) {
             const { done, value } = await reader.read();
             if (done) break;
@@ -197,6 +208,8 @@
               if (raw.startsWith("data: ")) handle(JSON.parse(raw.slice(6)));
             }
           }
+          if (!gotResult)
+            addChip("Connection lost before the answer finished.", true);
         } catch (err) {
           addChip(err.message, true);
         } finally {
@@ -214,7 +227,16 @@
           answerText += event.text;
           renderAnswer();
         } else if (event.type === "result") {
-          if (event.error) addChip(`Error: ${event.error}`, true);
+          gotResult = true;
+          if (event.error) {
+            // drop the partial text: truncated output reads like a real answer
+            answerText = "";
+            renderAnswer();
+            addChip(
+              ERROR_MESSAGES[event.error] ?? `Error: ${event.error}`,
+              true,
+            );
+          }
           $("meta").textContent =
             `${event.tokens.toLocaleString()} tokens · ${event.searches} searches`;
         }

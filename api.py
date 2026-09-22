@@ -8,6 +8,13 @@ app = FastAPI(title="Auto Research Agent")
 
 API_KEY = os.environ["APP_API_KEY"]
 
+ERROR_STATUS = {
+    "rate_limited": 429,
+    "provider_unavailable": 503,
+    "provider_unreachable": 503,
+    "provider_error": 502,
+}
+
 
 class AskRequest(BaseModel):
     question: str
@@ -17,7 +24,10 @@ class AskRequest(BaseModel):
 def ask(request: AskRequest, x_api_key: str = Header(None)) -> AgentResult:
     if x_api_key != API_KEY:
         raise HTTPException(status_code=401, detail="Invalid API KEY")
-    return run_agent(request.question)
+    result = run_agent(request.question)
+    if result.error in ERROR_STATUS:
+        raise HTTPException(status_code=ERROR_STATUS[result.error], detail=result.error)
+    return result
 
 
 @app.get("/health")
