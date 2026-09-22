@@ -72,83 +72,93 @@ TOKEN_BUDGET = 50_000
 
 
 def run_agent_stream(question: str) -> Iterator[dict]:
-    messages = [{"role": "user", "content": question}]
-    used_tokens = 0
-    searches = 0
-    for i in range(MAX_ITERATIONS):
-        with claude.messages.stream(
-            model="claude-haiku-4-5",
-            max_tokens=2000,
-            tools=tools,
-            messages=messages,
-            system=SYSTEM,
-        ) as stream:
-            for text in stream.text_stream:
-                yield {
-                    "type": "token",
-                    "text": text,
-                }
-            response = stream.get_final_message()
-        used_tokens += response.usage.input_tokens + response.usage.output_tokens
-
-        messages.append({"role": "assistant", "content": response.content})
-
-        if used_tokens > TOKEN_BUDGET:
-            yield {
-                "type": "result",
-                "answer": None,
-                "error": "budget_exceeded",
-                "tokens": used_tokens,
-                "searches": searches,
-            }
-            return
-
-        if response.stop_reason == "end_turn":
-            answer = "\n".join(
-                content.text for content in response.content if content.type == "text"
+    root = langfuse.start_observation(name="run-agent", as_type="span", input=question)
+    try:
+        messages = [{"role": "user", "content": question}]
+        used_tokens = 0
+        searches = 0
+        for i in range(MAX_ITERATIONS):
+            gen = root.start_observation(
+                name=f"llm-call-{i + 1}", as_type="generation", model="claude-haiku-4-5"
             )
-            yield {
-                "type": "result",
-                "answer": answer,
-                "error": None,
-                "tokens": used_tokens,
-                "searches": searches,
-            }
-            return
-
-        if response.stop_reason != "tool_use":
-            yield {
-                "type": "result",
-                "answer": None,
-                "error": f"unexpected_stop: {response.stop_reason}",
-                "tokens": used_tokens,
-                "searches": searches,
-            }
-            return
-
-        tool_results = []
-        for content in response.content:
-            if content.type == "tool_use":
-                if content.name == "search_web":
-                    query = content.input["query"]
-                    searches += 1
-                    yield {"type": "searching", "query": query}
-                    result = search_web(query)
-                    tool_results.append(
-                        {
-                            "type": "tool_result",
-                            "tool_use_id": content.id,
-                            "content": result,
+            try:
+                with claude.messages.stream(
+                    model="claude-haiku-4-5",
+                    max_tokens=2000,
+                    tools=tools,
+                    messages=messages,
+                    system=SYSTEM,
+                ) as stream:
+                    for text in stream.text_stream:
+                        yield {
+                            "type": "token",
+                            "text": text,
                         }
-                    )
-                elif content.name == "convert_units":
-                    unit_from = content.input["unit_from"]
-                    unit_to = content.input["unit_to"]
-                    value = content.input["value"]
-                    try:
-                        result = convert_units(
-                            unit_from=unit_from, unit_to=unit_to, value=value
+                    response = stream.get_final_message()
+                gen.update(
+                    usage_details={
+                        "input": response.usage.input_tokens,
+                        "output": response.usage.output_tokens,
+                    },
+                    output=response.stop_reason,
+                )
+            finally:
+                gen.end()
+            used_tokens += response.usage.input_tokens + response.usage.output_tokens
+            messages.append({"role": "assistant", "content": response.content})
+
+            if used_tokens > TOKEN_BUDGET:
+                root.update(output="budget_exceeded")
+                yield {
+                    "type": "result",
+                    "answer": None,
+                    "error": "budget_exceeded",
+                    "tokens": used_tokens,
+                    "searches": searches,
+                }
+                return
+
+            if response.stop_reason == "end_turn":
+                answer = "\n".join(
+                    content.text
+                    for content in response.content
+                    if content.type == "text"
+                )
+                root.update(output=answer)
+                yield {
+                    "type": "result",
+                    "answer": answer,
+                    "error": None,
+                    "tokens": used_tokens,
+                    "searches": searches,
+                }
+                return
+
+            if response.stop_reason != "tool_use":
+                error = f"unexpected_stop: {response.stop_reason}"
+                root.update(output=error)
+                yield {
+                    "type": "result",
+                    "answer": None,
+                    "error": error,
+                    "tokens": used_tokens,
+                    "searches": searches,
+                }
+                return
+
+            tool_results = []
+            for content in response.content:
+                if content.type == "tool_use":
+                    if content.name == "search_web":
+                        query = content.input["query"]
+                        searches += 1
+                        yield {"type": "searching", "query": query}
+                        span = root.start_observation(
+                            name="search", as_type="span", input=query
                         )
+                        result = search_web(query)
+                        span.update(output=f"{len(result)} chars")
+                        span.end()
                         tool_results.append(
                             {
                                 "type": "tool_result",
@@ -156,46 +166,59 @@ def run_agent_stream(question: str) -> Iterator[dict]:
                                 "content": result,
                             }
                         )
-                    except ValueError as e:
-                        tool_results.append(
-                            {
-                                "type": "tool_result",
-                                "tool_use_id": content.id,
-                                "content": str(e),
-                                "is_error": True,
-                            }
-                        )
+                    elif content.name == "convert_units":
+                        unit_from = content.input["unit_from"]
+                        unit_to = content.input["unit_to"]
+                        value = content.input["value"]
+                        try:
+                            result = convert_units(
+                                unit_from=unit_from, unit_to=unit_to, value=value
+                            )
+                            tool_results.append(
+                                {
+                                    "type": "tool_result",
+                                    "tool_use_id": content.id,
+                                    "content": result,
+                                }
+                            )
+                        except ValueError as e:
+                            tool_results.append(
+                                {
+                                    "type": "tool_result",
+                                    "tool_use_id": content.id,
+                                    "content": str(e),
+                                    "is_error": True,
+                                }
+                            )
 
-        messages.append({"role": "user", "content": tool_results})
+            messages.append({"role": "user", "content": tool_results})
 
-    yield {
-        "type": "result",
-        "answer": None,
-        "error": "max_iterations",
-        "tokens": used_tokens,
-        "searches": searches,
-    }
-    return
+        root.update(output="max_iterations")
+        yield {
+            "type": "result",
+            "answer": None,
+            "error": "max_iterations",
+            "tokens": used_tokens,
+            "searches": searches,
+        }
+    finally:
+        root.end()
 
 
 def run_agent(question: str, verbose: bool = False) -> AgentResult:
-    with langfuse.start_as_current_observation(
-        as_type="span", name="run-agent", input=question
-    ) as root:
-        for event in run_agent_stream(question=question):
-            if verbose and event["type"] == "searching":
-                rprint(f"  🔍 {event['query']}")
+    for event in run_agent_stream(question=question):
+        if verbose and event["type"] == "searching":
+            rprint(f"  🔍 {event['query']}")
 
-            elif event["type"] == "result":
-                root.update(output=event["answer"] or event["error"])
-                return AgentResult(
-                    answer=event["answer"],
-                    error=event["error"],
-                    tokens=event["tokens"],
-                    searches=event["searches"],
-                )
+        elif event["type"] == "result":
+            return AgentResult(
+                answer=event["answer"],
+                error=event["error"],
+                tokens=event["tokens"],
+                searches=event["searches"],
+            )
 
-        return AgentResult(error="no_result")
+    return AgentResult(error="no_result")
 
 
 if __name__ == "__main__":
