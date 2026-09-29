@@ -1,5 +1,6 @@
 from sentence_transformers import SentenceTransformer
 from sentence_transformers.util import cos_sim
+from rich import print as rprint
 
 model = SentenceTransformer("paraphrase-multilingual-MiniLM-L12-v2")
 # bigger model
@@ -47,4 +48,4 @@ for question, expected_index in cases:
         print(f"Document expected: {documents[expected_index]}")
         print(f"Document received: {documents[winner_index]}")
 
-print(f"Precision: successes/len(cases): {successes/len(cases):.2f}")
+print(f"Accuracy@1: successes/len(cases): {successes/len(cases):.2f}")
