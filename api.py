@@ -23,8 +23,12 @@ class AskRequest(BaseModel):
     question: str
 
 
+def is_admin(x_api_key: str | None) -> bool:
+    return bool(ADMIN_API_KEY) and x_api_key == ADMIN_API_KEY
+
+
 def verify_api_key(x_api_key: str = Header(None)) -> str:
-    if x_api_key == ADMIN_API_KEY:
+    if is_admin(x_api_key):
         return x_api_key
     credits = API_KEY_CREDITS.get(x_api_key, 0)
     if credits <= 0:
@@ -33,7 +37,7 @@ def verify_api_key(x_api_key: str = Header(None)) -> str:
 
 
 def consume_credit(x_api_key: str) -> None:
-    if x_api_key != ADMIN_API_KEY:
+    if not is_admin(x_api_key):
         API_KEY_CREDITS[x_api_key] -= 1
 
 
