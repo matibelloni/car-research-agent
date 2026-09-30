@@ -61,12 +61,13 @@ BRAND_KEYWORDS: list[tuple[str, list[str]]] = [
     ("nissan", ["Nissan"]),
     ("renault", ["Renault"]),
     ("suzuki", ["Suzuki"]),
-    ("volkswagen", ["Volkswagen"]),
-    ("vw", ["Volkswagen"]),
+    ("volkswagen", ["Volkswagen", "Audi"]),
+    ("vw", ["Volkswagen", "Audi"]),
     ("volvo", ["Volvo"]),
     ("yamaha", ["Yamaha"]),
     ("yahama", ["Yamaha"]),  # typo present in the source sheet
 ]
+AVAILABLE_BRANDS = sorted({b for _, brands in BRAND_KEYWORDS for b in brands})
 
 
 @dataclass
@@ -92,8 +93,9 @@ def is_vehicle(category: str) -> bool:
     return normalize(category).startswith("vehiculos")
 
 
-def brands_for(company: str) -> list[str]:
-    text = normalize(company)
+def brands_for(name: str) -> list[str]:
+    """Canonical brands mentioned in a publisher or brand name."""
+    text = normalize(name)
     brands: set[str] = set()
     for keyword, keyword_brands in BRAND_KEYWORDS:
         if re.search(rf"\b{re.escape(keyword)}\b", text):

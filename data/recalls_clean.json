@@ -6,6 +6,7 @@
     "date_inferred": true,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Tiguan Allspace - Modelo 2018",
@@ -19,6 +20,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Tiguan Allspace",
@@ -135,6 +137,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Golf, Golf Variant y Beetle",
@@ -162,6 +165,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Audi A4 y Audi A5",
@@ -245,6 +249,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Amarok V6",
@@ -344,6 +349,7 @@
     "date_inferred": true,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Audi A4 y Audi A5",
@@ -402,6 +408,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Seat Leon - Seat Altea",
@@ -489,6 +496,7 @@
     "date_inferred": true,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Tiguan Allspace",
@@ -607,6 +615,7 @@
     "date_inferred": true,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Passat con motor Diesel y sistema Start-Stop",
@@ -1031,6 +1040,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Tiguan Allspace",
@@ -1044,6 +1054,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Saveiro",
@@ -1101,6 +1112,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Software de la caja de servicios inteligentes",
@@ -1114,6 +1126,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Módulo de control del motopropulsor PCM",
@@ -1140,6 +1153,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Polo y Virtus",
@@ -1239,6 +1253,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Amarok Modelos 2016",
@@ -1278,6 +1293,7 @@
     "date_inferred": true,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Muelles helicoidales de suspensión trasera",
@@ -1635,6 +1651,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Golf",
@@ -1740,6 +1757,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Modelos Gol, Suran y Fox",
@@ -1861,6 +1879,7 @@
     "date_inferred": true,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Modelo Amarok",
@@ -2155,6 +2174,7 @@
     "date_inferred": true,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Touareg",
@@ -2233,6 +2253,7 @@
     "date_inferred": true,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "T-Cross",
@@ -2517,6 +2538,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Golf",
@@ -2556,6 +2578,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Modelo A8",
@@ -2690,6 +2713,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "A4, A6, A7 y Q5",
@@ -2755,6 +2779,7 @@
     "date_inferred": true,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Vento",
@@ -2781,6 +2806,7 @@
     "date_inferred": true,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Q3",
@@ -2854,6 +2880,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Gol Saveiro",
@@ -2924,6 +2951,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "A4, A6, A8 y TT",
@@ -3054,6 +3082,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "A6, A4, Q5 y Q7",
@@ -3146,6 +3175,7 @@
     "date_inferred": true,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Audi A5 Cabrio, A5Sportback y Q5",
@@ -3199,6 +3229,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "T Cross",
@@ -3333,6 +3364,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "A7 y A8",
@@ -3378,6 +3410,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "A7 y A8",
@@ -3461,6 +3494,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Audi A8",
@@ -3501,6 +3535,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Taos",
@@ -3540,6 +3575,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Up",
@@ -3792,6 +3828,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "New Beetle",
@@ -3831,6 +3868,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Taos",
@@ -3870,6 +3908,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "New Beetle",
@@ -3909,6 +3948,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Taos",
@@ -3936,6 +3976,7 @@
     "date_inferred": true,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Nivus, Polo, Virtus y Saveiro",
@@ -4100,6 +4141,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Gol Trend, Voyage, Saveiro, Fox y Suran",
@@ -4113,6 +4155,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Gol Trend, Voyage, Saveiro, Fox y Suran",
@@ -4165,6 +4208,7 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "New Beetle",
@@ -4245,6 +4289,7 @@
     "date_inferred": false,
     "company": "VOLKSWAGEN ARGENTINA SA",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "NEW BEETLE",
@@ -4284,6 +4329,7 @@
     "date_inferred": false,
     "company": "VOLKSWAGEN ARGENTINA SA",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "TAOS",
@@ -4364,6 +4410,7 @@
     "date_inferred": false,
     "company": "VOLKSWAGEN ARGENTINA SA",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "T-CROSS",
@@ -4460,6 +4507,7 @@
     "date_inferred": true,
     "company": "VOLKSWAGEN ARGETINA S.A",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "SURAN",
@@ -4781,6 +4829,7 @@
     "date_inferred": false,
     "company": "VOLKSWAGEN ARGENTINA SA",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "FOX, GOL VOYAGE",
@@ -4794,6 +4843,7 @@
     "date_inferred": false,
     "company": "VOLKSWAGEN ARGENTINA SA",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "FOX,GOL, VOYAGE y SAVEIRO",
@@ -4923,6 +4973,7 @@
     "date_inferred": true,
     "company": "VOLKSWAGEN ARGENTINA SA",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "AUDI E TRON",
@@ -4936,6 +4987,7 @@
     "date_inferred": true,
     "company": "VOLKSWAGEN ARGENTINA SA",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "AUDI E TRON GT RS",
@@ -5022,6 +5074,7 @@
     "date_inferred": true,
     "company": "VOLKSWAGEN ARGENTINA SA",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "AUDI A3",
@@ -5052,6 +5105,7 @@
     "date_inferred": false,
     "company": "VOLKSWAGEN ARGENTINA SA",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "A3",
@@ -5325,6 +5379,7 @@
     "date_inferred": true,
     "company": "VW",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "SURAN",
@@ -5338,6 +5393,7 @@
     "date_inferred": true,
     "company": "VW",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "FOX GOL SAVEIRO VOYAGE",
@@ -5403,6 +5459,7 @@
     "date_inferred": false,
     "company": "VW",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "AMAROK",
@@ -5416,6 +5473,7 @@
     "date_inferred": false,
     "company": "VW",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "TAOS",
@@ -5442,6 +5500,7 @@
     "date_inferred": false,
     "company": "VW",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Fox, Gol, Saveiro y Voyage",
@@ -5585,6 +5644,7 @@
     "date_inferred": false,
     "company": "VW",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Fox y Suran",
@@ -5830,6 +5890,7 @@
     "date_inferred": false,
     "company": "VW",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "Fox, Gol, Saveiro y Voyage",
@@ -5843,6 +5904,7 @@
     "date_inferred": false,
     "company": "VW",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "SURAN",
@@ -5960,6 +6022,7 @@
     "date_inferred": false,
     "company": "VOLKSWAGEN",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "FOX, GOL, SURAN, SAVEIRO y VOYAGE",
@@ -5973,6 +6036,7 @@
     "date_inferred": false,
     "company": "VOLKSWAGEN",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "FOX y SAVEIRO",
@@ -5986,6 +6050,7 @@
     "date_inferred": false,
     "company": "VOLKSWAGEN",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "SHARAN, PASSAT, POLO SEDAN",
@@ -6314,6 +6379,7 @@
     "date_inferred": true,
     "company": "VOLKSWAGEN",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "POLO,NIVUS, TCROSS, TERA y VIRTUS",
@@ -6548,6 +6614,7 @@
     "date_inferred": false,
     "company": "VOLKSWAGEN",
     "brands": [
+      "Audi",
       "Volkswagen"
     ],
     "product": "AUDI Q8 E-TRON y ETRON",

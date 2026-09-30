@@ -4,7 +4,7 @@ from scripts.ingest_recalls import (
     is_vehicle,
     parse_date,
     brands_for,
-    BRAND_KEYWORDS,
+    AVAILABLE_BRANDS,
 )
 
 
@@ -48,15 +48,13 @@ def test_parse_date_at_switch_uses_day_month():
         ),
         ("ram", ["RAM"]),
         ("Eximar (Volvo)", sorted(["Volvo", "Jaguar", "Land Rover"])),
+        ("VOLKSWAGEN ARGENTINA SA", ["Audi", "Volkswagen"]),
     ],
 )
 def test_brands_for(company, expected):
     assert brands_for(company) == expected
 
 
-ALL_BRANDS = sorted({brand for _, brands in BRAND_KEYWORDS for brand in brands})
-
-
-@pytest.mark.parametrize("brand", ALL_BRANDS)
+@pytest.mark.parametrize("brand", AVAILABLE_BRANDS)
 def test_every_brand_recognizes_itself(brand):
     assert brand in brands_for(brand)
