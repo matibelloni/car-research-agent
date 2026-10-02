@@ -1,5 +1,6 @@
 import pytest
-from recalls_ar import get_recalls_ar, normalize
+from recalls_ar import get_recalls_ar
+from scripts.ingest_recalls import normalize
 
 
 @pytest.mark.parametrize("brand", ["Tesla", "Ranger", ""])
@@ -25,3 +26,12 @@ def test_keyword_filters_every_row():
         or "cronos" in normalize(recall["defect"])
         for recall in recalls
     )
+
+
+def test_multi_word_keyword_matches_across_fields():
+    recalls = get_recalls_ar("Volkswagen", "Gol airbag")["recalls"]
+    assert recalls
+    for recall in recalls:
+        text = normalize(recall["product"] + " " + recall["defect"])
+        assert "gol" in text
+        assert "airbag" in text

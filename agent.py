@@ -6,7 +6,9 @@ from langfuse import get_client
 from typing import Iterator
 from pydantic import BaseModel
 from tools import CONVERT_UNITS_TOOL, convert_units
+from recalls_ar import RECALLS_AR_TOOL, get_recalls_ar
 import anthropic
+import json
 
 load_dotenv()
 
@@ -52,6 +54,7 @@ tools = [
         },
     },
     CONVERT_UNITS_TOOL,
+    RECALLS_AR_TOOL,
 ]
 
 
@@ -69,13 +72,20 @@ def search_web(query: str) -> str:
 SYSTEM = """You are a research assistant about cars.
 
 Rules:
-- Answer ONLY with information from the searches. If something isn't there, say so.
-- Cite the source URL after each claim with concrete data.
+- Answer ONLY with information from your tool results. If something isn't there,
+  say so. Don't add facts from your own knowledge, even if you believe they're true.
+- Cite the source after each claim with concrete data:
+  - For web results, the source URL.
+  - For recalls from get_recalls_ar, "Defensa del Consumidor" and the publication
+    date (e.g. "Defensa del Consumidor, 29/01/2026").
 - If the sources contradict each other, mention it instead of picking one.
 - Don't make up figures. If you didn't find a fact, say you didn't find it.
+- Always answer in the same language as the user's question.
 - Normalize all units to the metric system. When a source gives a non-metric value
   (mph, mi, mpg, gal, hp, lb, in, psi, °F), call convert_units to get the metric
-  value — never convert it yourself."""
+  value — never convert it yourself.
+- When reporting recalls, always state how many were found in total. If you
+  summarize or list only some of them, say how many you're leaving out."""
 
 MAX_ITERATIONS = 10
 TOKEN_BUDGET = 50_000
@@ -217,6 +227,40 @@ def run_agent_stream(question: str) -> Iterator[dict]:
                                     "is_error": True,
                                 }
                             )
+                    elif content.name == "get_recalls_ar":
+                        brand = content.input["brand"]
+                        keyword = content.input.get("keyword")
+                        span = root.start_observation(
+                            name="search",
+                            as_type="span",
+                            input={"brand": brand, "keyword": keyword},
+                        )
+                        try:
+                            result = get_recalls_ar(brand, keyword)
+                            span.update(
+                                output=result.get("error")
+                                or f"{result['total']} recalls"
+                            )
+                            tool_results.append(
+                                {
+                                    "type": "tool_result",
+                                    "tool_use_id": content.id,
+                                    "content": json.dumps(result, ensure_ascii=False),
+                                    "is_error": "error" in result,
+                                }
+                            )
+                        except ValueError as e:
+                            span.update(level="ERROR", status_message=str(e))
+                            tool_results.append(
+                                {
+                                    "type": "tool_result",
+                                    "tool_use_id": content.id,
+                                    "content": f"Recall lookup failed: {e}.",
+                                    "is_error": True,
+                                }
+                            )
+                        finally:
+                            span.end()
 
             messages.append({"role": "user", "content": tool_results})
 
@@ -264,7 +308,9 @@ def run_agent(question: str, verbose: bool = False) -> AgentResult:
 
 if __name__ == "__main__":
     result = run_agent(
-        question="Is a 2015 Golf or a 2016 Focus better for city driving?", verbose=True
+        # question="Is a 2015 Golf or a 2016 Focus better for city driving?",
+        question="¿Hay recalls de airbags para el Volkswagen Gol en Argentina?",
+        verbose=True,
     )
     rprint(f"Tokens: {result.tokens} | Searches: {result.searches}")
     rprint(f"Answer: {result.answer}")
