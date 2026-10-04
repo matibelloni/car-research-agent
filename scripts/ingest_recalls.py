@@ -61,11 +61,12 @@ BRAND_KEYWORDS: list[tuple[str, list[str]]] = [
     ("nissan", ["Nissan"]),
     ("renault", ["Renault"]),
     ("suzuki", ["Suzuki"]),
-    ("volkswagen", ["Volkswagen", "Audi"]),
-    ("vw", ["Volkswagen", "Audi"]),
+    ("volkswagen", ["Volkswagen", "Audi", "Seat"]),
+    ("vw", ["Volkswagen", "Audi", "Seat"]),
     ("volvo", ["Volvo"]),
     ("yamaha", ["Yamaha"]),
     ("yahama", ["Yamaha"]),  # typo present in the source sheet
+    ("seat", ["Seat"]),
 ]
 AVAILABLE_BRANDS = sorted({b for _, brands in BRAND_KEYWORDS for b in brands})
 

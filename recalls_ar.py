@@ -1,9 +1,9 @@
 import json
+import re
 from functools import cache
 from pathlib import Path
 from scripts.ingest_recalls import (
     AVAILABLE_BRANDS,
-    brands_for,
     normalize,
 )
 
@@ -57,8 +57,25 @@ def load_recalls() -> list[dict]:
     return json.loads(RECALLS_PATH.read_text(encoding="utf-8"))
 
 
+QUERY_ALIASES = {"vw": "Volkswagen", "mercedes": "Mercedes-Benz", "chevy": "Chevrolet"}
+
+
+def query_brands(name: str) -> list[str]:
+    """Canonical brands a user or the model refers to, without publisher expansion."""
+    text = normalize(name)
+    found = {
+        b
+        for b in AVAILABLE_BRANDS
+        if re.search(rf"\b{re.escape(normalize(b))}\b", text)
+    }
+    found |= {
+        b for alias, b in QUERY_ALIASES.items() if re.search(rf"\b{alias}\b", text)
+    }
+    return sorted(found)
+
+
 def get_recalls_ar(brand: str, keyword: str | None = None) -> dict:
-    target_brands = brands_for(brand)
+    target_brands = query_brands(brand)
     if not target_brands:
         return {
             "error": "unknown_brand",

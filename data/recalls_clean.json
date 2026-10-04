@@ -6,12 +6,16 @@
     "date_inferred": true,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "Tiguan Allspace - Modelo 2018",
     "defect": "Existe la posibilidad de que se haya realizado un ensamblado incorrecto del módulo de airbag (lado acompañante), el cual, en caso de accidente y activación, podría tener un desenvolvimiento anormal, reduciendo así el potencial de protección y aumentando el riesgo de lesiones.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 4,
@@ -20,12 +24,16 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "Tiguan Allspace",
     "defect": "En los vehículos, existe la posibilidad de que los amortiguadores de gas presurizado en el eje trasero se hayan instalado con una soldadura incorrecta en el soporte de fijación inferior del amortiguador. En estos casos, la fijación inferior del amortiguador podría soltarse.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 5,
@@ -36,13 +44,19 @@
     "brands": [
       "Chrysler",
       "Dodge",
-      "Fiat",
       "Jeep",
       "RAM"
     ],
     "product": "Chrysler - Dodge -Jeep - RAM",
     "defect": "Posibilidad de funcionamiento irregular del alternador por fatiga térmica.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Chrysler",
+      "Dodge",
+      "Fiat",
+      "Jeep",
+      "RAM"
+    ]
   },
   {
     "row": 6,
@@ -79,13 +93,19 @@
     "brands": [
       "Chrysler",
       "Dodge",
-      "Fiat",
       "Jeep",
       "RAM"
     ],
     "product": "Chrysler 300, Dodge Journey, Jeep Cherokee, Jeep Grand Cherokee y RAM 1500",
     "defect": "FCA ha detectado la posibilidad que se produzca una falla de la central de inyección electrónica estando activado el control de velocidad crucero del vehículo, lo cual no permitiría su desactivación, manteniendo la aceleración del vehículo. Ello podría comprometer las condiciones normales de manejo, aumentando el riesgo de colisión, exponiendo al conductor, pasajeros y/o terceros a eventuales daños físicos y/o materiales",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Chrysler",
+      "Dodge",
+      "Fiat",
+      "Jeep",
+      "RAM"
+    ]
   },
   {
     "row": 10,
@@ -94,15 +114,18 @@
     "date_inferred": true,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "RAM"
+    ],
+    "product": "RAM 1500 - RAM 2500",
+    "defect": "Posibilidad de funcionamiento irregular de la palanca de transmisión automática en la función P (Park).",
+    "risk": "Lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "RAM 1500 - RAM 2500",
-    "defect": "Posibilidad de funcionamiento irregular de la palanca de transmisión automática en la función P (Park).",
-    "risk": "Lesiones y laceración"
+    ]
   },
   {
     "row": 11,
@@ -137,12 +160,16 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "Golf, Golf Variant y Beetle",
     "defect": "En los vehículos Golf, Golf Variant y Beetle, existe la posibilidad de que el émbolo del freno trasero instalado en el vehículo no haya sido revestido correctamente. Al entrar en contacto con el líquido de freno, podría comenzar una reacción química formando burbujas en el sistema de frenos y provocando un fallo del mismo. Existe peligro de accidente.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 15,
@@ -156,7 +183,11 @@
     ],
     "product": "Peugeot 301 y Citroën C-Elyseé",
     "defect": "Verificación gratuita del sistema de airbag a fin de evitar cualquier eventual incorrecto funcionamiento del mismo, que podría ocasionar daños en el caso de ocurrir un accidente.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 16,
@@ -165,12 +196,16 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
-      "Volkswagen"
+      "Audi"
     ],
     "product": "Audi A4 y Audi A5",
     "defect": "Se ha detectado en los vehículos que es posible que se desprenda el embellecedor de aluminio de los altavoces de las puertas traseras o delanteras, en determinados equipamientos. En caso de desprenderse un embellecedor, existe un riesgo potencial de lesiones debido a los bordes afilados del embellecedor, especialmente si estos están doblados hacia el interior del habitáculo.",
-    "risk": "Lesiones y laceración"
+    "risk": "Lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 17,
@@ -179,12 +214,15 @@
     "date_inferred": false,
     "company": "Peugeot Citroen Argentina S.A.",
     "brands": [
-      "Citroën",
-      "Peugeot"
+      "Citroën"
     ],
     "product": "Grand C4 Picasso",
     "defect": "Es necesario verificar el funcionamiento de las cerraduras de las puertas de la unidad, resultando dicha intervención indispensable para garantizar la calidad y seguridad del vehículo y evitar cualquier eventual incorrecto funcionamiento, en caso de ocurrir un accidente o siniestro, conlleva el riesgo de que se generen daños físicos y/o materiales a los ocupantes del vehículo y/o terceros.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 18,
@@ -219,15 +257,18 @@
     "date_inferred": false,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "Fiat"
+    ],
+    "product": "Argo, Mobi, Toro, Grand Siena, Strada y Torino",
+    "defect": "Fue identificada la posibilidad de falla en el funcionamiento de los relés de los sistemas de ignición e inyección de combustible, en algunos de los vehículos involucrados en la presente campaña. Para el caso que se produjera la falla mencionada, podría ocurrir un funcionamiento irregular del motor y, en casos extremos, su apagado inesperado, comprometiendo las condiciones de manejo del vehículo y aumentando el riesgo de colisión, con los consecuentes daños físicos y materiales al conductor, a los pasajeros y a terceros.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Argo, Mobi, Toro, Grand Siena, Strada y Torino",
-    "defect": "Fue identificada la posibilidad de falla en el funcionamiento de los relés de los sistemas de ignición e inyección de combustible, en algunos de los vehículos involucrados en la presente campaña. Para el caso que se produjera la falla mencionada, podría ocurrir un funcionamiento irregular del motor y, en casos extremos, su apagado inesperado, comprometiendo las condiciones de manejo del vehículo y aumentando el riesgo de colisión, con los consecuentes daños físicos y materiales al conductor, a los pasajeros y a terceros.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 21,
@@ -249,12 +290,16 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "Amarok V6",
     "defect": "Volkswagen Argentina S.A. ha detectado la posibilidad de que el tubo flexible (manguera) de retorno del aceite hidráulico a la caja de dirección resulte dañada como consecuencia del contacto con una abrazadera y7o con el paso pasa rueda de la carrocería, lo que podría provocar pérdida de aceite hidráulica. En los casos más desfavorables, el daño al tubo flexible podría provocar pérdida de asistencia en la dirección hidráulica del vehículo o incendio. El defecto fue descubierto con motivo de la reiteración de casos de pérdida de fluido hidráulico en el parque automotor en garantía.",
-    "risk": "Muerte, lesiones y laceración, incendio"
+    "risk": "Muerte, lesiones y laceración, incendio",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 23,
@@ -289,15 +334,18 @@
     "date_inferred": false,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "Jeep"
+    ],
+    "product": "Jeep Renegade y Compass",
+    "defect": "Fue identificada la posibilidad de falla en el funcionamiento de los relés de los sistemas de ignición e inyección de combustible de los vehículos involucrados en la presente campaña. Si la falla de los relés se diera, podría ocurrir un funcionamiento irregular del motor y, en casos extremos, su pagado inesperado, comprometiendo las condiciones de manejo del vehículo.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Jeep Renegade y Compass",
-    "defect": "Fue identificada la posibilidad de falla en el funcionamiento de los relés de los sistemas de ignición e inyección de combustible de los vehículos involucrados en la presente campaña. Si la falla de los relés se diera, podría ocurrir un funcionamiento irregular del motor y, en casos extremos, su pagado inesperado, comprometiendo las condiciones de manejo del vehículo.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 26,
@@ -319,15 +367,18 @@
     "date_inferred": false,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "Jeep"
+    ],
+    "product": "Jeep Cherokee",
+    "defect": "Se ha identificado al posibilidad de que en algunos de los vehículos involucrados en la campaña los brazos inferiores de la suspensión trasera puedan experimentar corrosión excesiva, eventualmente resultando en una rotura. Un brazo inferior de suspensión roto podría causar un reducido control del vehículo.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Jeep Cherokee",
-    "defect": "Se ha identificado al posibilidad de que en algunos de los vehículos involucrados en la campaña los brazos inferiores de la suspensión trasera puedan experimentar corrosión excesiva, eventualmente resultando en una rotura. Un brazo inferior de suspensión roto podría causar un reducido control del vehículo.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 28,
@@ -349,12 +400,16 @@
     "date_inferred": true,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
-      "Volkswagen"
+      "Audi"
     ],
     "product": "Audi A4 y Audi A5",
     "defect": "En vehículos Audi con motor 2.0 TFSI fabricados en un cierto periodo de tiempo, es posible que penetre humedad en los componentes electrónicos de la bomba adicional para el líquido refrigerante, causando un sobrecalentamiento y una falla en la misma. En consecuencia, puede producirse un sobrecalentamiento que, en casos aislados, puede dar lugar a un incendio del vehículo.",
-    "risk": "Incendio"
+    "risk": "Incendio",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 30,
@@ -368,7 +423,11 @@
     ],
     "product": "Citroën C3 - Peugeot 208",
     "defect": "Evitar una posible pérdida de la función del limpia parabrisas, lo cual podría eventualmente generar un riesgo de accidente con ocasionales daños físicos y/o materiales a los ocupantes del vehículo.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 31,
@@ -382,7 +441,11 @@
     ],
     "product": "Citroën Space Tourer y Peugeot Traveller",
     "defect": "Es imprescindible para garantizar la calidad y seguridad del vehículo, modificar la estrategia de refrigeración y mejorar la alerta sobre la temperatura máxima permitida al conductor, con el fin de evitar que se produzca una excepcional rotura del motor en marcha, lo que podría generar eventualmente riesgo de accidente con eventuales daños físicos y/o materiales a los ocupantes del vehículo y/o terceros.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 32,
@@ -391,15 +454,18 @@
     "date_inferred": true,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "Fiat"
+    ],
+    "product": "Uno, Grand Siena y Nuevo Palio",
+    "defect": "Fue identificada la posibilidad de degradación del inflador de la bolsa de aire (airbag) debido a la exposición del vehículo a altas temperaturas y elevados niveles de humedad durante largos períodos. En caso de colisión que resulte en el acontecimiento del airbag, podría ocurrir la ruptura de su inflador, debido a una exceciva presión interna, provocando la dispersión de fragmentos metálicos, exponiendo al conductor, pasajero y/o terceros a eventuales daños físicos.",
+    "risk": "Lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Uno, Grand Siena y Nuevo Palio",
-    "defect": "Fue identificada la posibilidad de degradación del inflador de la bolsa de aire (airbag) debido a la exposición del vehículo a altas temperaturas y elevados niveles de humedad durante largos períodos. En caso de colisión que resulte en el acontecimiento del airbag, podría ocurrir la ruptura de su inflador, debido a una exceciva presión interna, provocando la dispersión de fragmentos metálicos, exponiendo al conductor, pasajero y/o terceros a eventuales daños físicos.",
-    "risk": "Lesiones y laceración"
+    ]
   },
   {
     "row": 33,
@@ -408,12 +474,16 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
-      "Volkswagen"
+      "Seat"
     ],
     "product": "Seat Leon - Seat Altea",
     "defect": "En los vehículos involucrados, existe la posibilidad de que la unidad de control del sistema ABS/ESP se sobrecargue termomecánicamente y que,por consiguiente, provoque una interrupción de la conexión a masa. En el caso que eso ocurra, existe la posibilidad de que dicho sistema no ofrezca la asistencia necesaria durante la estabilización del vehículo.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 34,
@@ -440,7 +510,11 @@
     ],
     "product": "Prius y CH-R Hybrid",
     "defect": "Un posible desperfecto en un cableado del motor podría generar un cortocircuito y eventualmente generar un incendio.",
-    "risk": "Incendio"
+    "risk": "Incendio",
+    "candidate_brands": [
+      "Lexus",
+      "Toyota"
+    ]
   },
   {
     "row": 36,
@@ -462,15 +536,18 @@
     "date_inferred": true,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "RAM"
+    ],
+    "product": "RAM 1500 y RAM 2500",
+    "defect": "FCA (Fiat Chrysler Automóviles Argentina S.A.) ha detectado la posibilidad que la palanca de la transmisión automática se mueva de la posición P (Park) a cualquier otra posición sin que la llave se encuentre en la ignición y/o sin que que el conductor accione el pedal de freno. Ello, podría ocasionar un desplazamiento imprevisto del vehículo.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "RAM 1500 y RAM 2500",
-    "defect": "FCA (Fiat Chrysler Automóviles Argentina S.A.) ha detectado la posibilidad que la palanca de la transmisión automática se mueva de la posición P (Park) a cualquier otra posición sin que la llave se encuentre en la ignición y/o sin que que el conductor accione el pedal de freno. Ello, podría ocasionar un desplazamiento imprevisto del vehículo.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 38,
@@ -480,14 +557,18 @@
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
       "Chrysler",
+      "Jeep"
+    ],
+    "product": "Chrysler 300 - Jeep Wrangler",
+    "defect": "FCA (Automóviles Argentina S.A.) ha detectado la posibilidad que el inflador del airbag frontal del pasajero (PAB) contenga propelente degradado, como consecuencia de la exposición del vehículo a altos niveles de humedad y a altas temperaturas durante largos períodos. La activación de un inflador con propelente degradado, durante un evento de colisión del vehículo, podría causar la explosión del inflador, provocando la dispersión de fragmentos metálicos.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Chrysler 300 - Jeep Wrangler",
-    "defect": "FCA (Automóviles Argentina S.A.) ha detectado la posibilidad que el inflador del airbag frontal del pasajero (PAB) contenga propelente degradado, como consecuencia de la exposición del vehículo a altos niveles de humedad y a altas temperaturas durante largos períodos. La activación de un inflador con propelente degradado, durante un evento de colisión del vehículo, podría causar la explosión del inflador, provocando la dispersión de fragmentos metálicos.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 39,
@@ -496,12 +577,16 @@
     "date_inferred": true,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "Tiguan Allspace",
     "defect": "En los vehículos Tiguan Allspace, existe la posibilidad de que la tuerca de fijación no se haya apretado con el par de apriete correcto en la rótula derecha e izquierda del eje delantero. En caso de avería, la tuerca de fijación se puede soltar de la rótula.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 40,
@@ -510,12 +595,15 @@
     "date_inferred": true,
     "company": "Peugeot Citroen Argentina S.A.",
     "brands": [
-      "Citroën",
       "Peugeot"
     ],
     "product": "Peugeout 308 y 408",
     "defect": "Verificar la necesidad de añadir nuevas trabas de fijación de la manta de aislamiento acústico del capo del motor y sustituir las trabas originales y, si es necesario, efectuar la instalación de una nueva manta de aislamiento acústico del capo del motor y, en tal caso, proceder a hacerlo. La misma es indispensable para garantizar la calidad y seguridad del vehículo y evitar la deformación de la manta de aislamiento acústico del capo del motor.",
-    "risk": "Muerte, lesiones y laceración, incendio"
+    "risk": "Muerte, lesiones y laceración, incendio",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 41,
@@ -524,15 +612,18 @@
     "date_inferred": false,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "Jeep"
+    ],
+    "product": "Jeep Wrangler",
+    "defect": "Fue identificado que el interruptor de la luz puede funcionar de manera incorrecta, lo que puede identificarse con la luz indicadora de Funcionmiento Incorrecto (MIL) encendida.",
+    "risk": "Lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Jeep Wrangler",
-    "defect": "Fue identificado que el interruptor de la luz puede funcionar de manera incorrecta, lo que puede identificarse con la luz indicadora de Funcionmiento Incorrecto (MIL) encendida.",
-    "risk": "Lesiones y laceración"
+    ]
   },
   {
     "row": 43,
@@ -554,15 +645,18 @@
     "date_inferred": false,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "Jeep"
+    ],
+    "product": "Jeep Grand Cherokee",
+    "defect": "FCA ha detectado la posibilidad que el protector contra el agua del servofreno no haya sido instalado correctamente, lo que reduciría su efectividad para impedir el ingreso de agua. La entrada de agua en el servofreno en un clima frío, podría ocasionar su congelamiento, limitando la capacidad de frenado de su vehículo.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Jeep Grand Cherokee",
-    "defect": "FCA ha detectado la posibilidad que el protector contra el agua del servofreno no haya sido instalado correctamente, lo que reduciría su efectividad para impedir el ingreso de agua. La entrada de agua en el servofreno en un clima frío, podría ocasionar su congelamiento, limitando la capacidad de frenado de su vehículo.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 45,
@@ -571,15 +665,18 @@
     "date_inferred": false,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "Fiat"
+    ],
+    "product": "Fiat Uno - Fiat Nuevo Palio",
+    "defect": "FCA ha detectado la posibilidad que se degrade el inflador del airbag por la exposición del vehículo a altas temperaturas y a elevados niveles de humedad durante largos períodos. Ello, podría ocasionar la ruptura del inflador debido a una excesiva presión interna, provocando la dispersión de fragmentos metálicos.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Fiat Uno - Fiat Nuevo Palio",
-    "defect": "FCA ha detectado la posibilidad que se degrade el inflador del airbag por la exposición del vehículo a altas temperaturas y a elevados niveles de humedad durante largos períodos. Ello, podría ocasionar la ruptura del inflador debido a una excesiva presión interna, provocando la dispersión de fragmentos metálicos.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 46,
@@ -601,12 +698,15 @@
     "date_inferred": false,
     "company": "Peugeot Citroen Argentina S.A.",
     "brands": [
-      "Citroën",
-      "Peugeot"
+      "Citroën"
     ],
     "product": "Citroen 5008",
     "defect": "Verificar la necesidad de añadir una protección en las tuberías de combustible, situadas debajo de la carrocería de la unidad y, en caso de ser necesario, proceder a su reemplazo. La misma es indispensable para garantizar la calidad y seguridad del vehículo y evitar el contacto de las tuberías con la carrocería.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 48,
@@ -615,12 +715,16 @@
     "date_inferred": true,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "Passat con motor Diesel y sistema Start-Stop",
     "defect": "En vehículos con motor diesel y sistema Start-Stop, existe la posibilidad de que el motor de arranque permanezca activo porque el muelle de retroceso del conmutador electromagnético esta torcido o roto.",
-    "risk": "Incendio"
+    "risk": "Incendio",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 49,
@@ -629,12 +733,15 @@
     "date_inferred": true,
     "company": "Toyota Argentina S.A.",
     "brands": [
-      "Lexus",
       "Toyota"
     ],
     "product": "Hilux SW4",
     "defect": "Existe la posibilidad que las láminas aislantes de los circuitos integrados de estos sensores se degraden prematuramente, creándose un circuito abierto en el chip del circuito integrado. Si esto ocurriese, la luz de advertencia del Sistema de Airbag se encenderá.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Lexus",
+      "Toyota"
+    ]
   },
   {
     "row": 50,
@@ -656,15 +763,18 @@
     "date_inferred": true,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "Fiat"
+    ],
+    "product": "Fiat Punto 1.6 y 1.8, Mobi, Grand Siena",
+    "defect": "Debido a un problema con la bobina de ignición, el motor podría detenerse.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Fiat Punto 1.6 y 1.8, Mobi, Grand Siena",
-    "defect": "Debido a un problema con la bobina de ignición, el motor podría detenerse.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 53,
@@ -673,15 +783,18 @@
     "date_inferred": false,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "Fiat"
+    ],
+    "product": "Fiat 500X 2018 - 2019",
+    "defect": "En determinados vehículos y en oportunidad de una colisión, cuando los cinturones de seguridad traseros no están abrochados, o el espacio trasero no esté ocupado, o bien esté ocupado por un asiento infantil fijado solo por los anclajes Isofix, en caso de activación de pretensor trasero, podría desengancharse la cerradura de retención de dicho asiento.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Fiat 500X 2018 - 2019",
-    "defect": "En determinados vehículos y en oportunidad de una colisión, cuando los cinturones de seguridad traseros no están abrochados, o el espacio trasero no esté ocupado, o bien esté ocupado por un asiento infantil fijado solo por los anclajes Isofix, en caso de activación de pretensor trasero, podría desengancharse la cerradura de retención de dicho asiento.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 54,
@@ -690,15 +803,18 @@
     "date_inferred": true,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "Fiat"
+    ],
+    "product": "FIAT Dobló Cargo",
+    "defect": "Se ha detectado que en un reducido lote de vehículos de la marca y modelo mencionado, a causa de una no conformidad en el proceso productivo de la caja de dirección, que podría haber creado microrroturas en el componente, se debe efectuar una comprobación y, de ser necesario, la sustitución de aquellos componentes no conformes.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "FIAT Dobló Cargo",
-    "defect": "Se ha detectado que en un reducido lote de vehículos de la marca y modelo mencionado, a causa de una no conformidad en el proceso productivo de la caja de dirección, que podría haber creado microrroturas en el componente, se debe efectuar una comprobación y, de ser necesario, la sustitución de aquellos componentes no conformes.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 55,
@@ -707,15 +823,19 @@
     "date_inferred": true,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "Dodge",
+      "Jeep"
+    ],
+    "product": "Dodge Journey y Jeep Compass",
+    "defect": "Se ha identificado la posibilidad de existencia de burbujas de gas en el fluido del sistema de frenos, a consecuencia de una falla en el proceso de producción de los pistones de la pinza del freno. Como resultado de esto, el conductor podría llegar a percibir un aumentos del recorrido del pedal de freno.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Dodge Journey y Jeep Compass",
-    "defect": "Se ha identificado la posibilidad de existencia de burbujas de gas en el fluido del sistema de frenos, a consecuencia de una falla en el proceso de producción de los pistones de la pinza del freno. Como resultado de esto, el conductor podría llegar a percibir un aumentos del recorrido del pedal de freno.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 56,
@@ -750,15 +870,19 @@
     "date_inferred": true,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
-      "Chrysler",
-      "Dodge",
-      "Fiat",
       "Jeep",
       "RAM"
     ],
     "product": "RAM 1500, RAM 2500 y Jeep Compass",
     "defect": "Se ha detectado que el pestillo del portón trasero en algunos de los vehículos involucrados podría haberse construido con una pestaña limitadora del actuador del portón trasero dentro del ensamble de control del actuador de bloqueo eléctrico que puede fracturarse, permitiendo que el soporte de control de la barra de bloqueo se desplace, tire de las barras de bloqueo y libere los pestillos del portón trasero. Dicha circunstancia podría ocasionar que el portón se abra inadvertidamente en cualquier momento.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Chrysler",
+      "Dodge",
+      "Fiat",
+      "Jeep",
+      "RAM"
+    ]
   },
   {
     "row": 59,
@@ -871,15 +995,18 @@
     "date_inferred": true,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "Jeep"
+    ],
+    "product": "Grand Cherokee",
+    "defect": "Se ha detectado que en reducido lote de vehículos de la marca y modelo mencionado, podría haber una inadecuada distancia de separación entre la alfombra de conductor y el pedal del acelerador, lo que podría impedir el retorno del pedal del acelerador a la posición de ralentí cuando el conductor deja de presionar causando que el motor entregue una potencia mayor a la esperada.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Grand Cherokee",
-    "defect": "Se ha detectado que en reducido lote de vehículos de la marca y modelo mencionado, podría haber una inadecuada distancia de separación entre la alfombra de conductor y el pedal del acelerador, lo que podría impedir el retorno del pedal del acelerador a la posición de ralentí cuando el conductor deja de presionar causando que el motor entregue una potencia mayor a la esperada.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 68,
@@ -927,12 +1054,15 @@
     "date_inferred": false,
     "company": "Toyota Argentina S.A.",
     "brands": [
-      "Lexus",
       "Toyota"
     ],
     "product": "Prius (generación ZVW30L)",
     "defect": "Los vehículos fueron diseñados para ingresar en el Modo de Protección (fail-safe mode) en respuesta a ciertas fallas que se podrían presentar en el sistema híbrido. Sin embargo, se ha detectado que bajo ciertas condiciones, el vehículo podría perder potencia o hasta incluso detenerse. Si bien la asistencia de la dirección y el sistema de frenos se mantendrían operativos, si el vehículo se detiene circulando a alta velocidad podría aumentar su riesgo de colisión.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Lexus",
+      "Toyota"
+    ]
   },
   {
     "row": 72,
@@ -993,15 +1123,18 @@
     "date_inferred": false,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "Fiat"
+    ],
+    "product": "Cronos y Argo 2019",
+    "defect": "Se ha detectado la posibilidad de ocurrencia de falla durante el proceso de soldadura del eje intermediario de la columna de dirección eléctrica de los vehículos involucrados en la presente campaña. Dicha circunstancia podría producir el desacople de la pieza y la pérdida inesperada del control de dirección del vehículo en movimiento incrementando así el riesgo de colisión, exponiendo al conductor, demás pasajeros del vehículo y terceros a eventuales inconvenientes.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Cronos y Argo 2019",
-    "defect": "Se ha detectado la posibilidad de ocurrencia de falla durante el proceso de soldadura del eje intermediario de la columna de dirección eléctrica de los vehículos involucrados en la presente campaña. Dicha circunstancia podría producir el desacople de la pieza y la pérdida inesperada del control de dirección del vehículo en movimiento incrementando así el riesgo de colisión, exponiendo al conductor, demás pasajeros del vehículo y terceros a eventuales inconvenientes.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 77,
@@ -1010,15 +1143,18 @@
     "date_inferred": false,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "Fiat"
+    ],
+    "product": "Cronos y Argo 2019",
+    "defect": "Se ha detectado la posibilidad de ocurrencia de falla durante el proceso de soldadura del eje intermediario de la columna de dirección eléctrica de los vehículos involucrados en la presente campaña. Dicha circunstancia podría producir el desacople de la pieza y la pérdida inesperada del control de dirección del vehículo en movimiento incrementando así el riesgo de colisión, exponiendo al conductor, demás pasajeros del vehículo y terceros a eventuales inconvenientes.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Cronos y Argo 2019",
-    "defect": "Se ha detectado la posibilidad de ocurrencia de falla durante el proceso de soldadura del eje intermediario de la columna de dirección eléctrica de los vehículos involucrados en la presente campaña. Dicha circunstancia podría producir el desacople de la pieza y la pérdida inesperada del control de dirección del vehículo en movimiento incrementando así el riesgo de colisión, exponiendo al conductor, demás pasajeros del vehículo y terceros a eventuales inconvenientes.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 78,
@@ -1040,12 +1176,16 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "Tiguan Allspace",
     "defect": "Se ha detectado la posibilidad de que en vehículos Tiguan Allspace equipados con techo corredizo panorámico ingrese humedad en el módulo LED de la iluminación ambiental, provocando un cortocircuito en dicho módulo. Ello puede provocar el fallo de la iluminación y su consecuente calentamiento puede causar daños térmicos.",
-    "risk": "Incendio"
+    "risk": "Incendio",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 80,
@@ -1054,12 +1194,16 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "Saveiro",
     "defect": "Se ha detectado la posibilidad de que, debido a una falla en el proceso de montaje, los elementos de fijación del conjunto de pinzas de los frenos traseros de los vehículos Volkswagen Saveiro fabricados en Brasil entre el 31/03/2014 y el 16/01/2017, podrían soltarse.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 81,
@@ -1082,14 +1226,18 @@
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
       "Chrysler",
+      "Jeep"
+    ],
+    "product": "Chrysler y Jeep Wrangler",
+    "defect": "Se ha detectado que el inflador del airbag frontal de pasajero (PAB) de las unidades involucradas podría contener propelente degradado luego de una exposición prolongada a alta humedad absoluta, altas temperaturas y alta temperatura cíclica. La activación de un inflador con propelente degradado, en caso de una colisión del vehículo para la cual el airbag (PAB) haya sido diseñado para desplegarse, podría resultar en una explosión del inflador. Dicha circunstancia podría causar que fragmentos metálicos pasen a través del airbag y al interior del vehículo a alta velocidad.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Chrysler y Jeep Wrangler",
-    "defect": "Se ha detectado que el inflador del airbag frontal de pasajero (PAB) de las unidades involucradas podría contener propelente degradado luego de una exposición prolongada a alta humedad absoluta, altas temperaturas y alta temperatura cíclica. La activación de un inflador con propelente degradado, en caso de una colisión del vehículo para la cual el airbag (PAB) haya sido diseñado para desplegarse, podría resultar en una explosión del inflador. Dicha circunstancia podría causar que fragmentos metálicos pasen a través del airbag y al interior del vehículo a alta velocidad.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 83,
@@ -1098,12 +1246,15 @@
     "date_inferred": false,
     "company": "Toyota Argentina S.A.",
     "brands": [
-      "Lexus",
       "Toyota"
     ],
     "product": "Toyota 86",
     "defect": "Para ciertos vehículos 86 se ha determinado que, bajo ciertas condiciones, los resorte de válvulas del motor podrían deteriorarse prematuramente.",
-    "risk": "Lesiones y laceración"
+    "risk": "Lesiones y laceración",
+    "candidate_brands": [
+      "Lexus",
+      "Toyota"
+    ]
   },
   {
     "row": 84,
@@ -1113,11 +1264,17 @@
     "company": "Volkswagen Argentina S.A.",
     "brands": [
       "Audi",
+      "Seat",
       "Volkswagen"
     ],
     "product": "Software de la caja de servicios inteligentes",
     "defect": "Es necesario actualizar el software de la caja de servicios inteligentes de los vehículos afectados, para evitar un eventual marcado incorrecto del kilometraje real de los vehículos, lo que podría impedir la realización de los servicios de mantenimiento dentro de los plazos correspondientes.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 85,
@@ -1127,11 +1284,17 @@
     "company": "Volkswagen Argentina S.A.",
     "brands": [
       "Audi",
+      "Seat",
       "Volkswagen"
     ],
     "product": "Módulo de control del motopropulsor PCM",
     "defect": "Se ha detectado la posibilidad que algunos vehículos equipados con motores a nafta versión 1.8, podrían presentar fallas en el sistema electrónico de programación central y, como consecuencia de ello, tener niveles de óxido nitroso más altos que los establecidos en los parámetros de la central.",
-    "risk": "Químico"
+    "risk": "Químico",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 86,
@@ -1153,12 +1316,16 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "Polo y Virtus",
     "defect": "Se ha detectado la posibilidad de que, en caso de impacto lateral, al fijación incorrecta del revestimiento de la columna central \"B\" en vehículos Polo y Virtus pueda afectar el funcionamiento del airbag lateral, generando daños físicos al conductor o al pasajero delantero.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 89,
@@ -1175,7 +1342,14 @@
     ],
     "product": "Módulos de airbags delanteros",
     "defect": "Se ha detectado la posibilidad de degradación del inflador del airbag debido a la exposición del vehículo a altas temperaturas y elevados niveles de humedad durante largos períodos. En caso de colisión que resulte en el accionamiento del airbag, podría ocurrir la ruptura de su inflador, debido a una excesiva presión interna, provocando la dispersión de fragmentos metálicos, exponiendo al conductor, pasajeros y/o terceros a eventuales daños físicos.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Chrysler",
+      "Dodge",
+      "Fiat",
+      "Jeep",
+      "RAM"
+    ]
   },
   {
     "row": 90,
@@ -1236,15 +1410,18 @@
     "date_inferred": false,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "RAM"
+    ],
+    "product": "RAM 2500",
+    "defect": "Se ha identificado la posibilidad de desacople de la barra de tracción de la dirección del vehículo. El eventual desacople podría resultar en la pérdida del control de la dirección del vehículo.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "RAM 2500",
-    "defect": "Se ha identificado la posibilidad de desacople de la barra de tracción de la dirección del vehículo. El eventual desacople podría resultar en la pérdida del control de la dirección del vehículo.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 95,
@@ -1253,12 +1430,16 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "Amarok Modelos 2016",
     "defect": "Se ha detectado la posibilidad de que, debido a un recorrido desfavorable de los cables, el mazo de cables resulte dañado al desplazar los asientos delanteros a la posición más baja. Como consecuencia de esto, se pueden producir daños térmicos locales, con riesgo de incendio, o bien el asiento se puede desplazar solo, existiendo riesgo de accidente o de sufrir lesiones.",
-    "risk": "Lesiones y laceración, incendio"
+    "risk": "Lesiones y laceración, incendio",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 96,
@@ -1293,12 +1474,16 @@
     "date_inferred": true,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "Muelles helicoidales de suspensión trasera",
     "defect": "Se ha detectado la posibilidad de que, en algunos vehículos Vento, Tiguan y Golf A7 se hayan montado muelles helicoidales de suspensión trasera con un material de fabricación incorrecto. Como consecuencia de esto, se puede presentar una ruptura en los muelles helicoidales, que podría provocar daños en los neumáticos, aumentando el riesgo de accidentes, comprometiendo la seguridad e integridad de sus ocupantes y terceros. Los propietarios serán citados a concurrir al concesionario de la Red Volkswagen de su preferencia para sustituir dichos elementos.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 99,
@@ -1320,12 +1505,15 @@
     "date_inferred": false,
     "company": "Peugeot Citroen Argentina S.A.",
     "brands": [
-      "Citroën",
-      "Peugeot"
+      "Citroën"
     ],
     "product": "Citroen C3, citroen C3 Picasso, Citroen C3 Aircross",
     "defect": "Defecto en el funcionamiento de airbags frontales de conductor y acompañante.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 101,
@@ -1503,15 +1691,18 @@
     "date_inferred": false,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "Fiat"
+    ],
+    "product": "Uno, Fiorino, Grand Siena y Nuevo Palio",
+    "defect": "Degradación del inflador del airbag debido a la exposición del vehículo a altas temperaturas y elevados niveles de humedad durante largos períodos.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Uno, Fiorino, Grand Siena y Nuevo Palio",
-    "defect": "Degradación del inflador del airbag debido a la exposición del vehículo a altas temperaturas y elevados niveles de humedad durante largos períodos.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 115,
@@ -1611,12 +1802,15 @@
     "date_inferred": false,
     "company": "Toyota Argentina S.A.",
     "brands": [
-      "Lexus",
       "Toyota"
     ],
     "product": "Corolla, Camry, Innova y Land Cruiser",
     "defect": "Frente a los defectos encontrados, podría tener mal funcionamiento la bomba de combustible de baja presión. Por la deformación de sus componentes internos podría tener inconvenientes en el arranque del motor o que el mismo se detenga al ir a baja velocidad.",
-    "risk": "Lesiones y laceración"
+    "risk": "Lesiones y laceración",
+    "candidate_brands": [
+      "Lexus",
+      "Toyota"
+    ]
   },
   {
     "row": 123,
@@ -1651,12 +1845,16 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "Golf",
     "defect": "Debido a los controles se ha detectado la posibilidad de que, en algunos vehículos Golf, se haya montado una manguera de latiguillo de freno incorrecta en el sistema de frenos delanteros. Como consecuencia esto, en ciertas posiciones de la dirección, podría provocarse un contacto entre la manguera de frenos y el brazo de dirección. A largo plazo, dicho contacto podría producir un desgaste y eventualmente una fuga de líquido de frenos.",
-    "risk": "Muerte, lesiones y laceración, incendio"
+    "risk": "Muerte, lesiones y laceración, incendio",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 126,
@@ -1709,7 +1907,11 @@
     ],
     "product": "Peugeot Traveller/ Peugeot Expert/ Citroen Jumpy/ Citroen Spacetourer",
     "defect": "Se deberá sustituir el clip de fijación de los flexibles de freno traseros y agregar una protección en la tubería de combustible. 1 UNIDAD CITROEN SPACETOURER: Deficiencia en el apriete de las fijaciones de los cinturones de seguridad y de algunos cables de maza.",
-    "risk": "Muerte, lesiones y laceración, incendio"
+    "risk": "Muerte, lesiones y laceración, incendio",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 130,
@@ -1757,12 +1959,16 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "Modelos Gol, Suran y Fox",
     "defect": "La posibilidad que un un lote de generador de gas pueda degradarse después de largos períodos de exposición de los vehículos a altas temperaturas, grandes amplitudes térmicas y alta humedad relativa del aire y en caso de deflagración del sistema de airbag ante un accidente vial con una desaceleración tal que produzca la apertura del mismo.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 134,
@@ -1823,15 +2029,18 @@
     "date_inferred": true,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "RAM"
+    ],
+    "product": "RAM 2500 y 3500. Modelos 2019 a 2020",
+    "defect": "La transmisión de su vehículo podría experimentar una acumulación de presión y calor en su interior, lo que puede dar lugar a que el fluido de la transmisión sea expulsado por el tubo de la varilla. El fluido de transmisión expulsado puede entrar en contacto con el turbocompresor u otras fuentes de ignición dentro del compartimiento del motor y podría provocar un incendio del vehículo.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "RAM 2500 y 3500. Modelos 2019 a 2020",
-    "defect": "La transmisión de su vehículo podría experimentar una acumulación de presión y calor en su interior, lo que puede dar lugar a que el fluido de la transmisión sea expulsado por el tubo de la varilla. El fluido de transmisión expulsado puede entrar en contacto con el turbocompresor u otras fuentes de ignición dentro del compartimiento del motor y podría provocar un incendio del vehículo.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 139,
@@ -1879,12 +2088,16 @@
     "date_inferred": true,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "Modelo Amarok",
     "defect": "Existe la posibilidad que debido a la acumulación de polvo y suciedad, el sistema de sujeción y anclaje de la rueda de auxilio presente movimiento relativo pudiendo producirse la rotura del mismo. La otra eslinga que posee de seguridad adicional, podría no ser suficiente para garantizar la sujeción de la rueda de auxilio.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 143,
@@ -1893,12 +2106,15 @@
     "date_inferred": false,
     "company": "Toyota Argentina S.A.",
     "brands": [
-      "Lexus",
       "Toyota"
     ],
     "product": "Modelo RAV 4",
     "defect": "Estos vehículos están equipados con un inflador de airbag para el conductor de simple etapa. El propelente en alguno de estos infladores podría absorber humedad a lo largo del tiempo a causa del sellado interno.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Lexus",
+      "Toyota"
+    ]
   },
   {
     "row": 144,
@@ -1907,12 +2123,15 @@
     "date_inferred": false,
     "company": "Toyota Argentina S.A.",
     "brands": [
-      "Lexus",
       "Toyota"
     ],
     "product": "Modelo Corolla, Camry, Innova, Land Cruiser Prado",
     "defect": "Vehículos equipados con una bomba de combustible de baja presión, que eventualmente podría funcionar de manera inadecuada por la deformación de sus componentes internos.",
-    "risk": "Lesiones y laceración"
+    "risk": "Lesiones y laceración",
+    "candidate_brands": [
+      "Lexus",
+      "Toyota"
+    ]
   },
   {
     "row": 145,
@@ -1960,15 +2179,18 @@
     "date_inferred": false,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "Jeep"
+    ],
+    "product": "Wrangler",
+    "defect": "FCA ha detectado la posibilidad de que el mazo de cables del bloqueo electrónico de dirección (ESL) en los vehículos involucrados entre en contacto con el eje de la columna de dirección al girarla. Esta condición podría causar abrasión en los cables y después de un tiempo dañarlos.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Wrangler",
-    "defect": "FCA ha detectado la posibilidad de que el mazo de cables del bloqueo electrónico de dirección (ESL) en los vehículos involucrados entre en contacto con el eje de la columna de dirección al girarla. Esta condición podría causar abrasión en los cables y después de un tiempo dañarlos.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 149,
@@ -1977,12 +2199,15 @@
     "date_inferred": false,
     "company": "Toyota Argentina S.A.",
     "brands": [
-      "Lexus",
-      "Toyota"
+      "Lexus"
     ],
     "product": "Modelo Lexus",
     "defect": "Los vehículos LEXUS, se encuentran equipados con una bomba de combustible de baja presión, que eventualmente podría funcionar de manera inadecuada por la deformación de sus componentes internos.",
-    "risk": "Lesiones y laceración"
+    "risk": "Lesiones y laceración",
+    "candidate_brands": [
+      "Lexus",
+      "Toyota"
+    ]
   },
   {
     "row": 150,
@@ -1991,12 +2216,15 @@
     "date_inferred": false,
     "company": "Toyota Argentina S.A.",
     "brands": [
-      "Lexus",
       "Toyota"
     ],
     "product": "Prius",
     "defect": "Los vehículos PRIUS se encuentran diseñados para ingresar en el Modo de Protección (Fail-safe mode) en respuesta a ciertas anomalías que se podrían presentar en el sistema híbrido. Sin embargo, se ha detectado que, bajo ciertas condiciones, los vehículos no ingresarían en ese modo y si ello ocurriese podría perder potencia o hasta incluso detenerse.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Lexus",
+      "Toyota"
+    ]
   },
   {
     "row": 151,
@@ -2005,15 +2233,18 @@
     "date_inferred": true,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "Chrysler"
+    ],
+    "product": "Chrysler modelo Town y Country",
+    "defect": "FCA ha detectado que el emblema de la marca CHRYSLER ubicado en el airbag del volante podría soltarse o desprenderse, lo quee puede dar lugar a que éste o sus retenes no permanezcan adheridos a la tapa de aquel durante su despliegue.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Chrysler modelo Town y Country",
-    "defect": "FCA ha detectado que el emblema de la marca CHRYSLER ubicado en el airbag del volante podría soltarse o desprenderse, lo quee puede dar lugar a que éste o sus retenes no permanezcan adheridos a la tapa de aquel durante su despliegue.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 152,
@@ -2087,15 +2318,18 @@
     "date_inferred": true,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "Fiat"
+    ],
+    "product": "Fiat 500",
+    "defect": "Algunos vehículos han sido fabricados con un regulador del cable de comando de la caja de cambios cuyo buje podría deteriorarse y desprenderse de la transmisión. Esto llevaría a la omposibilidad para el conductor de cambiar de marchas aún moviendo la palanca de cambios.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Fiat 500",
-    "defect": "Algunos vehículos han sido fabricados con un regulador del cable de comando de la caja de cambios cuyo buje podría deteriorarse y desprenderse de la transmisión. Esto llevaría a la omposibilidad para el conductor de cambiar de marchas aún moviendo la palanca de cambios.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 158,
@@ -2117,15 +2351,18 @@
     "date_inferred": false,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "Fiat"
+    ],
+    "product": "Fiat Mobi 2016/2020",
+    "defect": "El desperfecto se encuentra en el circuito eléctrico ya que el interruptor de las luces de freno está por debajo de lo especificado para la corriente eléctrica existente en el vehículo. Ello provoca una descarga.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Fiat Mobi 2016/2020",
-    "defect": "El desperfecto se encuentra en el circuito eléctrico ya que el interruptor de las luces de freno está por debajo de lo especificado para la corriente eléctrica existente en el vehículo. Ello provoca una descarga.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 160,
@@ -2165,7 +2402,11 @@
     ],
     "product": "Citroen C4/DS3/DS4",
     "defect": "Podría ocurrir la rotura del insuflador en caso de colisión con intensidad suficiente para el accionamiento del sistema de airbag que, eventualmente, podría ocasionar la proyección de fragmentos metálicos en el interior del vehículo.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 164,
@@ -2174,12 +2415,16 @@
     "date_inferred": true,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "Touareg",
     "defect": "El defecto que posiblemente presenta el vehículo es que la tubería de aceite para la caja de transmisión tenga una unión soldada defectuosa. Ello puede provocar una pérdida de aceite y, por consiguiente, pueden producirse daños en la caja de transmisión.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 165,
@@ -2253,12 +2498,16 @@
     "date_inferred": true,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "T-Cross",
     "defect": "Existe la posibilidad que las tuercas superiores de las bieletas se encuentren flojas, pudiendo ocurrir que la barra estabilizadora se desvincule del sistema de suspensión delantero, perjudicando la adherencia de los neumáticos y comprometiendo la maniobrabilidad del vehículo.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 172,
@@ -2267,15 +2516,18 @@
     "date_inferred": false,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "Jeep"
+    ],
+    "product": "Grand Cherokee",
+    "defect": "El relé de la bomba de combustible de los vehículos mencionados puede haber tenido instalado un relé de bomba de combustible que es susceptible a contaminación con silicio de los contactos del relé, lo que puede hacer que el mismo falle. La falla del relé de la bomba de combustible puede dar lugar a una condición de no arranque o a una condición de parada del motor si el vehículo está en marcha.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Grand Cherokee",
-    "defect": "El relé de la bomba de combustible de los vehículos mencionados puede haber tenido instalado un relé de bomba de combustible que es susceptible a contaminación con silicio de los contactos del relé, lo que puede hacer que el mismo falle. La falla del relé de la bomba de combustible puede dar lugar a una condición de no arranque o a una condición de parada del motor si el vehículo está en marcha.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 173,
@@ -2284,12 +2536,15 @@
     "date_inferred": false,
     "company": "Toyota Argentina S.A.",
     "brands": [
-      "Lexus",
       "Toyota"
     ],
     "product": "Corolla, Fielder, Avensis",
     "defect": "Existe la posiblidad que el inflador del airbag funcione de manera inadecuada.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Lexus",
+      "Toyota"
+    ]
   },
   {
     "row": 174,
@@ -2329,7 +2584,11 @@
     ],
     "product": "A4, A6, A8 y TT",
     "defect": "Se ha detectado la posibilidad que, ante un accidente vial con una desaceleración tal que produzca la apertura del airbag del conductor, el mismo se active con retardo o que le falte fuerza al activarse debido a una posible merma en la potencia del generador de gas.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 177,
@@ -2338,15 +2597,18 @@
     "date_inferred": true,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "Fiat"
+    ],
+    "product": "Fiat Toro",
+    "defect": "Posible problema en los cojinetes del motor, el cual en caso de impacto frontal ocasiona su desplazamiento.",
+    "risk": "Incendio",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Fiat Toro",
-    "defect": "Posible problema en los cojinetes del motor, el cual en caso de impacto frontal ocasiona su desplazamiento.",
-    "risk": "Incendio"
+    ]
   },
   {
     "row": 178,
@@ -2503,7 +2765,11 @@
     ],
     "product": "Carmy, Corolla, Innova, Land Cruiser y Lexus",
     "defect": "Posibilidad que la bomba de combustible de baja presión funcione inadecuadamente por la deformación de sus componentes internos.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Lexus",
+      "Toyota"
+    ]
   },
   {
     "row": 190,
@@ -2538,12 +2804,16 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "Golf",
     "defect": "Existe la posibilidad que se haya montado una manguera de latiguillo de freno incorrecta en el sistema de frenos delanteros. Como consecuencia esto, en ciertas posiciones de la dirección, podría provocarse un contacto entre la manguera de frenos y el brazo de dirección. A largo plazo, dicho contacto podría producir un desgaste y eventualmente una fuga de líquido de frenos, comprometiendo la capacidad de frenado del automóvil.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 193,
@@ -2578,12 +2848,16 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
-      "Volkswagen"
+      "Audi"
     ],
     "product": "Modelo A8",
     "defect": "En los vehículos Audi A8 mencionados, hemos detectado que existe la posibilidad de que, bajo circunstancias desfavorables, el burlete del vano motor (espacio donde se encuentra montado el motor de la unidad) se deforme y se suelte. Debido a las vibraciones que se producen durante la marcha, el burlete del vano motor suelto puede entrar en contacto con componentes calientes en el vano motor.",
-    "risk": "Incendio"
+    "risk": "Incendio",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 196,
@@ -2644,15 +2918,18 @@
     "date_inferred": false,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "Fiat"
+    ],
+    "product": "Cronos y Strada",
+    "defect": "La posibilidad que algunos pestillos de las puertas presenten grietas o roturas. Por tal motivo, podría ocurrir una apertura inesperada de las puertas del vehículo lo que, en caso de darse, podría causar accidentes con daños materiales, daños físicos graves o incluso la muerte de los ocupantes del vehículo y/o terceros.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Cronos y Strada",
-    "defect": "La posibilidad que algunos pestillos de las puertas presenten grietas o roturas. Por tal motivo, podría ocurrir una apertura inesperada de las puertas del vehículo lo que, en caso de darse, podría causar accidentes con daños materiales, daños físicos graves o incluso la muerte de los ocupantes del vehículo y/o terceros.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 202,
@@ -2713,12 +2990,16 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
-      "Volkswagen"
+      "Audi"
     ],
     "product": "A4, A6, A7 y Q5",
     "defect": "La posibilidad que se hayan montado una o varias tuercas en los brazos oscilantes del eje trasero, que no se corresponden con la especificación adecuada. En circunstancias desfavorables, estas tuercas podrían romperse, pudiendo dar lugar a un mayor juego entre el brazo oscilante y el porta ruedas, lo que a su vez podría causar alteraciones en la alineación de las ruedas del eje trasero del vehículo. Como consecuencia, no puede descartarse que, a elevadas velocidades, el eje trasero de dichos vehículos pueda moverse repentina e incontrolablemente en la dirección equivocada, pudiendo eventualmente producirse accidentes que puedan resultar en daños a sus ocupantes y/o terceros.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 207,
@@ -2779,12 +3060,16 @@
     "date_inferred": true,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "Vento",
     "defect": "La posibilidad que uno de los tres pernos de fijación de la unidad de control de los airbags se haya soldado a la carrocería con un ligero desajuste causando un montaje incorrecto de la unidad de control de los airbags. Como consecuencia, existe la posibilidad de que, en aquellos casos de accidentes en donde corresponda la apertura de los airbags, los mismos no se desplieguen correctamente, o que los mismos se desplieguen involuntariamente durante la conducción, pudiendo producirse accidentes y eventualmente ocasionarse daños a sus ocupantes y/o terceros.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 212,
@@ -2806,12 +3091,16 @@
     "date_inferred": true,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
-      "Volkswagen"
+      "Audi"
     ],
     "product": "Q3",
     "defect": "La posibilidad que el brazo del sensor del nivel de combustible que hay en la cámara secundaria del depósito puede quedarse atorado en las tuberías de alimentación de combustible del eyector. Debido a ello puede darse que la indicación del nivel de combustible sea incorrecta. Al indicar un valor incorrecto de combustible en el tanque, el vehículo podría quedarse sin combustible, apagarse y detenerse repentinamente (sin previo aviso), sin posibilidad de ser arrancado. Consecuentemente, podrían eventualmente producirse accidentes viales que pueden resultar en daños a sus ocupantes y/o terceros.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 214,
@@ -2820,15 +3109,18 @@
     "date_inferred": true,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "RAM"
+    ],
+    "product": "Ram 1500 y 2500",
+    "defect": "la posibilidad del accionamiento inesperado de los airbags de cortina. Ello, podría provocar la eventual pérdida de control de la dirección del vehículo y la proyección de fragmentos dentro del mismo, exponiendo al conductor y/o a los pasajeros del rodado a eventuales daños físicos graves y, en casos extremos, al riesgo de muerte.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Ram 1500 y 2500",
-    "defect": "la posibilidad del accionamiento inesperado de los airbags de cortina. Ello, podría provocar la eventual pérdida de control de la dirección del vehículo y la proyección de fragmentos dentro del mismo, exponiendo al conductor y/o a los pasajeros del rodado a eventuales daños físicos graves y, en casos extremos, al riesgo de muerte.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 215,
@@ -2837,15 +3129,18 @@
     "date_inferred": true,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "RAM"
+    ],
+    "product": "Ram 2500",
+    "defect": "La posibilidad del accionamiento inesperado de los airbags de cortina. Ello, podría provocar la eventual pérdida de control de la dirección del vehículo y la proyección de fragmentos dentro del mismo, exponiendo al conductor y/o a los pasajeros del rodado a eventuales daños físicos graves y, en casos extremos, al riesgo de muerte.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Ram 2500",
-    "defect": "La posibilidad del accionamiento inesperado de los airbags de cortina. Ello, podría provocar la eventual pérdida de control de la dirección del vehículo y la proyección de fragmentos dentro del mismo, exponiendo al conductor y/o a los pasajeros del rodado a eventuales daños físicos graves y, en casos extremos, al riesgo de muerte.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 216,
@@ -2880,12 +3175,16 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "Gol Saveiro",
     "defect": "La posibilidad que exista una pérdida en el par de apriete de los tornillos que fijan la polea del motor, que pueda generar holgura o incluso aflojamiento de la polea del motor. Como consecuencia de esto, el vehículo podría presentar pérdida de la asistencia a la dirección y parada del motor, aumentando el riesgo de accidentes que puedan producir daños materiales. Consecuentemente, podrían eventualmente producirse accidentes viales que pueden resultar en daños a sus ocupantes y/o terceros.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 219,
@@ -2907,12 +3206,15 @@
     "date_inferred": false,
     "company": "Peugeot Citroen Argentina S.A.",
     "brands": [
-      "Citroën",
-      "Peugeot"
+      "Citroën"
     ],
     "product": "DS7 Crossback",
     "defect": "La convocatoria tiene por objeto controlar los soportes de agarre ubicados en la parte superior de las plazas traseras, y en caso de ser necesario, agregar una abrazadera metálica adicional en el soporte de la manija de agarre de las plazas traseras en la parte superior, en ambos lados del techo. A fin de evitar que un punto filoso del sector mencionado quede expuesto en caso de activación del airbag de cortina y pueda generar eventuales daños corporales en caso de contacto físico con esa zona.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 222,
@@ -2921,15 +3223,18 @@
     "date_inferred": false,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "Fiat"
+    ],
+    "product": "Fiorino y Nueva Strada",
+    "defect": "Por la posibilidad que la bomba de combustible tenga problemas internos de funcionamiento, interrumpiendo el suministro de combustible al motor con el vehículo en movimiento, aumentando la probabilidad de ocurrencia de accidentes con daños materiales, daños físicos graves o incluso fatales a los ocupantes del vehículo y/o terceros.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Fiorino y Nueva Strada",
-    "defect": "Por la posibilidad que la bomba de combustible tenga problemas internos de funcionamiento, interrumpiendo el suministro de combustible al motor con el vehículo en movimiento, aumentando la probabilidad de ocurrencia de accidentes con daños materiales, daños físicos graves o incluso fatales a los ocupantes del vehículo y/o terceros.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 223,
@@ -2951,12 +3256,16 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
-      "Volkswagen"
+      "Audi"
     ],
     "product": "A4, A6, A8 y TT",
     "defect": "Ante un accidente vial con una desaceleración tal en la que corresponda la apertura del airbag, el airbag del conductor se active con retardo o que le falte fuerza al activarse debido a una posible merma en la potencia del generador de gas debido al envejecimiento. Debido a ello, en tales casos, no puede garantizarse un pleno efecto de retención del airbag con los consecuentes riesgos de daños físicos o fatales para el conductor.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 225,
@@ -2983,7 +3292,11 @@
     ],
     "product": "C4 Cactus y DS3",
     "defect": "La convocatoria tiene por objeto controlar en el C4 CACTUS: actualizar el software del calculador del motor, controlar el estado de la correa de distribución y, en caso necesario, cambiarla y algunos componentes específicos del sistema de asistencia en el frenado. En el DS3: controlar el estado de la correa de distribución y, en caso necesario, cambiarla y algunos componentes específicos del sistema de asistencia en el frenado. Ello, para garantizar la seguridad de los ocupantes del vehículo y de terceros, a fin de evitar la degradación de la correa de distribución debido al envejecimiento del aceite del motor y a la presencia de aditivos, generando el desprendimiento de partículas de la correa en el circuito de lubricación y rotura de la bomba de vacío del sistema de freno, la pérdida de asistencia en el frenado, lo que se traduce en un pedal del freno duro y podría resultar complicado detener el vehículo en determinadas circunstancias",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 227,
@@ -2992,15 +3305,18 @@
     "date_inferred": false,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "RAM"
+    ],
+    "product": "Ram 2500",
+    "defect": "Por la posibilidad que la bomba de combustible tenga problemas internos de funcionamiento. La eventual falla podría interrumpir el suministro de combustible al motor con el vehículo en funcionamiento, pudiendo ocasionar un eventual accidente generador de daños materiales en el vehículo, así como eventuales daños a ocupantes del vehículo y/o terceros.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Ram 2500",
-    "defect": "Por la posibilidad que la bomba de combustible tenga problemas internos de funcionamiento. La eventual falla podría interrumpir el suministro de combustible al motor con el vehículo en funcionamiento, pudiendo ocasionar un eventual accidente generador de daños materiales en el vehículo, así como eventuales daños a ocupantes del vehículo y/o terceros.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 229,
@@ -3048,15 +3364,18 @@
     "date_inferred": false,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "RAM"
+    ],
+    "product": "Ram 2500",
+    "defect": "La posibilidad de que los vehículos se hayan fabricado con un módulo de control del Sistema de frenos antibloqueo (ABS) que puede tener un software que, bajo ciertas circunstancias, evita que el testigo de Control electrónico de estabilidad (ESC) se muestre correctamente. En consecuencia, se podría ocasionar una falla en el funcionamiento de la central electrónica de control de estabilidad del vehículo, comprometiendo las condiciones de conducción y aumentando la probabilidad de ocurrencia de accidentes con eventuales daños materiales, daños físicos graves o incluso fatales a los ocupantes del vehículo y/o terceros.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Ram 2500",
-    "defect": "La posibilidad de que los vehículos se hayan fabricado con un módulo de control del Sistema de frenos antibloqueo (ABS) que puede tener un software que, bajo ciertas circunstancias, evita que el testigo de Control electrónico de estabilidad (ESC) se muestre correctamente. En consecuencia, se podría ocasionar una falla en el funcionamiento de la central electrónica de control de estabilidad del vehículo, comprometiendo las condiciones de conducción y aumentando la probabilidad de ocurrencia de accidentes con eventuales daños materiales, daños físicos graves o incluso fatales a los ocupantes del vehículo y/o terceros.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 234,
@@ -3065,15 +3384,18 @@
     "date_inferred": false,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "RAM"
+    ],
+    "product": "Ram 1500 y 2500",
+    "defect": "La posibilidad de que los brazos de uno o ambos de los limpiaparabrisas que fueron colocados en los vehículos involucrados en la campaña, se hayan construido con una junta de la cabeza formada incorrectamente por no haberse formado completamente las estrías de la junta de la cabeza del brazo del limpiaparabrisas. Esto podría provocar que la junta se dañe y que el brazo no funcione correctamente cuando se activa el sistema. En consecuencia, ante la falla completadel sistema de limpiaparabrisas, el conductor podría notar que uno o ambos limpiaparabrisas no limpian el parabrisas correctamente o que los limpiaparabrisas no están en sus posiciones de reposo adecuadas. Ello, en determinadas circunstancias, podría provocar una eventual disminución de la visibilidad en la carretera, aumentando la probabilidad de ocurrencia de\naccidentes con daños materiales, daños físicos graves o incluso fatales a los ocupantes del vehículo y/o terceros.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Ram 1500 y 2500",
-    "defect": "La posibilidad de que los brazos de uno o ambos de los limpiaparabrisas que fueron colocados en los vehículos involucrados en la campaña, se hayan construido con una junta de la cabeza formada incorrectamente por no haberse formado completamente las estrías de la junta de la cabeza del brazo del limpiaparabrisas. Esto podría provocar que la junta se dañe y que el brazo no funcione correctamente cuando se activa el sistema. En consecuencia, ante la falla completadel sistema de limpiaparabrisas, el conductor podría notar que uno o ambos limpiaparabrisas no limpian el parabrisas correctamente o que los limpiaparabrisas no están en sus posiciones de reposo adecuadas. Ello, en determinadas circunstancias, podría provocar una eventual disminución de la visibilidad en la carretera, aumentando la probabilidad de ocurrencia de\naccidentes con daños materiales, daños físicos graves o incluso fatales a los ocupantes del vehículo y/o terceros.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 235,
@@ -3082,12 +3404,16 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
-      "Volkswagen"
+      "Audi"
     ],
     "product": "A6, A4, Q5 y Q7",
     "defect": "Por la posibilidad que se haya producido y/o haya pasado desapercibido un ajuste inadmisible de la alineación del eje trasero en las siguientes cotas, convergencia y/o comba. Como consecuencia de ello, se puede producir un desgaste mayor e irregular en los neumáticos del eje trasero, así como una alteración en el comportamiento de marcha. Una profundidad del perfil de los neumáticos escasa o irregular puede dar lugar a pérdidas de tracción. A su vez, un desgaste que llegue hasta la carcasa del neumático puede dar lugar a una pérdida repentina de presión en los neumáticos pudiendo eventualmente producirse accidentes que puedan resultar en daños a sus ocupantes y/o terceros",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 236,
@@ -3148,12 +3474,15 @@
     "date_inferred": false,
     "company": "Toyota Argentina S.A.",
     "brands": [
-      "Lexus",
       "Toyota"
     ],
     "product": "GR Yaris C-HR",
     "defect": "Los vehículos alcanzados por esta campaña están equipados con un sensor de ondas milimétricas (sensor tipo radar) y una cámara para detectar objetos, tales como otro vehículo, que precede al vehículo en cuestión. Estos sensores tienen la finalidad de dar asistencia al conductor incluyendo el Sistema de Pre-Colisión (PCS, según sus siglas en inglés). En estos vehículos, es posible que la inicialización del sensor tipo radar no haya sido realizada en forma correcta en la planta de ensamble del vehículo. Si esto ocurre, el sensor tipo radar podría no activarse. En esta condición, el sistema PCS podría no detectar un vehículo que se encuentre por delante y podría no dar advertencias o asistir en el frenado, en ciertas situaciones de conducción que normalmente resultaría en la activación del PCS. Adicionalmente, el vehículo no emitiría un mensaje o indicación al conductor que el PCS no se encuentra funcional, generando un riesgo de accidente en ciertas condiciones de conducción.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Lexus",
+      "Toyota"
+    ]
   },
   {
     "row": 241,
@@ -3175,12 +3504,16 @@
     "date_inferred": true,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
-      "Volkswagen"
+      "Audi"
     ],
     "product": "Audi A5 Cabrio, A5Sportback y Q5",
     "defect": "La posibilidad que un lote de generador de gas pueda degradarse después de largos períodos de exposición de los vehículos a altas temperaturas, grandes amplitudes térmicas y alta humedad relativa del aire. Dichas condiciones pueden conducir a la ruptura del generador de gas, y en caso de deflagración del sistema de airbag ante un accidente vial con una desaceleración tal que produzca la apertura del airbag, el sistema puede proyectar fragmentos de metal dentro del vehículo, con riesgo de daños físicos o fatales para sus ocupantes. Es importante remarcar que esta posible falla no consiste en la “no apertura” del airbag ni en su apertura espontanea, sino en su posible apertura defectuosa en las condiciones indicadas.",
-    "risk": "Lesiones y laceración"
+    "risk": "Lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 243,
@@ -3194,7 +3527,11 @@
     ],
     "product": "Rav4, LandCruiser 300 y Lexus 350h",
     "defect": "Los vehículos alcanzados en esta campaña se encuentran equipados con un sistema de control de estabilidad (denominado VSC) que al encender el vehículo se encuentra activo de manera predeterminada. Si el conductor desactiva intencionalmente el VSC del vehículo, y luego apaga y enciende el mismo con el pedal de freno presionado, el VSC no volverá a la configuración predeterminada en el siguiente ciclo de encendido. De ocurrir esta situación, el conductor será advertido de ello en el tablero de instrumentos, indicando al conductor que el VSC no está activado. Ello, se corrige mediante la reprogramación del módulo de control de este sistema.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Lexus",
+      "Toyota"
+    ]
   },
   {
     "row": 245,
@@ -3229,12 +3566,16 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "T Cross",
     "defect": "Además, en el caso de una corrosión especialmente pronunciada, podrían producirse daños mecánicos en el servofreno durante una maniobra de frenado fuerte y, como consecuencia de ellos, interrumpirse la conexión entre el pedal de freno y el sistema de frenos. En este caso, por cierto, excepcional e infrecuente, no sería posible frenar el vehículo con el freno de servicio",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 248,
@@ -3256,15 +3597,18 @@
     "date_inferred": false,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "Jeep"
+    ],
+    "product": "Jeep Grand Cherokee",
+    "defect": "Por la posibilidad de falla en las unidades de control electrónico del freno ABS y el módulo de control hidráulico de los vehículos involucrados. La eventual falla podría generar que la palanca de trasmisión automática del vehículo pueda moverse de la posición P (Park) a las posiciones D (Drive) o R (Reverse), incluso si el conductor no activa el pedal de freno, generando el movimiento involuntario del vehículo, aumentando la probabilidad de ocurrencia de accidentes con daños materiales, físicos a los ocupantes del vehículo y/o terceros",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Jeep Grand Cherokee",
-    "defect": "Por la posibilidad de falla en las unidades de control electrónico del freno ABS y el módulo de control hidráulico de los vehículos involucrados. La eventual falla podría generar que la palanca de trasmisión automática del vehículo pueda moverse de la posición P (Park) a las posiciones D (Drive) o R (Reverse), incluso si el conductor no activa el pedal de freno, generando el movimiento involuntario del vehículo, aumentando la probabilidad de ocurrencia de accidentes con daños materiales, físicos a los ocupantes del vehículo y/o terceros",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 250,
@@ -3273,12 +3617,15 @@
     "date_inferred": true,
     "company": "Peugeot Citroen Argentina S.A.",
     "brands": [
-      "Citroën",
       "Peugeot"
     ],
     "product": "208",
     "defect": "La posibilidad que el campo eléctrico de la llave con comando a distancia de las vehículos involucrados sea mayor que el especificado en las resoluciones Nro. 5186717 y 507/18 del ENACOM, y por lo tanto, no cumpla los parámetros regulados en la normativa aplicable",
-    "risk": "Inseguridad"
+    "risk": "Inseguridad",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 251,
@@ -3287,15 +3634,18 @@
     "date_inferred": true,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "Fiat"
+    ],
+    "product": "Cronos",
+    "defect": "Por la posibilidad que el tablero de instrumentos presente una falla en el proceso de montaje, y en consecuencia, se produzca la eventual activación o desactivación espontánea de algunos sistemas del vehículo, como la bolsa de aire del conductor, las llaves de luces, la llave de ignición y comandos del volante. Esto podría provocar la ocurrencia de accidentes con daños materiales, daños físicos graves o incluso mortales a los ocupantes del vehículo y/o terceros",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Cronos",
-    "defect": "Por la posibilidad que el tablero de instrumentos presente una falla en el proceso de montaje, y en consecuencia, se produzca la eventual activación o desactivación espontánea de algunos sistemas del vehículo, como la bolsa de aire del conductor, las llaves de luces, la llave de ignición y comandos del volante. Esto podría provocar la ocurrencia de accidentes con daños materiales, daños físicos graves o incluso mortales a los ocupantes del vehículo y/o terceros",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 252,
@@ -3304,15 +3654,18 @@
     "date_inferred": true,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "RAM"
+    ],
+    "product": "Ram 2500",
+    "defect": "Por la posibilidad que, en caso de mal funcionamiento del calentador de aire de admisión con peligro para los ocupantes o terceros, el vehículo en cuestión pueda generar un cortocircuito eléctrico en el motor mientras se encuentra en movimiento. Ello,en determinadas circunstancias, podría provocar un incendio en el compartimiento del motor, aumentando la probabilidad de accidentes con daños materiales, daños físicos graves o incluso fatales a los ocupantes del vehículo y/o terceros.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Ram 2500",
-    "defect": "Por la posibilidad que, en caso de mal funcionamiento del calentador de aire de admisión con peligro para los ocupantes o terceros, el vehículo en cuestión pueda generar un cortocircuito eléctrico en el motor mientras se encuentra en movimiento. Ello,en determinadas circunstancias, podría provocar un incendio en el compartimiento del motor, aumentando la probabilidad de accidentes con daños materiales, daños físicos graves o incluso fatales a los ocupantes del vehículo y/o terceros.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 253,
@@ -3321,13 +3674,16 @@
     "date_inferred": false,
     "company": "Eximar (Volvo)",
     "brands": [
-      "Jaguar",
-      "Land Rover",
-      "Volvo"
+      "Jaguar"
     ],
     "product": "Jaguar XE",
     "defect": "Por la posibilidad en caso de activación del airbag del conductor, de desprendimiento de fragmentos del inflador contenidos en el mismo, en casos excepcionales, salir despedidos y, en el peor de los casos, golpear al conductor al conductor u otros acompañantes y pudiendo ocasionar lesiones graves. Todo ello, en situaciones de elevada húmedad y temperatura",
-    "risk": "Lesiones y laceración"
+    "risk": "Lesiones y laceración",
+    "candidate_brands": [
+      "Jaguar",
+      "Land Rover",
+      "Volvo"
+    ]
   },
   {
     "row": 254,
@@ -3336,13 +3692,16 @@
     "date_inferred": false,
     "company": "Eximar (Volvo)",
     "brands": [
-      "Jaguar",
-      "Land Rover",
-      "Volvo"
+      "Land Rover"
     ],
     "product": "Range Rover",
     "defect": "Por la posibilidad en caso de activación del airbag del conductor, de desprendimiento de fragmentos del inflador contenidos en el mismo, en casos excepcionales, salir despedidos y, en el peor de los casos, golpear al conductor al conductor u otros acompañantes y pudiendo ocasionar lesiones graves. Todo ello, en situaciones de elevada húmedad y temperatura",
-    "risk": "Lesiones y laceración"
+    "risk": "Lesiones y laceración",
+    "candidate_brands": [
+      "Jaguar",
+      "Land Rover",
+      "Volvo"
+    ]
   },
   {
     "row": 255,
@@ -3364,12 +3723,16 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
-      "Volkswagen"
+      "Audi"
     ],
     "product": "A7 y A8",
     "defect": "Por la posibilidad que el tamiz de aceite en la alimentación de aceite de ambos turbocompresores presente una abertura de malla demasiado pequeña. Dependiendo de las condiciones de uso del vehículo cabe la posibilidad de que se formen sedimentos en el circuito de aceite del motor. Con el paso del tiempo, estos podrían obstruir el tamiz de aceite, pudiendo provocar una alimentación de aceite insuficiente de los turbocompresores, averiando los mismos. De ocurrir tales averías, podría producirse una pérdida de potencia e incluso, una posible parada del motor, sin aviso previo suficiente. De ocurrir tales averías, podría producirse una pérdida de potencia, e incluso, una posible parada del motor, sin aviso previo suficiente. Consecuentemente, podrían eventualmente producirse accidentes viales con daños materiales y/o daños físicos graves para los ocupantes del vehículo y/o terceros.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 257,
@@ -3378,15 +3741,18 @@
     "date_inferred": false,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "Fiat"
+    ],
+    "product": "Nuevo Palio, Grand Siena y Fiorino",
+    "defect": "Por la posibilidad de degradación del inflador del airbag debido a la exposición del vehículo a altas temperaturas y elevados niveles de humedad durante largos períodos. En caso de colisión que resulte en el accionamiento del airbag, podría ocurrir la ruptura de su inflador, debido a una excesiva presión interna, provocando la dispersión de fragmentos metálicos, exponiendo al conductor, pasajeros y/o terceros a eventuales daños físicos graves y/o fatales.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Nuevo Palio, Grand Siena y Fiorino",
-    "defect": "Por la posibilidad de degradación del inflador del airbag debido a la exposición del vehículo a altas temperaturas y elevados niveles de humedad durante largos períodos. En caso de colisión que resulte en el accionamiento del airbag, podría ocurrir la ruptura de su inflador, debido a una excesiva presión interna, provocando la dispersión de fragmentos metálicos, exponiendo al conductor, pasajeros y/o terceros a eventuales daños físicos graves y/o fatales.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 258,
@@ -3395,13 +3761,16 @@
     "date_inferred": false,
     "company": "Eximar (Volvo)",
     "brands": [
-      "Jaguar",
-      "Land Rover",
-      "Volvo"
+      "Land Rover"
     ],
     "product": "Discovery Sport",
     "defect": "Por la posibilidad en caso de activación del airbag del lado del conductor del desprendimiento de fragmentos del inflador contenidos en el mismo, en casos excepcionales, salir despedidos y, en el peor de los casos, golpear al conductor al conductor u otros acompañantes y pudiendo ocasionar lesiones graves. Todo ello, en situaciones de elevada humedad y temperatura",
-    "risk": "Lesiones y laceración"
+    "risk": "Lesiones y laceración",
+    "candidate_brands": [
+      "Jaguar",
+      "Land Rover",
+      "Volvo"
+    ]
   },
   {
     "row": 259,
@@ -3410,12 +3779,16 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
-      "Volkswagen"
+      "Audi"
     ],
     "product": "A7 y A8",
     "defect": "Por la posibilidad que el tamiz de aceite en la alimentación de aceite de ambos turbocompresores presente una abertura de malla demasiado pequeña. Dependiendo de las condiciones de uso del vehículo cabe la posibilidad de que se formen sedimentos en el circuito de aceite del motor. Con el paso del tiempo, estos podrían obstruir el tamiz de aceite, pudiendo provocar una alimentación de aceite insuficiente de los turbocompresores, averiando los mismos. De ocurrir tales averías, podría producirse una pérdida de potencia e incluso, una posible parada del motor, sin aviso previo suficiente. De ocurrir tales averías, podría producirse una pérdida de potencia, e incluso, una posible parada del motor, sin aviso previo suficiente. Consecuentemente, podrían eventualmente producirse accidentes viales con daños materiales y/o daños físicos graves para los ocupantes del vehículo y/o terceros.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 260,
@@ -3424,15 +3797,18 @@
     "date_inferred": false,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "Fiat"
+    ],
+    "product": "Nuevo palio, Grand Siena y Fiorino",
+    "defect": "Por la posibilidad de degradación del inflador del airbag debido a la exposición del vehículo a altas temperaturas y elevados niveles de humedad durante largos períodos. En caso de colisión que resulte en el accionamiento del airbag, podría ocurrir la ruptura de su inflador, debido a una excesiva presión interna, provocando la dispersión de fragmentos metálicos, exponiendo al conductor, pasajeros y/o terceros a eventuales daños físicos graves y/o fatales",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Nuevo palio, Grand Siena y Fiorino",
-    "defect": "Por la posibilidad de degradación del inflador del airbag debido a la exposición del vehículo a altas temperaturas y elevados niveles de humedad durante largos períodos. En caso de colisión que resulte en el accionamiento del airbag, podría ocurrir la ruptura de su inflador, debido a una excesiva presión interna, provocando la dispersión de fragmentos metálicos, exponiendo al conductor, pasajeros y/o terceros a eventuales daños físicos graves y/o fatales",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 261,
@@ -3459,7 +3835,11 @@
     ],
     "product": "C4, DS3 y DS4",
     "defect": "Airbag",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 263,
@@ -3494,12 +3874,16 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
-      "Volkswagen"
+      "Audi"
     ],
     "product": "Audi A8",
     "defect": "Considerando la situación detallada anteriormente, el sistema MOST podría colapsar al no poder procesar toda la información necesaria, generando la falla en el sistema “INFO ENTRETENIMIENTO”. En los casos que el fenómeno se presente, el conductor podría detectar que el módulo control de los instrumentos y/o el sistema multimedia se reinician, perdiendo referencia temporalmente de información importante para la conducción",
-    "risk": "Lesiones y laceración"
+    "risk": "Lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 266,
@@ -3508,12 +3892,15 @@
     "date_inferred": false,
     "company": "Toyota Argentina S.A.",
     "brands": [
-      "Lexus",
-      "Toyota"
+      "Lexus"
     ],
     "product": "Lexus",
     "defect": "la firma ha iniciado un procedimiento de alerta y retiro de productos con potencial riesgo, nocividad o peligrosidad, detectado después de su introducción en el mercado de consumo en Argentina de los vehículos marca Lexus, Modelo: NX 350 - Versión: F-Sport y Modelo: NX 350h – Versión: Luxury, ambos producidos entre noviembre 2021 a junio 2022. Los vehículos alcanzados por esta campaña están equipados con una cámara de reconocimiento delantera LSS LTA (Lane Tracing Assist) y el freno electrónico de estacionamiento EPB (Electronic Parking Brake). Este sistema (LSS LTA) tiene la finalidad de dar asistencia al conductor, respecto a la posibilidad de mantener la posición del vehículo en el centro del carril cuando se reúnen ciertas condiciones de operación. Debido a una incorrecta programación de la computadora de control del LTA, el límite superior del ángulo de dirección puede alcanzarse antes de lo previsto. Bajo esta condición, el sistema podría proveer un nivel inferior de asistencia en el centrado de carril, respecto a los parámetros de diseño, bajo ciertas condiciones del camino y del vehículo. En caso de ocurrencia de esta condición, el conductor, permanece con pleno control de todas las maniobras de dirección y todas las advertencias de desvío de carril. Las funciones de monitoreo del conductor continuarán operando según su condición de diseño. Adicionalmente, el Freno Electrónico de Estacionamiento (EPB) que equipa a los vehículos alcanzados por esta campaña es posible que, su Actuador de Freno pueda detectar en forma errónea una condición de exceso de corriente e ingrese en un modo de falla, el cual encenderá el testigo de advertencia, exhibiendo un mensaje de malfuncionamiento (“Parking Brake Malfunction, Visit Your Dealer”) e impedirá que el EPB se active o desactive. Para el caso en que, el EPB no puede activarse, resultando el mensaje de advertencia ignorado y si se estaciona en una pendiente sin seleccionar el modo ‘Park’, el vehículo podría desplazarse libremente, incrementando el riesgo de una colisión.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Lexus",
+      "Toyota"
+    ]
   },
   {
     "row": 267,
@@ -3535,12 +3922,16 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "Taos",
     "defect": "Por la posibilidad que en ciertos vehículos Taos, fabricados en un determinado período de tiempo, no es posible asegurar que el asiento del pasajero hubiere sido fijado correctamente. RIESGOS-CONSECUENCIAS Consecuentemente, frente a un accidente vial, que produzca un impacto o vuelco del vehículo, el sistema de fijación del asiento podría no comportarse adecuadamente. En tales casos, los ocupantes del vehículo y/o terceros podrían sufrir daños materiales y/o daños físicos grave.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 269,
@@ -3575,12 +3966,16 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "Up",
     "defect": "Por la posibilidad que un lote de generador de gas de los airbags instalados en los vehículos comprendidos, pueda degradarse después de largos períodos de exposición de los vehículos a altas temperaturas, grandes amplitudes térmicas y alta humedad relativa del aire. Dichas condiciones pueden conducir a la ruptura del generador de gas. En caso de deflagración del sistema de airbag ante un accidente vial (con una desaceleración tal que produzca la apertura del airbag), el sistema puede proyectar fragmentos de metal dentro del vehículo, con riesgo de daños físicos o fatales para sus ocupantes. Se aclara que esta posible falla no consiste en la “no apertura” del airbag ni en su apertura espontanea, sino en su posible apertura defectuosa en las condiciones indicadas.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 272,
@@ -3589,15 +3984,18 @@
     "date_inferred": false,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "Jeep"
+    ],
+    "product": "Commander, Compass y Renegade",
+    "defect": "Por la posibilidad de rotura del tornillo de fijación de la bomba de alta presión de combustible al motor y, en casos extremos, podría producirse pérdida de combustible. Como consecuencia del desperfecto, podría ocasionarse un incendio y potenciales daños materiales, daños físicos graves o incluso fatales a los ocupantes del vehículo y/o terceros.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Commander, Compass y Renegade",
-    "defect": "Por la posibilidad de rotura del tornillo de fijación de la bomba de alta presión de combustible al motor y, en casos extremos, podría producirse pérdida de combustible. Como consecuencia del desperfecto, podría ocasionarse un incendio y potenciales daños materiales, daños físicos graves o incluso fatales a los ocupantes del vehículo y/o terceros.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 273,
@@ -3606,15 +4004,18 @@
     "date_inferred": false,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "Jeep"
+    ],
+    "product": "Pulse",
+    "defect": "por la posibilidad de rotura del tornillo de fijación de la bomba de alta presión de combustible al motor y, en casos extremos, podría producirse pérdida de combustible. Como consecuencia del desperfecto, podría ocasionarse un incendio y potenciales daños materiales, daños físicos graves o incluso fatales a los ocupantes del vehículo y/o terceros.",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Pulse",
-    "defect": "por la posibilidad de rotura del tornillo de fijación de la bomba de alta presión de combustible al motor y, en casos extremos, podría producirse pérdida de combustible. Como consecuencia del desperfecto, podría ocasionarse un incendio y potenciales daños materiales, daños físicos graves o incluso fatales a los ocupantes del vehículo y/o terceros.",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 274,
@@ -3649,12 +4050,15 @@
     "date_inferred": false,
     "company": "Toyota Argentina S.A.",
     "brands": [
-      "Lexus",
-      "Toyota"
+      "Lexus"
     ],
     "product": "Lexus GS 350",
     "defect": "por la posibilidad que el sistema limpiaparabrisas funcione de forma incorrecta e incluso deje de funcionar inesperadamente. Ello podría producir una reducción en la visibilidad del conductor y aumentar el riesgo de accidentes con posibles daños a los ocupantes del vehículo y terceros. La presente campaña tiene por objeto proceder a la inspección preventiva de las unidades afectadas y al reemplazo del motor del limpiaparabrisas del vehículo.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Lexus",
+      "Toyota"
+    ]
   },
   {
     "row": 277,
@@ -3689,12 +4093,15 @@
     "date_inferred": true,
     "company": "Toyota Argentina S.A.",
     "brands": [
-      "Lexus",
-      "Toyota"
+      "Lexus"
     ],
     "product": "Lexus NX350 350H",
     "defect": "Los vehículos alcanzados están equipados con una cámara de reconocimiento delantera LSS PDA (Proactive Driving Assist). Este sistema (LSS PDA) tiene la finalidad brindar al conductor una asistencia proactiva a la conducción al circular a baja velocidad por ciudad.\r\nEllo es posible, mediante el uso de la cámara frontal del vehículo, mediante la cual puede detectar riesgos como peatones, vehículos estacionados y ciclistas. Debido a parámetros de programación del software de PDA dentro de la cámara de reconocimiento frontal, cuando el vehículo pasa una línea de vehículos detenidos o estacionados, existe la posibilidad de discrepancia entre el PDA y el sistema LSS en relación con los objetos detectados. En dicho caso, la cámara se reiniciará y las funciones del LSS+ estarán inoperativas por aproximadamente 4 segundos, tiempo en el que el sistema PCS (Pre Colisión) estará inoperativo y el testigo de PCS se encenderá en el tablero de instrumentos del vehículo. Luego de reiniciarse, las funciones estarán operativas nuevamente de manera automática. Cabe destacar que, en caso de ocurrencia de esta condición, el conductor, permanece con pleno control de todas las maniobras de dirección y todas las advertencias indicadas.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Lexus",
+      "Toyota"
+    ]
   },
   {
     "row": 281,
@@ -3755,15 +4162,18 @@
     "date_inferred": true,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "RAM"
+    ],
+    "product": "RAM 2500",
+    "defect": "Para analizar y en caso de corresponder,sustituir la varilla del medidor y del tubo de ventilación de la transmisión debido a la posibilidad de aumento de presión en la transmisión, lo que podría resultar la expulsión de la varilla de la varilla medidora y consecuente pérdida de aceite. Ello, sumado al calor en la zona del motor, se generaría un riesgo de incendio con posibilidad de daños materiales, físicos graves o incluso la muerte de los ocupantes del vehículo y/o terceros",
+    "risk": "Muerte, lesiones y laceración, incendio",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "RAM 2500",
-    "defect": "Para analizar y en caso de corresponder,sustituir la varilla del medidor y del tubo de ventilación de la transmisión debido a la posibilidad de aumento de presión en la transmisión, lo que podría resultar la expulsión de la varilla de la varilla medidora y consecuente pérdida de aceite. Ello, sumado al calor en la zona del motor, se generaría un riesgo de incendio con posibilidad de daños materiales, físicos graves o incluso la muerte de los ocupantes del vehículo y/o terceros",
-    "risk": "Muerte, lesiones y laceración, incendio"
+    ]
   },
   {
     "row": 287,
@@ -3772,15 +4182,18 @@
     "date_inferred": true,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "RAM"
+    ],
+    "product": "RAM 2500",
+    "defect": "Por la posibilidad de la apertura involuntaria del portón trasero. Como consecuencia podría producirse la caída del contenido de la caja de carga y consecuentes daños materiales, daños físicos graves o incluso mortales a terceros",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "RAM 2500",
-    "defect": "Por la posibilidad de la apertura involuntaria del portón trasero. Como consecuencia podría producirse la caída del contenido de la caja de carga y consecuentes daños materiales, daños físicos graves o incluso mortales a terceros",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 288,
@@ -3828,12 +4241,16 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "New Beetle",
     "defect": "Esta campaña resulta necesaria en virtud de que, luego de un análisis en laboratorio, se ha detectado la posibilidad que un lote de generador de gas de los airbags (lado conductor) instalados en los vehículos comprendidos, pueda degradarse después de largos períodos de exposición de los vehículos a altas temperaturas, grandes amplitudes térmicas y alta humedad relativa del aire.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 293,
@@ -3868,12 +4285,16 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "Taos",
     "defect": "Se ha detectado la posibilidad de que, en algunos vehículos Taos, un lote de espejos retrovisores centrales pierdan adherencia, lo que pudiera generar su desprendimiento",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 296,
@@ -3908,12 +4329,16 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "New Beetle",
     "defect": "Esta campaña resulta necesaria en virtud de que, luego de un análisis en laboratorio, se ha detectado la posibilidad que un lote de generador de gas de los airbags (lado conductor) instalados en los vehículos comprendidos, pueda degradarse después de largos períodos de exposición de los vehículos a altas temperaturas, grandes amplitudes térmicas y alta humedad relativa del aire.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 299,
@@ -3948,12 +4373,16 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "Taos",
     "defect": "Se ha detectado la posibilidad de que, en algunos vehículos Taos, un lote de espejos retrovisores centrales pierdan adherencia, lo que pudiera generar su desprendimiento",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 302,
@@ -3962,12 +4391,15 @@
     "date_inferred": false,
     "company": "Peugeot Citroen Argentina S.A.",
     "brands": [
-      "Citroën",
-      "Peugeot"
+      "Citroën"
     ],
     "product": "Nuevo C3",
     "defect": "La posibilidad de fricción entre el cableado eléctrico (del interruptor del encendido) y la columna de dirección, lo que podría causar el desgaste del cableado. Ello, podría provocar un cortocircuito en la corriente eléctrica, imposibilitando el arranque del motor o, si el vehículo esta en movimiento, su parada inesperada.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 303,
@@ -3976,12 +4408,16 @@
     "date_inferred": true,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "Nivus, Polo, Virtus y Saveiro",
     "defect": "En ciertos vehículos Nivus, Polo, Virtus y Saveiro, fabricados en un determinado período de tiempo, no es posible asegurar que ciertos elementos de fijación cuenten con el registro de liberación de pares correspondiente.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 304,
@@ -4003,12 +4439,15 @@
     "date_inferred": true,
     "company": "Peugeot Citroen Argentina S.A.",
     "brands": [
-      "Citroën",
-      "Peugeot"
+      "Citroën"
     ],
     "product": "DS7 Crossback",
     "defect": "Se detecto la posibilidad de funcionamiento incorrecto de la alineacion de luces de cruce de los faros",
-    "risk": "Lesiones y laceración"
+    "risk": "Lesiones y laceración",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 307,
@@ -4017,12 +4456,15 @@
     "date_inferred": true,
     "company": "Peugeot Citroen Argentina S.A.",
     "brands": [
-      "Citroën",
-      "Peugeot"
+      "Citroën"
     ],
     "product": "DS7 Crossback",
     "defect": "Se identificó la posibilidad de que el software ESP (programa electronico de estabilidad) no se encuentre alineado con el requisito de diseño. Ello, con motivo de un error del proveedor durante la codificacion del software aplicando la \"Front Wheel Drive\" en lugar de \"All Wheel Drive\"",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 308,
@@ -4036,7 +4478,11 @@
     ],
     "product": "3008 y 7 Crossback",
     "defect": "Se identificó la posibilidad de que, ante la intrusion de agua, se produzca la corrosion entre la carcasa inferior y la placa de refuerzo de la bateria de alto voltaje debido a la intrusion de agua.",
-    "risk": "Muerte, lesiones y laceración, incendio"
+    "risk": "Muerte, lesiones y laceración, incendio",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 309,
@@ -4076,7 +4522,11 @@
     ],
     "product": "Partner y Berlingo",
     "defect": "Se identificó la posibilidad de una soldadura ineficaz en determinados vehiculos Peugeot Partner y Citroen Berlingo, equipados con soportes de fijacion del portaequipaje ubicado en el techo",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 313,
@@ -4111,15 +4561,18 @@
     "date_inferred": true,
     "company": "FCA Automóviles Argentina S.A.",
     "brands": [
+      "RAM"
+    ],
+    "product": "Toro",
+    "defect": "Se identifico la posibilidad de funcionamiento irregular de las hebillas de los cinturones de seguridad del asiento trasero, con riesgo de corte de la cinta del cinturon",
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Toro",
-    "defect": "Se identifico la posibilidad de funcionamiento irregular de las hebillas de los cinturones de seguridad del asiento trasero, con riesgo de corte de la cinta del cinturon",
-    "risk": "Muerte, lesiones y laceración"
+    ]
   },
   {
     "row": 316,
@@ -4141,12 +4594,16 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "Gol Trend, Voyage, Saveiro, Fox y Suran",
     "defect": "Se ha detectado la posibilidad de que un lote de generador de gas de los airbags comprendidos (lado conductor y acompañante), instalados en sus vehículos, pueda degradarse después de largos períodos de exposición de los vehículos a altas temperaturas, grandes amplitudes térmicas y alta humedad relativa del aire. Dichas condiciones pueden conducir a la ruptura del generador de gas, y en caso de deflagración del sistema de airbag ante un accidente vial con una desaceleración tal que produzca la apertura del airbag, el sistema puede proyectar fragmentos de metal dentro del vehículo, con riesgo de daños físicos o fatales para sus ocupantes. Aclaramos que esta posible falla no consiste en la “no apertura” del airbag ni en su apertura espontanea, sino en su posible apertura defectuosa en las condiciones indicadas.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 320,
@@ -4155,12 +4612,16 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "Gol Trend, Voyage, Saveiro, Fox y Suran",
     "defect": "Esta campaña resulta necesaria en virtud de que, luego de un nuevo análisis en laboratorio, se ha detectado la posibilidad de que un lote de generador de gas de los airbags frontales, instalados en los vehículos comprendidos, pueda degradarse después de largos períodos de exposición de los vehículos a altas temperaturas, grandes amplitudes térmicas y alta humedad relativa del aire. Dichas condiciones pueden conducir a la ruptura del generador de gas, y en caso de deflagración del sistema de airbag ante un accidente vial con una desaceleración tal que produzca la apertura del airbag.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 321,
@@ -4208,12 +4669,16 @@
     "date_inferred": false,
     "company": "Volkswagen Argentina S.A.",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "New Beetle",
     "defect": "Esta campaña resulta necesaria en virtud de que, luego de un análisis en laboratorio, se ha detectado la posibilidad que un lote de generador de gas de los airbags (lado conductor) instalados en los vehículos comprendidos, pueda degradarse después de largos períodos de exposición de los vehículos a altas temperaturas, grandes amplitudes térmicas y alta humedad relativa del aire.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 325,
@@ -4248,12 +4713,15 @@
     "date_inferred": false,
     "company": "Peugeot Citroen Argentina S.A.",
     "brands": [
-      "Citroën",
-      "Peugeot"
+      "Citroën"
     ],
     "product": "Nuevo C3",
     "defect": "La posibilidad de fricción entre el cableado eléctrico (del interruptor del encendido) y la columna de dirección, lo que podría causar el desgaste del cableado. Ello, podría provocar un cortocircuito en la corriente eléctrica, imposibilitando el arranque del motor o, si el vehículo esta en movimiento, su parada inesperada.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 328,
@@ -4262,12 +4730,15 @@
     "date_inferred": false,
     "company": "Peugeot Citroen Argentina S.A.",
     "brands": [
-      "Citroën",
-      "Peugeot"
+      "Citroën"
     ],
     "product": "Nuevo C3",
     "defect": "La posibilidad de fricción entre el cableado eléctrico (del interruptor del encendido) y la columna de dirección, lo que podría causar el desgaste del cableado. Ello, podría provocar un cortocircuito en la corriente eléctrica, imposibilitando el arranque del motor o, si el vehículo esta en movimiento, su parada inesperada.",
-    "risk": "Muerte, lesiones y laceración"
+    "risk": "Muerte, lesiones y laceración",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 329,
@@ -4289,12 +4760,16 @@
     "date_inferred": false,
     "company": "VOLKSWAGEN ARGENTINA SA",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "NEW BEETLE",
     "defect": "Esta campaña resulta necesaria en virtud de que, luego de un análisis en laboratorio, se ha detectado la posibilidad que un lote de generador de gas de los airbags (lado conductor) instalados en los vehículos comprendidos, pueda degradarse después de largos períodos de exposición de los vehículos a altas temperaturas, grandes amplitudes térmicas y alta humedad relativa del aire.",
-    "risk": "Muerte"
+    "risk": "Muerte",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 331,
@@ -4329,12 +4804,16 @@
     "date_inferred": false,
     "company": "VOLKSWAGEN ARGENTINA SA",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "TAOS",
     "defect": "Se ha detectado la posibilidad de que, en algunos vehículos Taos, un lote de espejos retrovisores centrales pierdan adherencia, lo que pudiera generar su desprendimiento",
-    "risk": "Muerte"
+    "risk": "Muerte",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 334,
@@ -4343,12 +4822,15 @@
     "date_inferred": false,
     "company": "PEUGEOT CITROEN ARGENTINA SA",
     "brands": [
-      "Citroën",
-      "Peugeot"
+      "Citroën"
     ],
     "product": "Nuevo C3",
     "defect": "La posibilidad de fricción entre el cableado eléctrico (del interruptor del encendido) y la columna de dirección, lo que podría causar el desgaste del cableado. Ello, podría provocar un cortocircuito en la corriente eléctrica, imposibilitando el arranque del motor o, si el vehículo esta en movimiento, su parada inesperada.",
-    "risk": "Lesiones y Muerte"
+    "risk": "Lesiones y Muerte",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 335,
@@ -4401,7 +4883,11 @@
     ],
     "product": "JUMPY y EXPERT",
     "defect": "Por la posibilidad que exista una fuga en la manguera de combustible de baja presión debido a su interferencia con la tapa de la correa de distribución. Ello, podría ocasionar daños materiales, daños físicos graves o incluso la muerte de los ocupantes y/o terceros.",
-    "risk": ""
+    "risk": "",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 339,
@@ -4410,12 +4896,16 @@
     "date_inferred": false,
     "company": "VOLKSWAGEN ARGENTINA SA",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "T-CROSS",
     "defect": "Un lote de neumáticos pueden sufrir daños en la rodadura. Estos pueden provocar la pérdida de agarre, lo que puede comprometer la capacidad de conducción del vehículo",
-    "risk": "Muerte"
+    "risk": "Muerte",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 340,
@@ -4468,7 +4958,11 @@
     ],
     "product": "LEXUS LX600 y LAND CRUISER300",
     "defect": "La posibilidad que cuando se selecciona la posición neutral (N) de la transmisión, un remanente de la potencia del motor continúe siendo transferida a las ruedas. Si el conductor no aplica el freno o no acciona el freno de estacionamiento, el vehículo podría desplazarse hacia adelante en forma inadvertida a muy baja velocidad y podría incrementarse el riesgo de una colisión",
-    "risk": ""
+    "risk": "",
+    "candidate_brands": [
+      "Lexus",
+      "Toyota"
+    ]
   },
   {
     "row": 344,
@@ -4477,15 +4971,18 @@
     "date_inferred": false,
     "company": "FCA AUTOMOBILES ARGENTINA",
     "brands": [
+      "RAM"
+    ],
+    "product": "RAM 1500",
+    "defect": "Se identificó la posibilidad de una activación incorrecta de las luces indicadoras de dirección (luces de giro) y/o de las luces altas, lo que podría ocasionar una señalización distinta a la pretendida por el conductor del vehículo y/o, en caso de activación incorrecta de las luces altas, el encandilamiento de otros conductores. Como consecuencia del desperfecto, podría producirse un accidente automovilístico, con los consecuentes daños materiales, daños físicos graves o incluso fatales a los ocupantes del vehículo y/o terceros.",
+    "risk": "",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "RAM 1500",
-    "defect": "Se identificó la posibilidad de una activación incorrecta de las luces indicadoras de dirección (luces de giro) y/o de las luces altas, lo que podría ocasionar una señalización distinta a la pretendida por el conductor del vehículo y/o, en caso de activación incorrecta de las luces altas, el encandilamiento de otros conductores. Como consecuencia del desperfecto, podría producirse un accidente automovilístico, con los consecuentes daños materiales, daños físicos graves o incluso fatales a los ocupantes del vehículo y/o terceros.",
-    "risk": ""
+    ]
   },
   {
     "row": 345,
@@ -4507,12 +5004,16 @@
     "date_inferred": true,
     "company": "VOLKSWAGEN ARGETINA S.A",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "SURAN",
     "defect": "Por la posibilidad que, un lote de generador de gas de los airbags instalados en los vehículos comprendidos, pueda degradarse después de largos períodos de exposición de los vehículos a altas temperaturas, grandes amplitudes térmicas y alta humedad relativa del aire. Dichas condiciones pueden conducir a la ruptura del generador de gas. En caso de deflagración del sistema de airbag ante un accidente vial (con una desaceleración tal que produzca la apertura del airbag), el sistema puede proyectar fragmentos de metal dentro del vehículo, con riesgo de daños físicos o fatales para sus ocupantes. Se aclara que esta posible falla no consiste en la “no apertura” del airbag ni en su apertura espontanea, sino en su posible apertura defectuosa en las condiciones indicadas",
-    "risk": "Lesiones"
+    "risk": "Lesiones",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 347,
@@ -4565,7 +5066,11 @@
     ],
     "product": "BOXER y JUMPER",
     "defect": "Posibilidad de fuga del líquido de la dirección asistida por rotura de su batería, con el riesgo de perder asistencia de la dirección asistida, dificultando el control del vehículo.",
-    "risk": "Lesiones y Muerte"
+    "risk": "Lesiones y Muerte",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 351,
@@ -4587,15 +5092,18 @@
     "date_inferred": true,
     "company": "FCA AUTOMOBILES ARGENTINA",
     "brands": [
+      "RAM"
+    ],
+    "product": "RAM 1500 LARAMIE",
+    "defect": "La posibilidad que exista un defecto en el módulo de control de la columna de dirección. En caso de colisión frontal, el airbag del conductor puede funcionar de forma incorrecta.",
+    "risk": "Accidente/muerte",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "RAM 1500 LARAMIE",
-    "defect": "La posibilidad que exista un defecto en el módulo de control de la columna de dirección. En caso de colisión frontal, el airbag del conductor puede funcionar de forma incorrecta.",
-    "risk": "Accidente/muerte"
+    ]
   },
   {
     "row": 353,
@@ -4617,12 +5125,15 @@
     "date_inferred": false,
     "company": "TOYOTA ARGENTINA SA",
     "brands": [
-      "Lexus",
       "Toyota"
     ],
     "product": "HILUX",
     "defect": "La barra deportiva, bajo ciertas condiciones severas de uso, y como consecuencia del desgaste prematuro de los soportes, podría desprenderse del vehículo y causar daños a terceros",
-    "risk": "Accidente"
+    "risk": "Accidente",
+    "candidate_brands": [
+      "Lexus",
+      "Toyota"
+    ]
   },
   {
     "row": 355,
@@ -4735,12 +5246,15 @@
     "date_inferred": false,
     "company": "TOYOTA ARGENTINA SA",
     "brands": [
-      "Lexus",
-      "Toyota"
+      "Lexus"
     ],
     "product": "LEXUS LX600, RX350 FSport, RX500hF-Sport, ES300h, NX350h, NX350 FSport y UX250",
     "defect": "La posibilidad que la cámara de visión delantera y una cámara de visión trasera que se utilizan para capturar y proyectar una imagen de las áreas por delante y por detrás del vehículo. Debido a una posible soldadura láser insuficientemente aplicada en la carcasa de la cámara y durante un período en específico de producción, existe la posibilidad que dicha carcasa pueda separarse cuando esté expuesta a esfuerzos a lo largo del tiempo, lo que permitiría que se filtre agua al interior de la cámara.",
-    "risk": "Accidente"
+    "risk": "Accidente",
+    "candidate_brands": [
+      "Lexus",
+      "Toyota"
+    ]
   },
   {
     "row": 364,
@@ -4788,12 +5302,15 @@
     "date_inferred": true,
     "company": "PEUGEOT CITROEN ARGENTINA SA",
     "brands": [
-      "Citroën",
-      "Peugeot"
+      "Citroën"
     ],
     "product": "CITROEN C3, C3 PICASSO y C3 AIRCROSS",
     "defect": "Por la posibilidad que el inflador del airbag pueda romperse y provocar la proyección de fragmentos metálicos, en caso de colisión. Ello, podría causar daños materiales, físicos graves e incluso fatales a sus ocupantes",
-    "risk": ""
+    "risk": "",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 368,
@@ -4815,12 +5332,15 @@
     "date_inferred": false,
     "company": "PEUGEOT CITROEN ARGENTINA SA",
     "brands": [
-      "Citroën",
-      "Peugeot"
+      "Citroën"
     ],
     "product": "CITROEN C3 AIRCROSS",
     "defect": "Por la posibilidad de tener interferencia entre el cableado de motor y el soporte inferior de la batería, lo que podría provocar el desgaste del cableado permitiendo la pérdida de potencia del motor y consecuentemente su apagado inesperado.",
-    "risk": "Accidente"
+    "risk": "Accidente",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 370,
@@ -4829,12 +5349,16 @@
     "date_inferred": false,
     "company": "VOLKSWAGEN ARGENTINA SA",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "FOX, GOL VOYAGE",
     "defect": "Por la posibilidad que un lote de generador de gas de los airbags instalados en los vehículos comprendidos, pueda degradarse después de largos períodos de exposición de los vehículos a altas temperaturas, grandes amplitudes térmicas y alta humedad relativa del aire. Dichas condiciones pueden conducir a la ruptura del generador de gas En caso de deflagración del sistema de airbag ante un accidente vial (con una desaceleración tal que produzca la apertura del airbag), el sistema puede proyectar fragmentos de metal dentro del vehículo, con riesgo de daños físicos o fatales para sus ocupantes. Se aclara que esta posible falla no consiste en la “no apertura” del airbag ni en su apertura espontanea, sino en su posible apertura defectuosa en las condiciones indicadas",
-    "risk": "Lesiones"
+    "risk": "Lesiones",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 371,
@@ -4843,12 +5367,16 @@
     "date_inferred": false,
     "company": "VOLKSWAGEN ARGENTINA SA",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "FOX,GOL, VOYAGE y SAVEIRO",
     "defect": "Por la posibilidad que un lote de generador de gas de los airbags instalados en los vehículos comprendidos, pueda degradarse después de largos períodos de exposición de los vehículos a altas temperaturas, grandes amplitudes térmicas y alta humedad relativa del aire. Dichas condiciones pueden conducir a la ruptura del generador de gas En caso de deflagración del sistema de airbag ante un accidente vial (con una desaceleración tal que produzca la apertura del airbag), el sistema puede proyectar fragmentos de metal dentro del vehículo, con riesgo de daños físicos o fatales para sus ocupantes. Se aclara que esta posible falla no consiste en la “no apertura” del airbag ni en su apertura espontanea, sino en su posible apertura defectuosa en las condiciones indicadas",
-    "risk": "Lesiones"
+    "risk": "Lesiones",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 372,
@@ -4870,15 +5398,18 @@
     "date_inferred": false,
     "company": "FCA AUTOMOBILES ARGENTINA SA",
     "brands": [
+      "RAM"
+    ],
+    "product": "RAM 1500 REBEL",
+    "defect": "La posibilidad de un defecto en el  módulo de control de la columna de dirección. En caso de colisión frontal, el airbag del conductor puede funcionar inadecuadamente. Como consecuencia del desperfecto, podrían generarse lesiones físicas potencialmente graves o incluso fatales para el conductor del vehículo",
+    "risk": "Muerte",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "RAM 1500 REBEL",
-    "defect": "La posibilidad de un defecto en el  módulo de control de la columna de dirección. En caso de colisión frontal, el airbag del conductor puede funcionar inadecuadamente. Como consecuencia del desperfecto, podrían generarse lesiones físicas potencialmente graves o incluso fatales para el conductor del vehículo",
-    "risk": "Muerte"
+    ]
   },
   {
     "row": 374,
@@ -4887,13 +5418,16 @@
     "date_inferred": false,
     "company": "EXIMAR INTL SA",
     "brands": [
-      "Jaguar",
-      "Land Rover",
-      "Volvo"
+      "Jaguar"
     ],
     "product": "JAGUAR XF",
     "defect": "La posibilidad que un lote de generador de gas de los airbags frontales (del conductor), pueda degradarse después de largos períodos de exposición de los vehículos a altas temperaturas, grandes amplitudes térmicas y alta humedad relativa del aire. Dichas condiciones pueden conducir a la ruptura del generador de gas, y en caso de deflagración del sistema de airbag ante un accidente vial con una desaceleración tal que produzca la apertura del airbag, el sistema puede proyectar fragmentos de metal dentro del vehículo, con riesgo de daños físicos o fatales para sus ocupantes.",
-    "risk": "Lesiones/muerte"
+    "risk": "Lesiones/muerte",
+    "candidate_brands": [
+      "Jaguar",
+      "Land Rover",
+      "Volvo"
+    ]
   },
   {
     "row": 375,
@@ -4902,12 +5436,15 @@
     "date_inferred": false,
     "company": "TOYOTA ARGENTINA SA",
     "brands": [
-      "Lexus",
-      "Toyota"
+      "Lexus"
     ],
     "product": "LEXUS LX 600",
     "defect": "La posibilidad de que los cojinetes del cigüeñal presenten una condición que afcete a su vida útil, lo cual podría generar ciertos comportamientos anomalos en el motor tales como un ruido anormal, imposibilidad de arranque o detención del funcionamiento y que podrían afectar la conducción",
-    "risk": "Lesiones/muerte"
+    "risk": "Lesiones/muerte",
+    "candidate_brands": [
+      "Lexus",
+      "Toyota"
+    ]
   },
   {
     "row": 376,
@@ -4934,7 +5471,11 @@
     ],
     "product": "PARTNERT y BERLINGO",
     "defect": "Por la posibilidad de tener interferencia entre el cableado del tablero y la columna de dirección, provocando la detención del funcionamiento del motor",
-    "risk": "Lesiones/muerte"
+    "risk": "Lesiones/muerte",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 378,
@@ -4943,15 +5484,18 @@
     "date_inferred": true,
     "company": "FCA AUTOMOBILES ARGENTINA SA",
     "brands": [
+      "RAM"
+    ],
+    "product": "RAM RAMPAGE",
+    "defect": "La posibilidad de la rotura de los semiejes, lo que puede generar pérdida de tracción del vehículo. En casos extremos podría provocar accidentes, con los consiguientes riesgos de generar daños materiales, daños físicos graves o incluso fatales para\nlos ocupantes del vehículo y/o terceros.",
+    "risk": "Lesiones/muerte",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "RAM RAMPAGE",
-    "defect": "La posibilidad de la rotura de los semiejes, lo que puede generar pérdida de tracción del vehículo. En casos extremos podría provocar accidentes, con los consiguientes riesgos de generar daños materiales, daños físicos graves o incluso fatales para\nlos ocupantes del vehículo y/o terceros.",
-    "risk": "Lesiones/muerte"
+    ]
   },
   {
     "row": 379,
@@ -4973,12 +5517,16 @@
     "date_inferred": true,
     "company": "VOLKSWAGEN ARGENTINA SA",
     "brands": [
-      "Audi",
-      "Volkswagen"
+      "Audi"
     ],
     "product": "AUDI E TRON",
     "defect": "La posibilidad que algunos vehículos en un determinado período de tiempo en casos aislados existan divergencias en las baterías de alto voltaje. Es decir, en el caso de módulos de baterías afectados, en combinación con un elevado nivel de carga (margen superior (>80%), puede producirse un sobrecalentamiento de la batería de Alto Voltaje. Como consecuencia existe peligro de incendio que pueden resultar en daños a sus ocupantes y/o terceros",
-    "risk": "Lesiones/muerte"
+    "risk": "Lesiones/muerte",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 381,
@@ -4987,12 +5535,16 @@
     "date_inferred": true,
     "company": "VOLKSWAGEN ARGENTINA SA",
     "brands": [
-      "Audi",
-      "Volkswagen"
+      "Audi"
     ],
     "product": "AUDI E TRON GT RS",
     "defect": "La posibilidad que algunos vehículos en un determinado período de tiempo en casos aislados existan divergencias en las baterías de alto voltaje. Es decir, en el caso de módulos de baterías afectados, en combinación con un elevado nivel de carga (margen superior (>80%), puede producirse un sobrecalentamiento de la batería de Alto Voltaje. Como consecuencia existe peligro de incendio que pueden resultar en daños a sus ocupantes y/o terceros",
-    "risk": "Lesiones/muerte"
+    "risk": "Lesiones/muerte",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 382,
@@ -5014,15 +5566,18 @@
     "date_inferred": false,
     "company": "FCA AUTOMOBILES ARGENTINA SA",
     "brands": [
+      "Fiat"
+    ],
+    "product": "NUEVA STRADA",
+    "defect": "La posibilidad de que en algunos de los vehículos FIAT modelo Nueva Strada mencionados se encuentren ausentes los tornillos de fijación superior de los parlantes centrales, lo que puede generar que en caso de colisión exista una posible deformación estructural imprevista de la carrocería, lo que aumenta la probabilidad de daños físicos graves o incluso fatales para los ocupantes del vehículo.",
+    "risk": "Lesiones/muerte",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "NUEVA STRADA",
-    "defect": "La posibilidad de que en algunos de los vehículos FIAT modelo Nueva Strada mencionados se encuentren ausentes los tornillos de fijación superior de los parlantes centrales, lo que puede generar que en caso de colisión exista una posible deformación estructural imprevista de la carrocería, lo que aumenta la probabilidad de daños físicos graves o incluso fatales para los ocupantes del vehículo.",
-    "risk": "Lesiones/muerte"
+    ]
   },
   {
     "row": 384,
@@ -5031,15 +5586,20 @@
     "date_inferred": false,
     "company": "FCA AUTOMOBILES ARGENTINA SA",
     "brands": [
-      "Chrysler",
-      "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
     ],
     "product": "CRONOS, NUEVA STRADA y PULSE",
     "defect": "La posibilidad de fallas en el funcionamiento de la palanca de freno de mano, con el riesgo de movimiento inadecuado al estar el vehículo estacionado, potenciando la posibilidad de generar accidentes con daños materiales y/o físicos, graves o incluso fatales para los ocupantes del vehículo y/o a terceros.",
-    "risk": "Lesiones/muerte"
+    "risk": "Lesiones/muerte",
+    "candidate_brands": [
+      "Chrysler",
+      "Dodge",
+      "Fiat",
+      "Jeep",
+      "RAM"
+    ]
   },
   {
     "row": 385,
@@ -5074,12 +5634,16 @@
     "date_inferred": true,
     "company": "VOLKSWAGEN ARGENTINA SA",
     "brands": [
-      "Audi",
-      "Volkswagen"
+      "Audi"
     ],
     "product": "AUDI A3",
     "defect": "La posibilidad de que un lote de generador de gas pueda degradarse después de largos períodos de exposición de los vehículos a altas temperaturas, grandes amplitudes térmicas y alta humedad relativa del aire. Dichas condiciones pueden conducir a la ruptura del generador de gas, y en caso de deflagración del sistema de airbag ante un accidente vial con una desaceleración tal que produzca la apertura del airbag, el sistema puede proyectar fragmentos de metal dentro del vehículo, con riesgo de daños físicos o fatales para sus ocupantes. Es importante remarcar que esta posible falla no consiste en la “no apertura” del airbag ni en su apertura espontanea, sino en su posible apertura defectuosa en las condiciones indicadas",
-    "risk": "Lesiones/muerte"
+    "risk": "Lesiones/muerte",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 388,
@@ -5088,15 +5652,18 @@
     "date_inferred": true,
     "company": "FCA AUTOMOBILES ARGENTINA",
     "brands": [
+      "RAM"
+    ],
+    "product": "RAM 1500",
+    "defect": "La posibilidad de falla en el funcionamiento del software del módulo de control de sistema de frenos ABS, que puede desactivar el sistema de Control Electrónico de Estabilidad. Como consecuencia del desperfecto, en casos extremos podría provocar accidentes con los consiguientes daños materiales, graves daños físicos o incluso mortales a los ocupantes del vehículo o a terceros.",
+    "risk": "Lesiones/muerte",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "RAM 1500",
-    "defect": "La posibilidad de falla en el funcionamiento del software del módulo de control de sistema de frenos ABS, que puede desactivar el sistema de Control Electrónico de Estabilidad. Como consecuencia del desperfecto, en casos extremos podría provocar accidentes con los consiguientes daños materiales, graves daños físicos o incluso mortales a los ocupantes del vehículo o a terceros.",
-    "risk": "Lesiones/muerte"
+    ]
   },
   {
     "row": 389,
@@ -5105,12 +5672,16 @@
     "date_inferred": false,
     "company": "VOLKSWAGEN ARGENTINA SA",
     "brands": [
-      "Audi",
-      "Volkswagen"
+      "Audi"
     ],
     "product": "A3",
     "defect": "La posibilidad que un lote de generador de gas pueda degradarse después de largos períodos de exposición de los vehículos a altas temperaturas, grandes amplitudes térmicas y alta humedad relativa del aire. Dichas condiciones pueden conducir a la ruptura del generador de gas, y en caso de deflagración del sistema de airbag ante un accidente vial con una desaceleración tal que produzca la apertura del airbag, el sistema puede proyectar fragmentos de metal dentro del vehículo, con riesgo de daños físicos o fatales para sus ocupantes. Es importante remarcar que esta posible falla no consiste en la “no apertura” del airbag ni en su apertura espontanea, sino en su posible apertura defectuosa en las condiciones indicadas.",
-    "risk": "Lesiones/muerte"
+    "risk": "Lesiones/muerte",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 390,
@@ -5169,12 +5740,15 @@
     "date_inferred": false,
     "company": "PEUGEOT CITROEN ARGENTINA SA",
     "brands": [
-      "Citroën",
-      "Peugeot"
+      "Citroën"
     ],
     "product": "DS 7 CROSSBACK",
     "defect": "Engrace de las bieletas de alineación del eje trasero al casquillo. Se identificó que en un número limitado de unidades no cumple con las especificaciones establecidas.",
-    "risk": "Lesiones/muerte"
+    "risk": "Lesiones/muerte",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 395,
@@ -5235,12 +5809,15 @@
     "date_inferred": false,
     "company": "TOYOTA",
     "brands": [
-      "Lexus",
       "Toyota"
     ],
     "product": "COROLLA",
     "defect": "Los vehículos alcanzados por esta campaña especial de servicio se encuentran equipados con semiejes en sus ruedas delanteras que permiten propulsar el vehículo. Existe la posibilidad que en determinadas condiciones de uso y como consecuencia de un sobreajuste durante el proceso de ensamble, la vida útil de este componente disminuya. En un caso extremo, podría producirse su rotura con la consecuente pérdida de tracción del vehículo.",
-    "risk": "Accidente"
+    "risk": "Accidente",
+    "candidate_brands": [
+      "Lexus",
+      "Toyota"
+    ]
   },
   {
     "row": 400,
@@ -5379,12 +5956,16 @@
     "date_inferred": true,
     "company": "VW",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "SURAN",
     "defect": "La posibilidad de que un lote de generador de gas de los airbags, lado conductor, instalados en los vehículos comprendidos, pueda degradarse después de largos períodos de exposición de los vehículos a altas temperaturas, grandes amplitudes térmicas y alta humedad relativa del aire. Dichas condiciones pueden conducir a la ruptura del generador de gas, y en caso de deflagración del sistema de airbag ante un accidente vial con una desaceleración tal que produzca la apertura del airbag, el sistema puede proyectar fragmentos de metal dentro del vehículo, con riesgo de daños físicos o fatales para sus ocupantes. Aclaramos que esta posible falla no consiste en la “no apertura” del airbag ni en su apertura espontanea, sino en su posible apertura defectuosa en las condiciones indicadas.",
-    "risk": "Accidente/Muerte"
+    "risk": "Accidente/Muerte",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 411,
@@ -5393,12 +5974,16 @@
     "date_inferred": true,
     "company": "VW",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "FOX GOL SAVEIRO VOYAGE",
     "defect": "La posibilidad de que un lote de generador de gas de los airbags, lado acompañante, instalados en los vehículos comprendidos, pueda degradarse después de largos períodos de exposición de los vehículos a altas temperaturas, grandes amplitudes térmicas y alta humedad relativa del aire. Dichas condiciones pueden conducir a la ruptura del generador de gas, y en caso de deflagración del sistema de airbag ante un accidente vial con una desaceleración tal que produzca la apertura del airbag, el sistema puede proyectar fragmentos de metal dentro del vehículo, con riesgo de daños físicos o fatales para sus ocupantes. Aclaramos que esta posible falla no consiste en la “no apertura” del airbag ni en su apertura espontanea, sino en su posible apertura defectuosa en las condiciones indicadas.",
-    "risk": ""
+    "risk": "",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 415,
@@ -5459,12 +6044,16 @@
     "date_inferred": false,
     "company": "VW",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "AMAROK",
     "defect": "En ciertos vehículos Amarok, fabricados en un determinado período de tiempo, se ha detectado la posibilidad de que la manija exterior de las puertas del lado derecho funcionen de manera errática o no funcionen.",
-    "risk": "Lesiones/ Muerte"
+    "risk": "Lesiones/ Muerte",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 420,
@@ -5473,12 +6062,16 @@
     "date_inferred": false,
     "company": "VW",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "TAOS",
     "defect": "Se ha detectado la posibilidad de que, en algunos vehículos Taos, un lote de espejos retrovisores lado derecho puedan soltarse, quedando suspendidos por el maso eléctrico.",
-    "risk": "Accidente"
+    "risk": "Accidente",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 421,
@@ -5500,12 +6093,16 @@
     "date_inferred": false,
     "company": "VW",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "Fox, Gol, Saveiro y Voyage",
     "defect": "En ciertos vehículos Fox, Gol, Saveiro y Voyage, fabricados en un determinado período de tiempo, se ha detectado la posibilidad que un lote de generador de gas de los airbags, lado acompañante, instalados en los vehículos comprendidos, pueda degradarse después de largos períodos de exposición de los vehículos a altas temperaturas, grandes amplitudes térmicas y alta humedad relativa del aire. Dichas condiciones pueden conducir a la ruptura del generador de gas.",
-    "risk": "Accidentes y/o lesiones"
+    "risk": "Accidentes y/o lesiones",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 424,
@@ -5644,12 +6241,16 @@
     "date_inferred": false,
     "company": "VW",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "Fox y Suran",
     "defect": "En ciertos vehículos Fox y Suran, fabricados en un determinado período de tiempo, se ha detectado la posibilidad que un lote de generador de gas de los airbags, lado conductor, instalados en los vehículos comprendidos, pueda degradarse después de largos períodos de exposición de los vehículos a altas temperaturas, grandes amplitudes térmicas y alta humedad relativa del aire. Dichas condiciones pueden conducir a la ruptura del generador de gas.",
-    "risk": "Lesiones/muerte"
+    "risk": "Lesiones/muerte",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 435,
@@ -5676,7 +6277,11 @@
     ],
     "product": "Corolla, Corolla Cross, Crown y Lexus",
     "defect": "Los vehículos  se encuentran equipados con un sistema de medidor combinado en el que se muestran distintos tipos de información (luces de advertencia e indicadores, medidores del vehículo, mensajes, etc.) en un monitor de pantalla de 12,3 pulgadas ubicado en el panel de instrumentos. Debido a una programación incorrecta, se almacena repetidamente información innecesaria en un dispositivo de memoria del medidor combinado cuando este opera, lo que provoca un deterioro del dispositivo de memoria antes de lo previsto. Si esto ocurre, la pantalla no se mostrará al encender el vehículo y permanecerá en este estado.",
-    "risk": "Lesiones/muerte"
+    "risk": "Lesiones/muerte",
+    "candidate_brands": [
+      "Lexus",
+      "Toyota"
+    ]
   },
   {
     "row": 437,
@@ -5737,12 +6342,15 @@
     "date_inferred": true,
     "company": "PEUGEOT CITROEN ARGENTINA SA",
     "brands": [
-      "Citroën",
-      "Peugeot"
+      "Citroën"
     ],
     "product": "DS3 Crossback y DS4",
     "defect": "Se identificó que algunos vehículos podrían presentar una fuga de combustible en la tubería de alta presión entre la bomba de alta presión y el riel combustible, conexiones que podrían no haber sido ajustadas correctamente. Esto puede derivar a un mayor consumo de combustible y, en el peor de los casos, a un incendio en el vehículo.",
-    "risk": "Lesiones/muerte"
+    "risk": "Lesiones/muerte",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 444,
@@ -5803,15 +6411,18 @@
     "date_inferred": true,
     "company": "FCA AUTOMOBILES ARGENTINA SA",
     "brands": [
+      "Jeep"
+    ],
+    "product": "JEEP GRAND CHEROKEE",
+    "defect": "DESPERFECTO: Motor de ventilador.   Se identificó la posibilidad de una falla en el motor del ventilador del sistema de calefacción, ventilación y aire acondicionado. Puede tener una reducción en la capacidad de desempañado o descongelación y, en consecuencia comprometen la visibilidad del conductor.",
+    "risk": "Lesiones/muerte",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "JEEP GRAND CHEROKEE",
-    "defect": "DESPERFECTO: Motor de ventilador.   Se identificó la posibilidad de una falla en el motor del ventilador del sistema de calefacción, ventilación y aire acondicionado. Puede tener una reducción en la capacidad de desempañado o descongelación y, en consecuencia comprometen la visibilidad del conductor.",
-    "risk": "Lesiones/muerte"
+    ]
   },
   {
     "row": 452,
@@ -5833,15 +6444,18 @@
     "date_inferred": false,
     "company": "FCA AUTOMOBILES ARGENTINA SA",
     "brands": [
+      "Jeep"
+    ],
+    "product": "JEEP GRAND CHEROKEE",
+    "defect": "Se identificó la posibilidad de una falla en el mecanismo del bloqueo interno del reposacabezas que puede impedir que esto se bloquee en posición vertical.",
+    "risk": "Lesiones",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "JEEP GRAND CHEROKEE",
-    "defect": "Se identificó la posibilidad de una falla en el mecanismo del bloqueo interno del reposacabezas que puede impedir que esto se bloquee en posición vertical.",
-    "risk": "Lesiones"
+    ]
   },
   {
     "row": 456,
@@ -5868,7 +6482,11 @@
     ],
     "product": "RAV4 HEV , LAND CRUISER, CROWN, RX, NX, LX, ES, GX",
     "defect": "Los vehículos  se encuentran equipados con una ECU de Asistencia al Estacionamiento, que es un componente del sistema de Monitor de Vista Panorámica (PVM) que muestra la imagen de la cámara trasera. En tal sentido, se detectó que existe un malfuncionamiento del software de dicha ECU, lo que podría provocar que la imagen de la cámara de retroceso se congele brevemente o que no se muestre durante la maniobra en reversa.",
-    "risk": "Lesiones"
+    "risk": "Lesiones",
+    "candidate_brands": [
+      "Lexus",
+      "Toyota"
+    ]
   },
   {
     "row": 458,
@@ -5890,12 +6508,16 @@
     "date_inferred": false,
     "company": "VW",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "Fox, Gol, Saveiro y Voyage",
     "defect": "En los vehiculos informados se ha detectado la posibilidad que un lote de generador de gas de los airbags, lado conductor, instalados en los vehículos comprendidos, pueda degradarse después de largos períodos de exposición de los vehículos a altas temperaturas, grandes amplitudes térmicas y alta humedad relativa del aire. Dichas condiciones pueden conducir a la ruptura del generador de gas.",
-    "risk": "Lesiones/muerte"
+    "risk": "Lesiones/muerte",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 460,
@@ -5904,12 +6526,16 @@
     "date_inferred": false,
     "company": "VW",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "SURAN",
     "defect": "En ciertos vehículos Suran, fabricados en un determinado período de tiempo, se ha detectado la posibilidad que un lote de generador de gas de los airbags, lado conductor, instalados en los vehículos comprendidos, pueda degradarse después de largos períodos de exposición de los vehículos a altas temperaturas, grandes amplitudes térmicas y alta humedad relativa del aire. Dichas condiciones pueden conducir a la ruptura del generador de gas",
-    "risk": "Lesiones/muerte"
+    "risk": "Lesiones/muerte",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 462,
@@ -6022,12 +6648,16 @@
     "date_inferred": false,
     "company": "VOLKSWAGEN",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "FOX, GOL, SURAN, SAVEIRO y VOYAGE",
     "defect": "En ciertos vehículos Fox, Suran, Gol, Saveiro y Voyage, fabricados en un determinado período de tiempo, se ha detectado la posibilidad que un lote de generador de gas de los airbags, lado conductor, instalados en los vehículos comprendidos, pueda degradarse después de largos períodos de exposición de los vehículos a altas temperaturas, grandes amplitudes térmicas y alta humedad relativa del aire. Dichas condiciones pueden conducir a la ruptura del generador de gas",
-    "risk": "Lesiones/muerte"
+    "risk": "Lesiones/muerte",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 472,
@@ -6036,12 +6666,16 @@
     "date_inferred": false,
     "company": "VOLKSWAGEN",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "FOX y SAVEIRO",
     "defect": "En ciertos vehículos Fox y Saveiro, fabricados en un determinado período de tiempo, se ha detectado la posibilidad que un lote de generador de gas de los airbags, lado conductor, instalados en los vehículos comprendidos, pueda degradarse después de largos períodos de exposición de los vehículos a altas temperaturas, grandes amplitudes térmicas y alta humedad relativa del aire. Dichas condiciones pueden conducir a la ruptura del generador de gas",
-    "risk": "Lesiones/muerte"
+    "risk": "Lesiones/muerte",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 474,
@@ -6050,12 +6684,16 @@
     "date_inferred": false,
     "company": "VOLKSWAGEN",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "SHARAN, PASSAT, POLO SEDAN",
     "defect": "Se ha detectado la posibilidad de que, en algunos vehículos Sharan, Passat y Polo Sedan, un lote de generadores de gas pueda degradarse después de largos períodos de exposición de los vehículos a altas temperaturas, grandes amplitudes térmicas y alta humedad relativa del aire.",
-    "risk": "Lesiones/muerte"
+    "risk": "Lesiones/muerte",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 477,
@@ -6103,15 +6741,18 @@
     "date_inferred": true,
     "company": "FCA AUTOMOBILES ARGENTINA SA",
     "brands": [
+      "RAM"
+    ],
+    "product": "Ram 1500",
+    "defect": "Posible mal funcionamiento del software del panel de instrumentos. Se identificó la posiblidad de una falla en el software del IPC, el panel de instrumentos puede estar apagado al arrancar o mientras se conduce.",
+    "risk": "Lesiones",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Ram 1500",
-    "defect": "Posible mal funcionamiento del software del panel de instrumentos. Se identificó la posiblidad de una falla en el software del IPC, el panel de instrumentos puede estar apagado al arrancar o mientras se conduce.",
-    "risk": "Lesiones"
+    ]
   },
   {
     "row": 482,
@@ -6120,15 +6761,18 @@
     "date_inferred": true,
     "company": "FCA AUTOMOBILES ARGENTINA SA",
     "brands": [
+      "RAM"
+    ],
+    "product": "Ram 1500 y 2500",
+    "defect": "Módulo de control de la columna de dirección.  Se ha identificado un posible defecto de fabricación en el módulo de control de la columna de dirección, el cual podría ocasionar que el airbag del lado del conductor no se despliegue correctamente ante una colisión frontal.",
+    "risk": "Lesiones/Muerte",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "Ram 1500 y 2500",
-    "defect": "Módulo de control de la columna de dirección.  Se ha identificado un posible defecto de fabricación en el módulo de control de la columna de dirección, el cual podría ocasionar que el airbag del lado del conductor no se despliegue correctamente ante una colisión frontal.",
-    "risk": "Lesiones/Muerte"
+    ]
   },
   {
     "row": 483,
@@ -6171,7 +6815,14 @@
     ],
     "product": "DOBLO, DOBLO CARGO, FIORINO, GRAND SIENA, NOVO PALIO, NOVO UNO, WRANGLER, 2500, 300 y CHARGER",
     "defect": "En ciertos vehículos un lote de generador de gas de los airbags, lado conductor, instalados en los vehículos comprendidos, pueda degradarse después de largos períodos de exposición de los vehículos a altas temperaturas, grandes amplitudes térmicas y alta humedad relativa del aire. Dichas condiciones pueden conducir a la ruptura del generador de gas. En caso de deflagración del sistema de airbag ante un accidente vial (con una desaceleración tal que produzca la apertura del airbag), el sistema puede proyectar fragmentos de metal dentro del vehículo.",
-    "risk": "Lesiones/muerte"
+    "risk": "Lesiones/muerte",
+    "candidate_brands": [
+      "Chrysler",
+      "Dodge",
+      "Fiat",
+      "Jeep",
+      "RAM"
+    ]
   },
   {
     "row": 486,
@@ -6206,12 +6857,15 @@
     "date_inferred": false,
     "company": "TOYOTA",
     "brands": [
-      "Lexus",
       "Toyota"
     ],
     "product": "LAND CRUISER",
     "defect": "Los vehículos involucrados están equipados con una transmisión automática de 10 velocidades que contiene solenoides lineales para controlar el cambio de marchas. Si se produce una falla en un solenoide bajo ciertas condiciones de manejo, la Unidad Electrónica de Control de la Transmisión (T‑ECU) y la ECU del Motor pueden no comunicar la falla, lo que podría resultar en un exceso de revoluciones de la transmisión en ciertas marchas",
-    "risk": "Lesiones"
+    "risk": "Lesiones",
+    "candidate_brands": [
+      "Lexus",
+      "Toyota"
+    ]
   },
   {
     "row": 489,
@@ -6225,7 +6879,11 @@
     ],
     "product": "JUMPER Y BOXER",
     "defect": "El cambio del tubo de retorno de combustible. Se identificó que algunos vehículos podrían presentar una eventual falla en la conexión de la tubería de retorno de combustible (diésel), lo que, en casos extremos, podría ocasionar una fuga.",
-    "risk": "Lesiones/Muerte"
+    "risk": "Lesiones/Muerte",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 490,
@@ -6325,13 +6983,16 @@
     "date_inferred": true,
     "company": "EXIMAR INTEL",
     "brands": [
-      "Jaguar",
-      "Land Rover",
       "Volvo"
     ],
     "product": "VOLVO",
     "defect": "Existe la posibilidad de sobrecalentamiento de la celda de la batería de alto voltaje (HV), debido a un posible inconveniente de hardware, cuando el nivel de carga es elevado, lo que podría derivar, en un escenario extremo, en un riesgo de incendio.",
-    "risk": "Lesiones"
+    "risk": "Lesiones",
+    "candidate_brands": [
+      "Jaguar",
+      "Land Rover",
+      "Volvo"
+    ]
   },
   {
     "row": 498,
@@ -6379,12 +7040,16 @@
     "date_inferred": true,
     "company": "VOLKSWAGEN",
     "brands": [
-      "Audi",
       "Volkswagen"
     ],
     "product": "POLO,NIVUS, TCROSS, TERA y VIRTUS",
     "defect": "Se ha detectado la posibilidad de que, en algunos vehículos Nivus, Polo, T-Cross, Tera y Virtus, el tablero de instrumentos quede apagado luego del arranque, sin posibilidad de recuperación.",
-    "risk": "Lesiones"
+    "risk": "Lesiones",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 502,
@@ -6411,7 +7076,11 @@
     ],
     "product": "C4 HYBRID y DS3 HYBRID",
     "defect": "Se ha identificado que los vehículos MHEV (Mild Hybrid Electric Vehicle) afectados pueden haber sido ensamblados con contacto o con una holgura insuficiente (inferior a 10 mm) entre el tubo del filtro de partículas de combustible y la tapa de protección del polo del generador de arranque de 48V.",
-    "risk": "Lesiones/muerte"
+    "risk": "Lesiones/muerte",
+    "candidate_brands": [
+      "Citroën",
+      "Peugeot"
+    ]
   },
   {
     "row": 505,
@@ -6420,15 +7089,18 @@
     "date_inferred": false,
     "company": "FCA AUTOMOBILES",
     "brands": [
+      "Fiat"
+    ],
+    "product": "FIAT 600 HYBRID",
+    "defect": "Tapa de protección del polo del generador de arranque de 48V. Pueden haber sido ensamblados con contacto o con una holgura insuficiente (inferior a 10 mm) entre el tubo del filtro de partículas de combustible y la tapa de protección del polo del generador de arranque de 48V.",
+    "risk": "Lesiones/muerte",
+    "candidate_brands": [
       "Chrysler",
       "Dodge",
       "Fiat",
       "Jeep",
       "RAM"
-    ],
-    "product": "FIAT 600 HYBRID",
-    "defect": "Tapa de protección del polo del generador de arranque de 48V. Pueden haber sido ensamblados con contacto o con una holgura insuficiente (inferior a 10 mm) entre el tubo del filtro de partículas de combustible y la tapa de protección del polo del generador de arranque de 48V.",
-    "risk": "Lesiones/muerte"
+    ]
   },
   {
     "row": 506,
@@ -6450,6 +7122,12 @@
     "date_inferred": true,
     "company": "STELLANTIS",
     "brands": [
+      "RAM"
+    ],
+    "product": "RAM 1500",
+    "defect": "Módulo de control del remolque. Se ha identificado la posibilidad de que se produzca el apagado involuntario de las luces indicadoras de dirección y/o de freno del remolque.",
+    "risk": "Lesiones",
+    "candidate_brands": [
       "Chrysler",
       "Citroën",
       "DS",
@@ -6458,10 +7136,7 @@
       "Jeep",
       "Peugeot",
       "RAM"
-    ],
-    "product": "RAM 1500",
-    "defect": "Módulo de control del remolque. Se ha identificado la posibilidad de que se produzca el apagado involuntario de las luces indicadoras de dirección y/o de freno del remolque.",
-    "risk": "Lesiones"
+    ]
   },
   {
     "row": 508,
@@ -6470,12 +7145,15 @@
     "date_inferred": true,
     "company": "TOYOTA",
     "brands": [
-      "Lexus",
-      "Toyota"
+      "Lexus"
     ],
     "product": "LEXUS",
     "defect": "Medidor combinado: El cuadro de instrumentos puede experimentar una falla de arranque, debido a un error de software del medidor combinado, que puede causar que la unidad de microcontrolador de gráficos 3D no se inicialice completamente, por lo que ciertas áreas de la pantalla no se muestren y que ciertos indicadores requeridos, como la presión de aceite del motor, la temperatura del refrigerante del motor y la carga eléctrica, y los mensajes de advertencia no sean mostrados cuando ocurre el problema, provocando la ausencia de imagen en el área de gráficos 3D.",
-    "risk": "Lesiones"
+    "risk": "Lesiones",
+    "candidate_brands": [
+      "Lexus",
+      "Toyota"
+    ]
   },
   {
     "row": 509,
@@ -6614,12 +7292,16 @@
     "date_inferred": false,
     "company": "VOLKSWAGEN",
     "brands": [
-      "Audi",
-      "Volkswagen"
+      "Audi"
     ],
     "product": "AUDI Q8 E-TRON y ETRON",
     "defect": "En vehículos Audi fabricados en un determinado periodo de tiempo es posible que la unión atornillada de la varilla de empuje entre el pedal del freno y el servofreno no se haya ejecutado conforme a las especificaciones técnicas. En caso de que dicha unión presentara una desviación respecto de las especificaciones, el conductor podría percibir un aumento del juego libre del pedal y/o la aparición de ruidos en su accionamiento.",
-    "risk": "Lesiones"
+    "risk": "Lesiones",
+    "candidate_brands": [
+      "Audi",
+      "Seat",
+      "Volkswagen"
+    ]
   },
   {
     "row": 527,
@@ -6667,6 +7349,12 @@
     "date_inferred": false,
     "company": "STELLANTIS",
     "brands": [
+      "RAM"
+    ],
+    "product": "RAM 1500",
+    "defect": "Anclaje del cinturón de seguridad de la segunda fila. Se ha identificado la posibilidad de una falla en la fijación de los cinturones de seguridad de los asientos traseros. La falla en la fijación, podría ocasionar la falta de retención de los ocupantes en caso de una frenada brusca o accidente.",
+    "risk": "Lesiones y Laceraciones/Muerte",
+    "candidate_brands": [
       "Chrysler",
       "Citroën",
       "DS",
@@ -6675,10 +7363,7 @@
       "Jeep",
       "Peugeot",
       "RAM"
-    ],
-    "product": "RAM 1500",
-    "defect": "Anclaje del cinturón de seguridad de la segunda fila. Se ha identificado la posibilidad de una falla en la fijación de los cinturones de seguridad de los asientos traseros. La falla en la fijación, podría ocasionar la falta de retención de los ocupantes en caso de una frenada brusca o accidente.",
-    "risk": "Lesiones y Laceraciones/Muerte"
+    ]
   },
   {
     "row": 531,
@@ -6687,6 +7372,12 @@
     "date_inferred": false,
     "company": "STELLANTIS",
     "brands": [
+      "Jeep"
+    ],
+    "product": "JEEP GLADIATOR y WRANGLER",
+    "defect": "Bomba de Dirección Electrohidráulica. Se identificó la posibilidad de una falla en el funcionamiento del circuito eléctrico de la Bomba de Dirección Electrohidráulica. En casos extremos, podría generar un principio de incendio.",
+    "risk": "Lesiones y Laceraciones/Muerte",
+    "candidate_brands": [
       "Chrysler",
       "Citroën",
       "DS",
@@ -6695,10 +7386,7 @@
       "Jeep",
       "Peugeot",
       "RAM"
-    ],
-    "product": "JEEP GLADIATOR y WRANGLER",
-    "defect": "Bomba de Dirección Electrohidráulica. Se identificó la posibilidad de una falla en el funcionamiento del circuito eléctrico de la Bomba de Dirección Electrohidráulica. En casos extremos, podría generar un principio de incendio.",
-    "risk": "Lesiones y Laceraciones/Muerte"
+    ]
   },
   {
     "row": 532,

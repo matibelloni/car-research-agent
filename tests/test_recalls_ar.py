@@ -1,5 +1,5 @@
 import pytest
-from recalls_ar import get_recalls_ar
+from recalls_ar import get_recalls_ar, query_brands
 from scripts.ingest_recalls import normalize
 
 
@@ -35,3 +35,11 @@ def test_multi_word_keyword_matches_across_fields():
         text = normalize(recall["product"] + " " + recall["defect"])
         assert "gol" in text
         assert "airbag" in text
+
+
+@pytest.mark.parametrize(
+    "name, expected",
+    [("VW", ["Volkswagen"]), ("Toyota", ["Toyota"]), ("Mercedes", ["Mercedes-Benz"])],
+)
+def test_query_resolves_single_brand(name, expected):
+    assert query_brands(name) == expected

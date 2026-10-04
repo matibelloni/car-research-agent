@@ -48,7 +48,7 @@ def test_parse_date_at_switch_uses_day_month():
         ),
         ("ram", ["RAM"]),
         ("Eximar (Volvo)", sorted(["Volvo", "Jaguar", "Land Rover"])),
-        ("VOLKSWAGEN ARGENTINA SA", ["Audi", "Volkswagen"]),
+        ("VOLKSWAGEN ARGENTINA SA", ["Audi", "Seat", "Volkswagen"]),
     ],
 )
 def test_brands_for(company, expected):
