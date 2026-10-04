@@ -230,6 +230,11 @@ def run_agent_stream(question: str) -> Iterator[dict]:
                     elif content.name == "get_recalls_ar":
                         brand = content.input["brand"]
                         keyword = content.input.get("keyword")
+                        yield {
+                            "type": "recalls_lookup",
+                            "brand": brand,
+                            "keyword": keyword,
+                        }
                         span = root.start_observation(
                             name="search",
                             as_type="span",

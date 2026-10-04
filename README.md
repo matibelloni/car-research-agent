@@ -92,7 +92,7 @@ fastapi dev api.py
 App at `http://localhost:8000`, interactive API docs at `http://localhost:8000/docs`.
 
 ```bash
-python run_evals.py     # run the eval suite
+python -m evals.run_evals     # run the eval suite (from the project root)
 ```
 
 ## Known limitations

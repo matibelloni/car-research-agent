@@ -1,5 +1,5 @@
 from agent import run_agent
-from eval_answers import evaluate, CITATIONS_PROMPT, COMPARABILITY_PROMPT
+from evals.eval_answers import evaluate, CITATIONS_PROMPT, COMPARABILITY_PROMPT
 from rich import print as rprint
 import statistics
 
