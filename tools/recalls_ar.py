@@ -36,7 +36,8 @@ RECALLS_AR_TOOL = {
                 "type": "string",
                 "description": (
                     "Optional. One or more short words to narrow the results; every "
-                    "word must appear in the product or defect text. Use a model "
+                    "word must appear as a whole word (plurals also match) in the "
+                    "product or defect text. Use a model "
                     "('Cronos', 'Amarok'), a defect type ('airbag', 'freno'), or both "
                     "when the user asks about a specific model AND a defect "
                     "(e.g. 'Gol airbag'). The data is in Spanish: pass defect "
@@ -72,6 +73,18 @@ def query_brands(name: str) -> list[str]:
     return sorted(found)
 
 
+def matches_word(word: str, text: str) -> bool:
+    """Whole-word match, so "gol" skips "Golf" and "e" (as in "Clase E") skips
+    every word containing an e. Words of 3+ letters match in singular or plural
+    either way ("freno" <-> "frenos"); shorter ones match exactly, or "e" would
+    match "es"."""
+    if len(word) < 3:
+        return re.search(rf"\b{re.escape(word)}\b", text) is not None
+    stems = {word, word.removesuffix("s"), word.removesuffix("es")}
+    alternatives = "|".join(re.escape(stem) for stem in stems if len(stem) >= 3)
+    return re.search(rf"\b(?:{alternatives})(?:s|es)?\b", text) is not None
+
+
 def get_recalls_ar(brand: str, keyword: str | None = None) -> dict:
     target_brands = query_brands(brand)
     if not target_brands:
@@ -88,7 +101,8 @@ def get_recalls_ar(brand: str, keyword: str | None = None) -> dict:
             r
             for r in recalls
             if all(
-                word in normalize(r["product"] + " " + r["defect"]) for word in words
+                matches_word(word, normalize(r["product"] + " " + r["defect"]))
+                for word in words
             )
         ]
     recalls.sort(key=lambda r: r["date"] or "", reverse=True)

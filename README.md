@@ -96,6 +96,8 @@ Checks how the agent uses `get_recalls_ar`, mostly with deterministic checks; th
 - **Total** (deterministic) — the answer states how many recalls the lookup found
 - **Behavior** (LLM judge, some cases) — no invented recalls when there are none, and never claiming the user's specific car is affected
 
+Latest run (12 cases × 3 runs, 2026-10-05): lookup **36/36**, total **30/30**, behavior **9/9**. Cases where a check doesn't apply (e.g. no total for an unknown brand) aren't counted.
+
 ### Calibrating the judges
 
 Each suite ships hand-written answers with a known verdict. Before trusting a judge on the agent, run it on those: if it disagrees, the criterion gets fixed first.
@@ -149,5 +151,5 @@ python -m scripts.resolve_brands     # narrow multi-brand recalls with an LLM (c
 
 - **It can't tell whether a specific car is affected.** Only 14 of the 486 recalls mention a model year, and recalls cover production ranges, not model years. The agent is instructed to send the user to check their VIN instead of guessing, and an eval case checks that it does.
 - **The source itself is inconsistent.** Row 176 lists Audi models (A4, A6, A8, TT) under Peugeot Citroën Argentina as the publisher. Brand mapping is publisher-based, so that recall is tagged Peugeot/Citroën and an Audi lookup misses it.
-- **Keyword search over-includes.** Every word of the keyword must appear as a substring, so short words match far too much: "Clase E" returns 43 of the 85 Mercedes-Benz recalls, and only 16 of them mention the E-Class (the lone "e" matches almost any text). The model filters the rows when it answers, but the result is noisier and uses more tokens than it should.
+- **Keyword search is literal.** Each keyword word must appear as a whole word, in singular or plural. This used to be a substring match, where "Clase E" returned 43 of the 85 Mercedes-Benz recalls — the lone "e" matched almost any text — and "Gol" returned Golf recalls; whole-word matching brought "Clase E" down to exactly the 16 E-Class recalls. It still misses other word forms and spellings: "freno" skips 5 recalls that only say "frenado", and "C300" doesn't match "C 300".
 - **Some multi-brand recalls stay ambiguous.** When a publisher covers several brands (Peugeot Citroën, Toyota/Lexus, FCA, Volkswagen Argentina), an LLM narrows each recall down using the product text. In 25 rows the text isn't enough, so they keep every candidate brand on purpose — mostly Peugeot Citroën (14) and Toyota/Lexus (6). A Citroën lookup can return a Peugeot-only recall; over-including is safer than silently dropping a recall.

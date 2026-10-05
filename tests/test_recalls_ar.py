@@ -1,5 +1,5 @@
 import pytest
-from tools.recalls_ar import get_recalls_ar, query_brands
+from tools.recalls_ar import get_recalls_ar, matches_word, query_brands
 
 FAKE_RECALLS = [
     {
@@ -89,3 +89,23 @@ def test_vw_excludes_audi_rows():
     result = get_recalls_ar("VW")
     assert result["total"] == 2
     assert result["recalls"][0]["product"] == "Gol"
+
+
+@pytest.mark.parametrize(
+    "word, text, expected",
+    [
+        ("gol", "gol trend", True),
+        ("gol", "golf variant", False),  # a different model
+        ("freno", "falla en los frenos", True),  # plural
+        ("frenos", "falla en el freno", True),  # and back to singular
+        ("motores", "falla del motor", True),
+        ("clases", "clase c", True),
+        ("airbag", "airbags delanteros", True),
+        ("e", "clases c y e", True),
+        ("e", "clase g", False),  # an "e" inside a word doesn't count
+        ("e", "clase c es la afectada", False),  # short words get no plural
+        ("t-cross", "nuevo t-cross", True),
+    ],
+)
+def test_matches_word(word, text, expected):
+    assert matches_word(word, text) is expected

@@ -176,8 +176,10 @@ CALIBRATION = [
 
 
 class Verdict(BaseModel):
-    passed: bool
+    # Reasoning first: fields are generated in order, so the verdict comes
+    # after the analysis instead of being justified after the fact.
     reasoning: str
+    passed: bool
 
 
 JUDGE_PROMPT = """You are a strict evaluator of a car research assistant.
