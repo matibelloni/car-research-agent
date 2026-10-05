@@ -66,15 +66,17 @@ There are two eval suites in [`evals/`](evals/), both on hand-written datasets.
 
 General car questions scored by an LLM judge on two independent criteria:
 
-- **Citations** — every numeric fact must carry its source URL (judged by Sonnet 5.5)
+- **Citations** — every concrete data point (figures, including those inside advice, and recall facts) must have its source right after it: a URL for web facts, "Defensa del Consumidor" plus publication date for recalls; advice without figures, numbers that restate the question, and unit conversions of a sourced figure need none (judged by Sonnet 5.5)
 - **Comparability** — compared figures must share the same unit and measurement basis (judged by Haiku 4.5)
 
-| Metric | Mean | Range |
+| Metric | Baseline | Per-figure citation rule |
 |---|---|---|
-| Citations | 3.40 / 5 | 2.60 – 4.20 |
-| Comparability | 4.13 / 5 | 3.80 – 4.40 |
+| Citations | 3.53 / 5 (3.40 – 3.80) | 4.20 / 5 (3.80 – 4.60) |
+| Comparability | 3.87 / 5 (3.80 – 4.00) | 4.47 / 5 (4.40 – 4.60) |
 
-*3 runs × 5 questions, measured on 2026-10-05 with the current judges. The earlier figures — citations 3.87 (3.60 – 4.20), comparability 4.53 (4.20 – 5.00) — came from a Haiku-only judge that calibration later showed was too lenient on citations (see below), so the citations drop is mostly the stricter judge, not a worse agent. Comparability kept the same judge model and prompt, but its judge now reasons before scoring and web results change over time, so that smaller drop can't be pinned on one cause.*
+*3 runs × 5 questions each, measured on 2026-10-05, both columns with the same judges (citations prompt including the restated-question and variant-name rules, which calibration showed the earlier prompt scored wrong). The only change between columns is the agent's system prompt: it now spells out that every bullet with a figure ends with its own URL and that summary figures and ranges need a source too. The citation ranges only touch at 3.80, and the Corolla question went from 5/3/3 to 5/5/5. Comparability's judge and prompt didn't change, so its rise comes from the agent or from web results drifting between runs. A citation rule shouldn't move it, so it isn't claimed as an effect. The recalls suite still passes every case after the change.*
+
+*Earlier figures, each with a judge that has since been replaced, so not comparable: citations 3.87 (3.60 – 4.20) with a Haiku-only judge that was too lenient, then 3.40 (2.60 – 4.20) with Sonnet before the restated-question rule.*
 
 Identical runs varied up to 6× in cost, so every configuration is measured across multiple runs and reported as a range — a single run proves nothing.
 

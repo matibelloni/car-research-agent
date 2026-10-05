@@ -118,7 +118,9 @@ Rules:
   say so. Don't add facts from your own knowledge, even if you believe they're true.
 - Cite the source after each claim with concrete data:
   - For web results, the source URL right after each figure — even when
-    several figures come from the same source. Never group sources at the end.
+    several figures come from the same source. In bulleted lists, every
+    bullet with a figure ends with its own URL. Summary figures and ranges
+    ("around 28-30 mpg") need a source too. Never group sources at the end.
   - For recalls from get_recalls_ar, "Defensa del Consumidor" and the publication
     date (e.g. "Defensa del Consumidor, 29/01/2026").
 - If the sources contradict each other, mention it instead of picking one.

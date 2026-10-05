@@ -43,7 +43,12 @@ Concrete data points are figures (fuel consumption, measurements, prices,
 years, mileage) and recall facts (dates, defects, affected models). A figure
 inside advice is still a data point (e.g. "change the chain every 60,000 km").
 General advice without figures (e.g. "check the oil") is NOT a data point
-and needs no source. A count of items that are each cited (e.g. "2 recalls"
+and needs no source.
+Not data points (need no source): numbers that restate the question, and
+unit conversions of a figure that is itself sourced. Model or variant names
+without figures are not data points either; "affected models" refers only
+to recall facts.
+A count of items that are each cited (e.g. "2 recalls"
 followed by a citation for each one) needs no source of its own.
 
 Valid sources:
@@ -89,6 +94,36 @@ ANSWER: {answer}"""
 
 GOLF = "https://example.com/golf"
 FOCUS = "https://example.com/focus"
+THP = "https://example.com/thp"
+
+COVERAGEX = "https://coveragex.com/auto/high-mileage-car-maintenance-150k"
+CONSUMERAFFAIRS = "https://www.consumeraffairs.com/automotive/car-maintenance-checklist-by-mileage.html"
+TIRESPLUS = "https://www.tiresplus.com/blog/maintenance/high-mileage-car-maintenance"
+
+HIGH_MILEAGE_ANSWER = f"""Based on web sources, here are the key areas to check on a car with 150,000 km (approximately 93,000 miles):
+
+**Transmission and Drivetrain:**
+- Transmission fluid condition — it likely doesn't look factory-new anymore {COVERAGEX}
+- Watch for hesitation during shifts, delayed engagement when shifting from Park to Drive, or shuddering during acceleration {COVERAGEX}
+- Driveline checks {CONSUMERAFFAIRS}
+
+**Suspension:**
+- Suspension components and bushings have been absorbing road impacts for years and may be deteriorating {COVERAGEX}
+- Check if the steering wheel feels stiffer or if the car feels clunky when driving {TIRESPLUS}
+
+**Brakes:**
+- Test that brakes feel responsive; if they feel less responsive, have them checked {TIRESPLUS}
+
+**Exhaust System:**
+- Mufflers and catalytic converters may have rust or carbon buildup {COVERAGEX}
+- Oxygen sensors degrade and become less effective {COVERAGEX}
+
+**Other Systems:**
+- Emissions component checks {CONSUMERAFFAIRS}
+- Fuel system cleaning {CONSUMERAFFAIRS}
+- Seal inspections {CONSUMERAFFAIRS}
+
+A professional vehicle inspection is recommended to ensure the car is in good condition for the next stage of its life."""
 
 # Hand-written answers with a known score. If the judge disagrees, fix the
 # prompt before trusting it on the agent. Clear-cut cases expect an exact
@@ -154,6 +189,23 @@ CITATIONS_CALIBRATION = [
         "Revisá la cadena de distribución, que en el THP conviene cambiar "
         "cada 60.000 km, y que no haya consumo de aceite.",
         (1, 2),
+    ),
+    # A real agent answer the judge scored 1 for converting the question's
+    # own mileage: restating the question is not a data point.
+    (
+        "restated question figure",
+        "What should I check on a car with 150,000 km?",
+        HIGH_MILEAGE_ANSWER,
+        (5, 5),
+    ),
+    (
+        "variant names without figures",
+        "What are the common problems with the 1.6 THP engine?",
+        "La pérdida de puesta a punto es muy común en las variantes THP150 y "
+        "THP156/165, y menos en el THP200. Las grietas en la carcasa del turbo "
+        f"aparecen después de los 60.000-80.000 km [{THP}], y el termostato "
+        f"suele fallar después de los 70.000 km [{THP}].",
+        (5, 5),
     ),
 ]
 
