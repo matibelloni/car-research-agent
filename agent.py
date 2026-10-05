@@ -130,8 +130,10 @@ Rules:
 - When reporting recalls, always state how many were found in total. If you
   summarize or list only some of them, say how many you're leaving out."""
 
+MODEL = "claude-haiku-4-5"
 MAX_ITERATIONS = 10
 TOKEN_BUDGET = 50_000
+MAX_OUTPUT_TOKENS = 2000
 
 
 def run_agent_stream(question: str) -> Iterator[dict]:
@@ -142,12 +144,12 @@ def run_agent_stream(question: str) -> Iterator[dict]:
         searches = 0
         for i in range(MAX_ITERATIONS):
             gen = root.start_observation(
-                name=f"llm-call-{i + 1}", as_type="generation", model="claude-haiku-4-5"
+                name=f"llm-call-{i + 1}", as_type="generation", model=MODEL
             )
             try:
                 with claude.messages.stream(
-                    model="claude-haiku-4-5",
-                    max_tokens=2000,
+                    model=MODEL,
+                    max_tokens=MAX_OUTPUT_TOKENS,
                     tools=TOOLS,
                     messages=messages,
                     system=SYSTEM,
@@ -202,7 +204,12 @@ def run_agent_stream(question: str) -> Iterator[dict]:
                 return
 
             if response.stop_reason != "tool_use":
-                error = f"unexpected_stop: {response.stop_reason}"
+                # A truncated answer reads like a complete one, so it's an error,
+                # with its own code so the client can say what happened.
+                if response.stop_reason == "max_tokens":
+                    error = "answer_too_long"
+                else:
+                    error = f"unexpected_stop: {response.stop_reason}"
                 root.update(output=error, level="ERROR", status_message=error)
                 yield {
                     "type": "result",

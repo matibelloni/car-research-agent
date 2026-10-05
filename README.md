@@ -16,10 +16,11 @@ question → [agent loop] → search → read → decide if more is needed → a
 
 The model decides **what** to search, **how many times**, and **when it has enough**. That loop is what makes it an agent rather than a fixed pipeline: a single-shot RAG would search once with the raw question, which is a poor search query.
 
-The agent has two tools:
+The agent has three tools:
 
 - **`search_web`** — Tavily web search
 - **`convert_units`** — unit conversion done in code. The model used to convert mpg to L/100km on its own and got it wrong; arithmetic doesn't get fixed by prompting, it gets taken away from the model.
+- **`get_recalls_ar`** — official vehicle recalls published in Argentina by Defensa del Consumidor, from a local dataset built by `scripts/ingest_recalls.py`
 
 ## Architecture
 
@@ -55,7 +56,7 @@ The agent loop exists **once**, as a generator that emits `searching`, `token` a
 
 **Tracing inside a generator uses manual observations.** OpenTelemetry context managers lose their context across `yield` when FastAPI iterates the generator in a threadpool. The fix is explicit `start_observation()` calls with `try/finally`, so spans close even when the client disconnects mid-stream.
 
-**Endpoints that spend money are authenticated.** Keeping keys out of the repo stops people from *reading* them; it doesn't stop them from *using* a public endpoint that uses them.
+**Endpoints that spend money are authenticated.** Keeping keys out of the repo stops people from *reading* them; it doesn't stop them from *using* a public endpoint that uses them. For the same reason, questions are capped at 1,000 characters and rejected when empty, before they reach the model.
 
 ## Measuring quality
 
@@ -116,10 +117,25 @@ python -m evals.answers --calibrate      # check a judge against hand-written an
 python -m evals.recalls --calibrate
 ```
 
+Rebuilding the recalls dataset (`data/recalls_clean.json` is committed, so this is only needed to refresh it):
+
+```bash
+python -m scripts.ingest_recalls     # download the Defensa del Consumidor sheet and clean it
+python -m scripts.resolve_brands     # narrow multi-brand recalls with an LLM (cached)
+```
+
 ## Known limitations
 
 - **Synchronous streaming.** Each open stream holds a worker thread for most of its duration (the default pool is 40). Fine for a demo; real traffic would need an async rewrite, since the agent spends almost all its time waiting on external APIs.
 - **No conversation memory.** Every question starts from scratch. The design is clear — store only question and final answer per turn, not the search payloads — but it isn't built.
 - **Source quality is unfiltered.** The agent has cited dealership pages and Instagram reels as authorities.
 - **Measurement bases can still get mixed.** It once compared one car's curb weight against another's gross vehicle weight. The comparability eval shows this is uncommon, not solved.
+- **Credits live in memory.** Each API key's credits reset when the server restarts, and a credit is spent before the agent runs, so a request that fails on the provider's side still costs one.
 - **Cold starts** on the free tier.
+
+### Recalls data
+
+- **It can't tell whether a specific car is affected.** Only 14 of the 486 recalls mention a model year, and recalls cover production ranges, not model years. The agent is instructed to send the user to check their VIN instead of guessing, and an eval case checks that it does.
+- **The source itself is inconsistent.** Row 176 lists Audi models (A4, A6, A8, TT) under Peugeot Citroën Argentina as the publisher. Brand mapping is publisher-based, so that recall is tagged Peugeot/Citroën and an Audi lookup misses it.
+- **Keyword search over-includes.** Every word of the keyword must appear as a substring, so short words match far too much: "Clase E" returns 43 of the 85 Mercedes-Benz recalls, and only 16 of them mention the E-Class (the lone "e" matches almost any text). The model filters the rows when it answers, but the result is noisier and uses more tokens than it should.
+- **Some multi-brand recalls stay ambiguous.** When a publisher covers several brands (Peugeot Citroën, Toyota/Lexus, FCA, Volkswagen Argentina), an LLM narrows each recall down using the product text. In 25 rows the text isn't enough, so they keep every candidate brand on purpose — mostly Peugeot Citroën (14) and Toyota/Lexus (6). A Citroën lookup can return a Peugeot-only recall; over-including is safer than silently dropping a recall.

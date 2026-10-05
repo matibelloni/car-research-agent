@@ -4,8 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Car Research Agent</title>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
+    <!-- Pinned with SRI: DOMPurify is the XSS defense, so it must not change silently. -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/marked@15.0.12/marked.min.js"
+      integrity="sha384-948ahk4ZmxYVYOc+rxN1H2gM1EJ2Duhp7uHtZ4WSLkV4Vtx5MUqnV+l7u9B+jFv+"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/dompurify@3.4.16/dist/purify.min.js"
+      integrity="sha384-a7SzOxErzJ3ZpQz0zJ32d67dSitNzPcbfybc/ykU9KJhMgZkwqfSxlhhdJRS+XGL"
+      crossorigin="anonymous"
+    ></script>
     <style>
       :root {
         --bg: #f6f7f9;
@@ -127,7 +136,8 @@
     <main>
       <h1>Car Research Agent</h1>
       <p class="subtitle">
-        Answers car questions by searching the web and citing every source.
+        Answers car questions by searching the web and official Argentine
+        recall data, citing every source.
       </p>
 
       <div class="card">
@@ -135,6 +145,7 @@
         <textarea
           id="question"
           rows="3"
+          maxlength="1000"
           placeholder="Is a 2015 Golf or a 2016 Focus better for city driving?"
         ></textarea>
         <button id="ask">Ask</button>
@@ -155,6 +166,8 @@
         budget_exceeded:
           "This question needed too much research. Try a narrower one.",
         max_iterations: "Couldn't reach an answer. Try rephrasing.",
+        answer_too_long:
+          "The answer got too long and was cut off. Try a narrower question.",
       };
       const $ = (id) => document.getElementById(id);
       let answerText = "";
@@ -190,7 +203,10 @@
             body: JSON.stringify({ question: $("question").value }),
           });
 
-          if (res.status === 401) throw new Error("Invalid API key");
+          if (res.status === 401)
+            throw new Error("Invalid API key, or no credits left");
+          if (res.status === 422)
+            throw new Error("Write a question (up to 1000 characters).");
           if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
           const reader = res.body.getReader();
@@ -222,6 +238,15 @@
         if (event.type === "searching") {
           addChip(`🔍 ${event.query}`);
           answerText = ""; // text before a search was preamble
+          renderAnswer();
+        } else if (event.type === "recalls_lookup") {
+          const what = [event.brand, event.keyword].filter(Boolean).join(" ");
+          addChip(
+            event.error
+              ? `📋 Recalls: ${what} (brand not in the data)`
+              : `📋 Recalls: ${what} (${event.total})`,
+          );
+          answerText = "";
           renderAnswer();
         } else if (event.type === "token") {
           answerText += event.text;

@@ -1,3 +1,4 @@
+import pytest
 from fastapi.testclient import TestClient
 
 import api
@@ -21,6 +22,21 @@ def test_ask_requires_api_key():
 def test_ask_rejects_missing_question():
     response = client.post("/ask", json={}, headers=AUTH)
     assert response.status_code == 422
+
+
+@pytest.mark.parametrize("question", ["", "   ", "x" * (api.MAX_QUESTION_CHARS + 1)])
+def test_ask_rejects_empty_or_oversized_question(monkeypatch, question):
+    monkeypatch.setattr(api, "run_agent", lambda q: pytest.fail("agent should not run"))
+
+    response = client.post("/ask", json={"question": question}, headers=AUTH)
+
+    assert response.status_code == 422
+
+
+def test_index_serves_the_frontend():
+    response = client.get("/")
+    assert response.status_code == 200
+    assert "Car Research Agent" in response.text
 
 
 def test_ask_returns_result(monkeypatch):

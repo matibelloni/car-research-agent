@@ -1,6 +1,8 @@
 from types import SimpleNamespace as NS
 from unittest.mock import MagicMock
 
+import json
+
 import httpx
 import pytest
 from anthropic import RateLimitError
@@ -50,9 +52,12 @@ class FakeMessages:
     def __init__(self, responses):
         self.responses = list(responses)
         self.calls = 0
+        # Messages of each call, copied before the agent appends more.
+        self.sent = []
 
     def stream(self, **kwargs):
         self.calls += 1
+        self.sent.append(list(kwargs["messages"]))
         next_item = self.responses.pop(0)
         if isinstance(next_item, Exception):
             raise next_item
@@ -177,3 +182,62 @@ def test_unknown_tool_returns_error_to_the_model(monkeypatch):
 
     assert result["answer"] == "ok"
     assert fake.calls == 2
+
+
+def last_tool_result(fake):
+    return fake.sent[-1][-1]["content"][0]
+
+
+def test_recalls_lookup_emits_event_and_feeds_the_model(monkeypatch):
+    fake = script(
+        monkeypatch,
+        message(
+            [tool_block("get_recalls_ar", {"brand": "VW", "keyword": "Gol"})],
+            "tool_use",
+        ),
+        message([text_block("Hay 1 recall")], "end_turn"),
+    )
+    lookup = {"total": 1, "shown": 1, "recalls": [{"product": "Gol"}]}
+    monkeypatch.setattr(agent, "get_recalls_ar", lambda brand, keyword: lookup)
+
+    events = list(agent.run_agent_stream("recalls gol?"))
+
+    assert {
+        "type": "recalls_lookup",
+        "brand": "VW",
+        "keyword": "Gol",
+        "total": 1,
+        "error": None,
+    } in events
+    result = last_tool_result(fake)
+    assert json.loads(result["content"]) == lookup
+    assert result["is_error"] is False
+
+
+def test_bad_unit_conversion_is_a_tool_error_not_a_crash(monkeypatch):
+    fake = script(
+        monkeypatch,
+        message(
+            [
+                tool_block(
+                    "convert_units", {"unit_from": "foo", "unit_to": "km", "value": 1}
+                )
+            ],
+            "tool_use",
+        ),
+        message([text_block("ok")], "end_turn"),
+    )
+
+    result = final_result(list(agent.run_agent_stream("hi")))
+
+    assert result["answer"] == "ok"
+    assert last_tool_result(fake)["is_error"] is True
+
+
+def test_truncated_answer_is_an_error(monkeypatch):
+    script(monkeypatch, message([text_block("The Golf is bet")], "max_tokens"))
+
+    result = final_result(list(agent.run_agent_stream("hi")))
+
+    assert result["error"] == "answer_too_long"
+    assert result["answer"] is None

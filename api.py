@@ -1,5 +1,7 @@
+from pathlib import Path
+from typing import Annotated
 from fastapi import FastAPI, HTTPException, Header, responses, Depends
-from pydantic import BaseModel
+from pydantic import BaseModel, StringConstraints
 from agent import run_agent, run_agent_stream, AgentResult
 import os
 import json
@@ -19,15 +21,26 @@ ERROR_STATUS = {
 }
 
 
+# Every question costs a credit and tokens: reject empty and oversized ones
+# before they reach the model.
+MAX_QUESTION_CHARS = 1000
+INDEX_HTML = Path(__file__).resolve().parent / "static" / "index.html"
+
+
 class AskRequest(BaseModel):
-    question: str
+    question: Annotated[
+        str,
+        StringConstraints(
+            strip_whitespace=True, min_length=1, max_length=MAX_QUESTION_CHARS
+        ),
+    ]
 
 
 def is_admin(x_api_key: str | None) -> bool:
     return bool(ADMIN_API_KEY) and x_api_key == ADMIN_API_KEY
 
 
-def verify_api_key(x_api_key: str = Header(None)) -> str:
+def verify_api_key(x_api_key: str | None = Header(None)) -> str:
     if is_admin(x_api_key):
         return x_api_key
     credits = API_KEY_CREDITS.get(x_api_key, 0)
@@ -68,4 +81,4 @@ def ask_stream(request: AskRequest, x_api_key: str = Depends(verify_api_key)):
 
 @app.get("/")
 def index():
-    return responses.FileResponse("static/index.html")
+    return responses.FileResponse(INDEX_HTML)
