@@ -75,7 +75,8 @@ Rules:
 - Answer ONLY with information from your tool results. If something isn't there,
   say so. Don't add facts from your own knowledge, even if you believe they're true.
 - Cite the source after each claim with concrete data:
-  - For web results, the source URL.
+  - For web results, the source URL right after each figure — even when
+    several figures come from the same source. Never group sources at the end.
   - For recalls from get_recalls_ar, "Defensa del Consumidor" and the publication
     date (e.g. "Defensa del Consumidor, 29/01/2026").
 - If the sources contradict each other, mention it instead of picking one.
@@ -230,11 +231,6 @@ def run_agent_stream(question: str) -> Iterator[dict]:
                     elif content.name == "get_recalls_ar":
                         brand = content.input["brand"]
                         keyword = content.input.get("keyword")
-                        yield {
-                            "type": "recalls_lookup",
-                            "brand": brand,
-                            "keyword": keyword,
-                        }
                         span = root.start_observation(
                             name="search",
                             as_type="span",
@@ -242,6 +238,13 @@ def run_agent_stream(question: str) -> Iterator[dict]:
                         )
                         try:
                             result = get_recalls_ar(brand, keyword)
+                            yield {
+                                "type": "recalls_lookup",
+                                "brand": brand,
+                                "keyword": keyword,
+                                "total": result.get("total"),
+                                "error": result.get("error"),
+                            }
                             span.update(
                                 output=result.get("error")
                                 or f"{result['total']} recalls"

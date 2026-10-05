@@ -28,7 +28,15 @@ ureg = pint.UnitRegistry()
 # Short/lowercase forms the model tends to send that pint's case-sensitive
 # registry doesn't resolve on its own (e.g. "kw" bare would otherwise fail,
 # since only "kW" is defined).
-ALIASES = {"f": "degF", "c": "degC", "kw": "kW"}
+# Torque units are often written with a hyphen ("lb-ft", "N-m"), which pint
+# parses as subtraction and crashes on, so they're mapped to explicit products.
+ALIASES = {
+    "f": "degF",
+    "c": "degC",
+    "kw": "kW",
+    **dict.fromkeys(["lb-ft", "lb ft", "lbft", "lb·ft", "ft-lb", "ft·lb"], "lbf*ft"),
+    **dict.fromkeys(["nm", "n-m", "n m", "n·m", "n*m"], "N*m"),
+}
 
 
 def convert_units(unit_from: str, unit_to: str, value: float) -> str:
@@ -43,7 +51,9 @@ def convert_units(unit_from: str, unit_to: str, value: float) -> str:
 
     try:
         result = ureg.Quantity(value, unit_from).to(unit_to)
-    except (pint.errors.UndefinedUnitError, pint.errors.DimensionalityError):
+    # TypeError covers unit strings pint can't parse (e.g. stray operators),
+    # so a bad unit becomes a tool error the model can recover from.
+    except (pint.errors.PintError, TypeError):
         raise ValueError(f"No conversion available from '{unit_from}' to '{unit_to}'")
 
     # Round before formatting: near-zero results (e.g. 32 degF -> 0 degC) can

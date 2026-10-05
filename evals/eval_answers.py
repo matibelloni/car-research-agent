@@ -14,13 +14,23 @@ class Evaluation(BaseModel):
 
 CITATIONS_PROMPT = """You are a strict evaluator of research assistant answers.
 
-CRITERION: every concrete numeric fact (fuel consumption, measurements,
-prices, years) must be accompanied by its source URL.
+CRITERION: every concrete data point must have its source right after it.
+Concrete data points are figures (fuel consumption, measurements, prices,
+years, mileage) and recall facts (dates, defects, affected models).
+General advice without figures (e.g. "check the oil") is NOT a data point
+and needs no source.
+
+Valid sources:
+- For facts from the web: the source URL, placed right after the data point.
+  A list of URLs at the end of the answer does NOT count for any data point.
+- For recalls from the Argentine consumer protection agency: "Defensa del
+  Consumidor" plus the publication date. These have no URL, and that's fine.
 
 Score:
-5 = every numeric fact has a source
-3 = some have it, others don't
-1 = no fact has a source
+5 = every data point has a valid source right after it, OR the answer
+    contains no data points at all
+3 = some data points have it, others don't
+1 = data points are present and none has a valid source next to it
 
 QUESTION: {question}
 
@@ -66,17 +76,38 @@ def evaluate(question: str, answer: str, prompt: str) -> Evaluation | None:
 
 
 if __name__ == "__main__":
-    bad_answer = "El Golf consume 7.3 litros y el Focus 8.1. El Golf es mejor."
+    calibration = [
+        ("BAD (no sources)", "El Golf consume 7.3 l/100km y el Focus 8.1.", 1),
+        (
+            "GOOD (inline)",
+            "El Golf consume 7.3 l/100km [https://example.com/golf]. "
+            "El Focus consume 8.1 l/100km [https://example.com/focus].",
+            5,
+        ),
+        (
+            "URLS AT END",
+            "El Golf consume 7.3 l/100km y el Focus 8.1.\n\n"
+            "Fuentes: https://example.com/golf, https://example.com/focus",
+            1,
+        ),
+        (
+            "NO DATA POINTS",
+            "Revisá el aceite, el refrigerante y las pastillas de freno, "
+            "y probá que los cambios entren suaves [https://example.com].",
+            5,
+        ),
+        (
+            "RECALL CITATION",
+            "Hay 2 recalls de airbags para el Gol: uno publicado el "
+            "29/01/2026 (Defensa del Consumidor, 29/01/2026) y otro el "
+            "27/11/2025 (Defensa del Consumidor, 27/11/2025).",
+            5,
+        ),
+    ]
 
-    good_answer = """El Golf consume 7.3 l/100km [https://example.com/golf].
-    El Focus consume 8.1 l/100km [https://example.com/focus]."""
-
-    for label, answer in [("BAD", bad_answer), ("GOOD", good_answer)]:
-        question = "Which uses less fuel?"
-        ev = evaluate(question, answer, CITATIONS_PROMPT)
-        if ev is None:
-            print(f"{label}: judge failed")
-            continue
-        print(f"\nQuestion: {question}")
-        print(f"Answer: {answer}")
-        print(f"{label}: {ev.score}/5 — {ev.reasoning}\n")
+    for label, answer, expected in calibration:
+        ev = evaluate("Which uses less fuel?", answer, CITATIONS_PROMPT)
+        status = "OK" if ev and ev.score == expected else "MISMATCH"
+        print(
+            f"{status:<9} {label:<18} expected {expected}, got {ev.score if ev else None} — {ev.reasoning if ev else ''}"
+        )

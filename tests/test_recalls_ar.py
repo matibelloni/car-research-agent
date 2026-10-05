@@ -1,6 +1,53 @@
 import pytest
 from recalls_ar import get_recalls_ar, query_brands
-from scripts.ingest_recalls import normalize
+
+FAKE_RECALLS = [
+    {
+        "date": "2026-01-01",
+        "company": "VW",
+        "brands": ["Volkswagen"],
+        "product": "Gol",
+        "defect": "airbag",
+        "risk": "Lesiones",
+    },
+    {
+        "date": "2025-01-01",
+        "company": "VW",
+        "brands": ["Audi"],
+        "product": "A4",
+        "defect": "frenos",
+        "risk": "Lesiones",
+    },
+    {
+        "date": "2024-01-01",
+        "company": "FCA",
+        "brands": ["Fiat"],
+        "product": "Cronos y Argo",
+        "defect": "freno de mano",
+        "risk": "Lesiones",
+    },
+    {
+        "date": "2023-01-01",
+        "company": "FCA",
+        "brands": ["Fiat"],
+        "product": "Toro",
+        "defect": "airbag",
+        "risk": "Lesiones",
+    },
+    {
+        "date": "2022-01-01",
+        "company": "VW",
+        "brands": ["Volkswagen"],
+        "product": "Gol",
+        "defect": "frenos",
+        "risk": "Lesiones",
+    },
+]
+
+
+@pytest.fixture(autouse=True)
+def fake_data(monkeypatch):
+    monkeypatch.setattr("recalls_ar.load_recalls", lambda: FAKE_RECALLS)
 
 
 @pytest.mark.parametrize("brand", ["Tesla", "Ranger", ""])
@@ -19,22 +66,15 @@ def test_vw_aliases_return_same_result():
 
 
 def test_keyword_filters_every_row():
-    recalls = get_recalls_ar("Fiat", "Cronos")["recalls"]
-    assert recalls
-    assert all(
-        "cronos" in normalize(recall["product"])
-        or "cronos" in normalize(recall["defect"])
-        for recall in recalls
-    )
+    result = get_recalls_ar("Fiat", "Cronos")
+    assert result["total"] == 1
+    assert result["recalls"][0]["product"] == "Cronos y Argo"
 
 
 def test_multi_word_keyword_matches_across_fields():
-    recalls = get_recalls_ar("Volkswagen", "Gol airbag")["recalls"]
-    assert recalls
-    for recall in recalls:
-        text = normalize(recall["product"] + " " + recall["defect"])
-        assert "gol" in text
-        assert "airbag" in text
+    result = get_recalls_ar("Volkswagen", "Gol airbag")
+    assert result["total"] == 1
+    assert result["recalls"][0]["defect"] == "airbag"
 
 
 @pytest.mark.parametrize(
@@ -43,3 +83,9 @@ def test_multi_word_keyword_matches_across_fields():
 )
 def test_query_resolves_single_brand(name, expected):
     assert query_brands(name) == expected
+
+
+def test_vw_excludes_audi_rows():
+    result = get_recalls_ar("VW")
+    assert result["total"] == 2
+    assert result["recalls"][0]["product"] == "Gol"

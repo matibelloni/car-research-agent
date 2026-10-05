@@ -36,6 +36,13 @@ def single_run():
 
         citation_scores.append(citations.score)
         comparability_scores.append(comparability.score)
+        uses_recalls = "Defensa del Consumidor" in result.answer
+        rprint(
+            f"  citations {citations.score}/5  recalls={uses_recalls}  {question[:50]}"
+        )
+        if citations.score <= 2:
+            rprint(f"    judge: {citations.reasoning}")
+            rprint(f"    answer: {result.answer[:500]}")
         tokens += result.tokens
         searches += result.searches
 
