@@ -18,8 +18,8 @@ import anthropic
 from pydantic import BaseModel
 
 from agent import langfuse, run_agent_stream
-from recalls_ar import query_brands
-from scripts.ingest_recalls import normalize
+from tools.recalls_ar import query_brands
+from brands import normalize
 
 RUNS_PER_CASE = 3
 JUDGE_MODEL = "claude-haiku-4-5"

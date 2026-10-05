@@ -2,12 +2,10 @@ import json
 import re
 from functools import cache
 from pathlib import Path
-from scripts.ingest_recalls import (
-    AVAILABLE_BRANDS,
-    normalize,
-)
 
-RECALLS_PATH = Path(__file__).parent / "data" / "recalls_clean.json"
+from brands import AVAILABLE_BRANDS, normalize
+
+RECALLS_PATH = Path(__file__).resolve().parent.parent / "data" / "recalls_clean.json"
 MAX_RESULTS = 15
 FIELDS = ("date", "company", "product", "defect", "risk")
 

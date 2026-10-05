@@ -1,11 +1,6 @@
 import pytest
-from scripts.ingest_recalls import (
-    normalize,
-    is_vehicle,
-    parse_date,
-    brands_for,
-    AVAILABLE_BRANDS,
-)
+from brands import AVAILABLE_BRANDS, brands_for, normalize
+from scripts.ingest_recalls import is_vehicle, parse_date
 
 
 def test_normalize_removes_accents_and_case():

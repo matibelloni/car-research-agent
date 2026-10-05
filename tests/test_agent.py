@@ -160,3 +160,20 @@ def test_max_iterations(monkeypatch):
     result = final_result(list(agent.run_agent_stream("hi")))
 
     assert result["error"] == "max_iterations"
+
+
+def test_every_tool_has_a_handler():
+    assert agent.HANDLERS.keys() == {t["name"] for t in agent.TOOLS}
+
+
+def test_unknown_tool_returns_error_to_the_model(monkeypatch):
+    fake = script(
+        monkeypatch,
+        message([tool_block("made_up_tool", {})], "tool_use"),
+        message([text_block("ok")], "end_turn"),
+    )
+
+    result = final_result(list(agent.run_agent_stream("hi")))
+
+    assert result["answer"] == "ok"
+    assert fake.calls == 2

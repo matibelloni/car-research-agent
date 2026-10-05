@@ -1,5 +1,5 @@
 import pytest
-from recalls_ar import get_recalls_ar, query_brands
+from tools.recalls_ar import get_recalls_ar, query_brands
 
 FAKE_RECALLS = [
     {
@@ -47,7 +47,7 @@ FAKE_RECALLS = [
 
 @pytest.fixture(autouse=True)
 def fake_data(monkeypatch):
-    monkeypatch.setattr("recalls_ar.load_recalls", lambda: FAKE_RECALLS)
+    monkeypatch.setattr("tools.recalls_ar.load_recalls", lambda: FAKE_RECALLS)
 
 
 @pytest.mark.parametrize("brand", ["Tesla", "Ranger", ""])

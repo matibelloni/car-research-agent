@@ -15,8 +15,9 @@ import anthropic
 from dotenv import load_dotenv
 from pydantic import BaseModel
 
-DATA = Path("data/recalls_clean.json")
-CACHE = Path("data/brand_cache.json")
+DATA_DIR = Path(__file__).resolve().parent.parent / "data"
+DATA = DATA_DIR / "recalls_clean.json"
+CACHE = DATA_DIR / "brand_cache.json"
 MODEL = "claude-haiku-4-5"
 
 PROMPT = """A vehicle recall was published in Argentina by "{company}".

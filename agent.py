@@ -1,20 +1,17 @@
-import os
-from dotenv import load_dotenv
-from tavily import TavilyClient
-from rich import print as rprint
-from langfuse import get_client
-from typing import Iterator
-from pydantic import BaseModel
-from tools import CONVERT_UNITS_TOOL, convert_units
-from recalls_ar import RECALLS_AR_TOOL, get_recalls_ar
-import anthropic
 import json
+from typing import Any, Callable, Generator, Iterator
+
+import anthropic
+from dotenv import load_dotenv
+from langfuse import get_client
+from pydantic import BaseModel
+from rich import print as rprint
+
+from tools import TOOLS, convert_units, get_recalls_ar, search_web
 
 load_dotenv()
 
 langfuse = get_client()
-
-MAX_CHARS_PER_SOURCE = 2000
 
 
 def classify_error(e: anthropic.APIError) -> str:
@@ -27,7 +24,6 @@ def classify_error(e: anthropic.APIError) -> str:
     return "provider_error"
 
 
-tavily = TavilyClient(api_key=os.environ["TAVILY_API_KEY"])
 claude = anthropic.Anthropic(max_retries=3, timeout=60.0)
 
 
@@ -38,35 +34,81 @@ class AgentResult(BaseModel):
     searches: int = 0
 
 
-tools = [
-    {
-        "name": "search_web",
-        "description": "Searches the internet for information about cars. Use it when you need data you don't have or want to verify something with real sources.",
-        "input_schema": {
-            "type": "object",
-            "properties": {
-                "query": {
-                    "type": "string",
-                    "description": "The search terms",
-                }
-            },
-            "required": ["query"],
-        },
-    },
-    CONVERT_UNITS_TOOL,
-    RECALLS_AR_TOOL,
-]
+# Each handler is a generator: it yields stream events for the client and
+# returns the tool_result fields (content, is_error) for the model.
+ToolHandler = Callable[[dict, Any], Generator[dict, None, dict]]
 
 
-def search_web(query: str) -> str:
-    """Runs the search and returns the results as text."""
-    response = tavily.search(query=query, max_results=3)
-    return "\n\n".join(
-        [
-            f"Source: {m["url"]}\n{m["content"][:MAX_CHARS_PER_SOURCE]}"
-            for m in response["results"]
-        ]
+def handle_search_web(input: dict, trace) -> Generator[dict, None, dict]:
+    query = input["query"]
+    yield {"type": "searching", "query": query}
+    span = trace.start_observation(name="search", as_type="span", input=query)
+    try:
+        result = search_web(query)
+        span.update(output=f"{len(result)} chars")
+        return {"content": result}
+    except Exception as e:
+        span.update(level="ERROR", status_message=str(e))
+        return {
+            "content": f"Search failed: {e}. Try a different query or answer with what you have.",
+            "is_error": True,
+        }
+    finally:
+        span.end()
+
+
+def handle_convert_units(input: dict, trace) -> Generator[dict, None, dict]:
+    try:
+        result = convert_units(
+            unit_from=input["unit_from"], unit_to=input["unit_to"], value=input["value"]
+        )
+        return {"content": result}
+    except ValueError as e:
+        return {"content": str(e), "is_error": True}
+    yield  # no events, but keeps the handler a generator like the others
+
+
+def handle_get_recalls_ar(input: dict, trace) -> Generator[dict, None, dict]:
+    brand = input["brand"]
+    keyword = input.get("keyword")
+    span = trace.start_observation(
+        name="search", as_type="span", input={"brand": brand, "keyword": keyword}
     )
+    try:
+        result = get_recalls_ar(brand, keyword)
+        yield {
+            "type": "recalls_lookup",
+            "brand": brand,
+            "keyword": keyword,
+            "total": result.get("total"),
+            "error": result.get("error"),
+        }
+        span.update(output=result.get("error") or f"{result['total']} recalls")
+        return {
+            "content": json.dumps(result, ensure_ascii=False),
+            "is_error": "error" in result,
+        }
+    except ValueError as e:
+        span.update(level="ERROR", status_message=str(e))
+        return {"content": f"Recall lookup failed: {e}.", "is_error": True}
+    finally:
+        span.end()
+
+
+HANDLERS: dict[str, ToolHandler] = {
+    "search_web": handle_search_web,
+    "convert_units": handle_convert_units,
+    "get_recalls_ar": handle_get_recalls_ar,
+}
+
+
+def run_tool(content, trace) -> Generator[dict, None, dict]:
+    handler = HANDLERS.get(content.name)
+    if handler is None:
+        outcome = {"content": f"Unknown tool: {content.name}", "is_error": True}
+    else:
+        outcome = yield from handler(content.input, trace)
+    return {"type": "tool_result", "tool_use_id": content.id, **outcome}
 
 
 SYSTEM = """You are a research assistant about cars.
@@ -106,7 +148,7 @@ def run_agent_stream(question: str) -> Iterator[dict]:
                 with claude.messages.stream(
                     model="claude-haiku-4-5",
                     max_tokens=2000,
-                    tools=tools,
+                    tools=TOOLS,
                     messages=messages,
                     system=SYSTEM,
                 ) as stream:
@@ -175,100 +217,8 @@ def run_agent_stream(question: str) -> Iterator[dict]:
             for content in response.content:
                 if content.type == "tool_use":
                     if content.name == "search_web":
-                        query = content.input["query"]
                         searches += 1
-                        yield {"type": "searching", "query": query}
-                        span = root.start_observation(
-                            name="search", as_type="span", input=query
-                        )
-                        try:
-                            result = search_web(query)
-                            span.update(output=f"{len(result)} chars")
-                            tool_results.append(
-                                {
-                                    "type": "tool_result",
-                                    "tool_use_id": content.id,
-                                    "content": result,
-                                }
-                            )
-                        except Exception as e:
-                            span.update(level="ERROR", status_message=str(e))
-                            tool_results.append(
-                                {
-                                    "type": "tool_result",
-                                    "tool_use_id": content.id,
-                                    "content": f"Search failed: {e}. Try a different query or answer with what you have.",
-                                    "is_error": True,
-                                }
-                            )
-                        finally:
-                            span.end()
-
-                    elif content.name == "convert_units":
-                        unit_from = content.input["unit_from"]
-                        unit_to = content.input["unit_to"]
-                        value = content.input["value"]
-                        try:
-                            result = convert_units(
-                                unit_from=unit_from, unit_to=unit_to, value=value
-                            )
-                            tool_results.append(
-                                {
-                                    "type": "tool_result",
-                                    "tool_use_id": content.id,
-                                    "content": result,
-                                }
-                            )
-                        except ValueError as e:
-                            tool_results.append(
-                                {
-                                    "type": "tool_result",
-                                    "tool_use_id": content.id,
-                                    "content": str(e),
-                                    "is_error": True,
-                                }
-                            )
-                    elif content.name == "get_recalls_ar":
-                        brand = content.input["brand"]
-                        keyword = content.input.get("keyword")
-                        span = root.start_observation(
-                            name="search",
-                            as_type="span",
-                            input={"brand": brand, "keyword": keyword},
-                        )
-                        try:
-                            result = get_recalls_ar(brand, keyword)
-                            yield {
-                                "type": "recalls_lookup",
-                                "brand": brand,
-                                "keyword": keyword,
-                                "total": result.get("total"),
-                                "error": result.get("error"),
-                            }
-                            span.update(
-                                output=result.get("error")
-                                or f"{result['total']} recalls"
-                            )
-                            tool_results.append(
-                                {
-                                    "type": "tool_result",
-                                    "tool_use_id": content.id,
-                                    "content": json.dumps(result, ensure_ascii=False),
-                                    "is_error": "error" in result,
-                                }
-                            )
-                        except ValueError as e:
-                            span.update(level="ERROR", status_message=str(e))
-                            tool_results.append(
-                                {
-                                    "type": "tool_result",
-                                    "tool_use_id": content.id,
-                                    "content": f"Recall lookup failed: {e}.",
-                                    "is_error": True,
-                                }
-                            )
-                        finally:
-                            span.end()
+                    tool_results.append((yield from run_tool(content, root)))
 
             messages.append({"role": "user", "content": tool_results})
 
