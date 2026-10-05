@@ -71,10 +71,10 @@ General car questions scored by an LLM judge on two independent criteria:
 
 | Metric | Mean | Range |
 |---|---|---|
-| Citations | 3.87 / 5 | 3.60 – 4.20 |
-| Comparability | 4.53 / 5 | 4.20 – 5.00 |
+| Citations | 3.40 / 5 | 2.60 – 4.20 |
+| Comparability | 4.13 / 5 | 3.80 – 4.40 |
 
-*Measured with the earlier Haiku-only judge and citations prompt. Calibration later showed that judge was too lenient on citations (see below), so the citations figure is likely inflated; it needs a re-run with the current judge.*
+*3 runs × 5 questions, measured on 2026-10-05 with the current judges. The earlier figures — citations 3.87 (3.60 – 4.20), comparability 4.53 (4.20 – 5.00) — came from a Haiku-only judge that calibration later showed was too lenient on citations (see below), so the citations drop is mostly the stricter judge, not a worse agent. Comparability kept the same judge model and prompt, but its judge now reasons before scoring and web results change over time, so that smaller drop can't be pinned on one cause.*
 
 Identical runs varied up to 6× in cost, so every configuration is measured across multiple runs and reported as a range — a single run proves nothing.
 
