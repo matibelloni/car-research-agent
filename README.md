@@ -59,7 +59,11 @@ The agent loop exists **once**, as a generator that emits `searching`, `token` a
 
 ## Measuring quality
 
-The agent is evaluated on a hand-written dataset using LLM-as-judge, on two independent criteria:
+There are two eval suites in [`evals/`](evals/), both on hand-written datasets.
+
+### Answer quality — `evals/answers.py`
+
+General car questions scored by an LLM judge on two independent criteria:
 
 - **Citations** — every numeric fact must carry its source URL
 - **Comparability** — compared figures must share the same unit and measurement basis
@@ -81,6 +85,18 @@ Identical runs varied up to 6× in cost, so every configuration is measured acro
 
 The last one is the reason for tracking two metrics. Citations went up, so the change looked like a win — the damage only showed up because comparability was measured separately. With a single metric, it would have shipped.
 
+### Recalls — `evals/recalls.py`
+
+Checks how the agent uses `get_recalls_ar`, mostly with deterministic checks; the LLM judge only covers what code can't check:
+
+- **Lookup** (deterministic) — the agent called the tool with the expected brand and keyword (e.g. "brake" → `freno`, "Hilux" → Toyota)
+- **Total** (deterministic) — the answer states how many recalls the lookup found
+- **Behavior** (LLM judge, some cases) — no invented recalls when there are none, and never claiming the user's specific car is affected
+
+### Calibrating the judges
+
+Each suite ships hand-written answers with a known verdict. Before trusting a judge on the agent, run it on those: if it disagrees, the criterion gets fixed first.
+
 ## Running it
 
 ```bash
@@ -91,8 +107,13 @@ fastapi dev api.py
 
 App at `http://localhost:8000`, interactive API docs at `http://localhost:8000/docs`.
 
+Evals (from the project root; they call the real APIs and cost money):
+
 ```bash
-python -m evals.run_evals     # run the eval suite (from the project root)
+python -m evals.answers                  # answer quality suite
+python -m evals.recalls                  # recalls suite (or pass case ids to run only those)
+python -m evals.answers --calibrate      # check a judge against hand-written answers
+python -m evals.recalls --calibrate
 ```
 
 ## Known limitations

@@ -6,23 +6,22 @@ Per run:
 - behavior_ok (LLM judge): only for cases with a "judge" criterion.
 
 Usage:
-    python -m evals.eval_recalls                   # all cases
-    python -m evals.eval_recalls model_and_defect  # only the cases whose id is given
-    python -m evals.eval_recalls --calibrate       # check the judge on hand-written answers
+    python -m evals.recalls                   # all cases
+    python -m evals.recalls model_and_defect  # only the cases whose id is given
+    python -m evals.recalls --calibrate       # check the judge on hand-written answers
 """
 
 import re
 import sys
 
-import anthropic
 from pydantic import BaseModel
 
 from agent import langfuse, run_agent_stream
-from tools.recalls_ar import query_brands
 from brands import normalize
+from evals.judge import ask_judge
+from tools.recalls_ar import query_brands
 
 RUNS_PER_CASE = 3
-JUDGE_MODEL = "claude-haiku-4-5"
 
 CRITERIA = {
     "no_vin_claim": (
@@ -195,8 +194,6 @@ ANSWER TO EVALUATE:
 
 Decide only whether the answer meets the criterion. Ignore style, length and anything else."""
 
-claude = anthropic.Anthropic(max_retries=3)
-
 
 def judge(
     criterion_key: str, question: str, lookups: list[dict], answer: str
@@ -208,23 +205,13 @@ def judge(
         )
         or "- no lookup was made"
     )
-    response = claude.messages.parse(
-        model=JUDGE_MODEL,
-        max_tokens=400,
-        messages=[
-            {
-                "role": "user",
-                "content": JUDGE_PROMPT.format(
-                    criterion=CRITERIA[criterion_key],
-                    lookups=summary,
-                    question=question,
-                    answer=answer,
-                ),
-            }
-        ],
-        output_format=Verdict,
+    prompt = JUDGE_PROMPT.format(
+        criterion=CRITERIA[criterion_key],
+        lookups=summary,
+        question=question,
+        answer=answer,
     )
-    return response.parsed_output
+    return ask_judge(prompt, Verdict, max_tokens=400)
 
 
 def calibrate() -> None:
