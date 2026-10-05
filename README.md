@@ -66,13 +66,15 @@ There are two eval suites in [`evals/`](evals/), both on hand-written datasets.
 
 General car questions scored by an LLM judge on two independent criteria:
 
-- **Citations** — every numeric fact must carry its source URL
-- **Comparability** — compared figures must share the same unit and measurement basis
+- **Citations** — every numeric fact must carry its source URL (judged by Sonnet 5.5)
+- **Comparability** — compared figures must share the same unit and measurement basis (judged by Haiku 4.5)
 
 | Metric | Mean | Range |
 |---|---|---|
 | Citations | 3.87 / 5 | 3.60 – 4.20 |
 | Comparability | 4.53 / 5 | 4.20 – 5.00 |
+
+*Measured with the earlier Haiku-only judge and citations prompt. Calibration later showed that judge was too lenient on citations (see below), so the citations figure is likely inflated; it needs a re-run with the current judge.*
 
 Identical runs varied up to 6× in cost, so every configuration is measured across multiple runs and reported as a range — a single run proves nothing.
 
@@ -97,6 +99,16 @@ Checks how the agent uses `get_recalls_ar`, mostly with deterministic checks; th
 ### Calibrating the judges
 
 Each suite ships hand-written answers with a known verdict. Before trusting a judge on the agent, run it on those: if it disagrees, the criterion gets fixed first.
+
+The first calibration set only had easy citation cases, and Haiku passed them. Adding borderline cases (one URL after two figures, a URL in the next sentence, a figure inside advice) exposed it:
+
+| Judge | Citations | Comparability |
+|---|---|---|
+| Haiku 4.5, original prompt | 6/9 | 8/8 |
+| Haiku 4.5, clarified prompt (3 runs) | 6–7/9 — the same 2 cases wrong in every run | 7–8/8 |
+| Sonnet 5.5, clarified prompt (3 runs) | **9/9** every run | 6/8 — docks points for details the answer never mentions |
+
+Haiku's errors were misreadings, not ambiguity: it reported a URL from the next sentence as "right after" the figure, and invented a rule that one URL covers several figures — the prompt says the opposite. So each criterion gets the judge that calibrates best: Sonnet for citations, Haiku for comparability. The judge also writes its reasoning *before* the score, since structured output generates fields in order.
 
 ## Running it
 

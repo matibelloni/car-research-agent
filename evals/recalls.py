@@ -18,7 +18,7 @@ from pydantic import BaseModel
 
 from agent import langfuse, run_agent_stream
 from brands import normalize
-from evals.judge import ask_judge
+from evals.judge import ask_judge, judge_model
 from tools.recalls_ar import query_brands
 
 RUNS_PER_CASE = 3
@@ -211,10 +211,11 @@ def judge(
         question=question,
         answer=answer,
     )
-    return ask_judge(prompt, Verdict, max_tokens=400)
+    return ask_judge(prompt, Verdict)
 
 
 def calibrate() -> None:
+    print(f"Judge: {judge_model()}")
     for criterion_key, question, lookups, answer, expected in CALIBRATION:
         verdict = judge(criterion_key, question, lookups, answer)
         got = verdict.passed if verdict else None
