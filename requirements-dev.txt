@@ -2,3 +2,5 @@
 pytest
 pypdf
 pdfplumber
+voyageai
+numpy
