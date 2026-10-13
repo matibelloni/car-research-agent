@@ -1,6 +1,6 @@
 """Split the extracted manual pages into one chunk per section heading.
 
-Usage: python scripts/chunk_manuals.py
+Usage: python -m scripts.chunk_manuals
 """
 
 import json
@@ -8,8 +8,14 @@ import re
 import statistics
 from pathlib import Path
 
+from scripts.extract_maintenance import maintenance_sentences
+
 MANUALS_DIR = Path(__file__).resolve().parent.parent / "data" / "manuals"
 MAX_CHUNK_CHARS = 2000
+
+# PDF pages (first, last) holding the scheduled-maintenance table of each manual.
+# Their text is replaced by one sentence per task, read from the table grid.
+MAINTENANCE_PAGES = {"fiat-cronos-2021": (254, 257)}
 
 PAGE_LABEL = re.compile(r"^[A-I]-\d+$")  # printed page number, e.g. "B-33"
 CHAPTER_TAB = re.compile(r"^[A-I]$")  # chapter letter printed on the page edge
@@ -92,6 +98,22 @@ def chunk_pages(pages: list[dict]) -> list[dict]:
     ]
 
 
+def maintenance_chunk(manual: str, pages: list[dict]) -> dict | None:
+    if manual not in MAINTENANCE_PAGES:
+        return None
+    first, last = MAINTENANCE_PAGES[manual]
+    sentences = maintenance_sentences(str(MANUALS_DIR / f"{manual}.pdf"), first, last)
+    lines = [line.strip() for line in pages[first - 1]["text"].splitlines()]
+    label = next((line for line in lines if PAGE_LABEL.match(line)), None)
+    # One chunk on purpose: the interval rule and the footnotes apply to every row.
+    return {
+        "heading": "PLAN DE MANTENIMIENTO PROGRAMADO",
+        "text": "\n".join(sentences),
+        "page": first,
+        "page_label": label,
+    }
+
+
 def print_stats(name: str, chunks: list[dict]) -> None:
     lengths = [len(chunk["text"]) for chunk in chunks]
     print(f"{name}: {len(chunks)} chunks")
@@ -114,7 +136,14 @@ def print_stats(name: str, chunks: list[dict]) -> None:
 def main() -> None:
     for pages_path in sorted(MANUALS_DIR.glob("*.pages.json")):
         pages = json.loads(pages_path.read_text(encoding="utf-8"))
-        chunks = chunk_pages(pages)
+        manual = pages_path.name.removesuffix(".pages.json")
+        plan = maintenance_chunk(manual, pages)
+        if plan:
+            first, last = MAINTENANCE_PAGES[manual]
+            prose = [page for page in pages if not first <= page["page"] <= last]
+            chunks = chunk_pages(prose) + [plan]
+        else:
+            chunks = chunk_pages(pages)
         chunks_path = pages_path.with_name(
             pages_path.name.replace(".pages.", ".chunks.")
         )

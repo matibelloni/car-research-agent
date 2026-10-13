@@ -26,7 +26,9 @@ RRF_DEPTH = 50  # candidates taken from each list; below that, BM25 order is noi
 RERANK_CANDIDATES = 30  # first-stage results the reranker reads and reorders
 
 # "evidence" is a phrase copied from the manual. A chunk is relevant when its heading
-# or text contains it. None means the manual has no answer.
+# or text contains it. A case may list several phrases when more than one section of
+# the manual answers the question; every extra phrase was added after reading the
+# chunk, and applies to every retriever alike. None means the manual has no answer.
 CASES = [
     {
         "id": "spark-plugs",
@@ -86,7 +88,7 @@ CASES = [
     {
         "id": "follow-me-home",
         "question": "cómo hago para que las luces queden prendidas un rato cuando me bajo",
-        "evidence": "Follow me home se activa",
+        "evidence": ["Follow me home se activa", "Headlights Off Delay"],
     },
     {
         "id": "parking-lights",
@@ -116,12 +118,20 @@ CASES = [
     {
         "id": "transmission-hot",
         "question": "me salta un aviso de temperatura de la caja automática",
-        "evidence": "ALTA TEMPERATURA DE LA TRANSMISIÓN",
+        "evidence": [
+            "ALTA TEMPERATURA DE LA TRANSMISIÓN",
+            "TEMPERATURA EXCESIVA DEL ACEITE DEL CAMBIO",
+        ],
     },
     {
         "id": "service-price",
         "question": "cuánto sale el service de los 20.000 km",
         "evidence": None,
+    },
+    {
+        "id": "fuel-filter",
+        "question": "cada cuánto se cambia el filtro de nafta",
+        "evidence": "filtro de combustible. (*): en las revisiones",
     },
 ]
 
