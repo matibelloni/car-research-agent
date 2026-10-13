@@ -5,3 +5,5 @@ langfuse==4.15.4
 python-dotenv==1.2.3
 pint==0.26.1
 rich==15.0.0
+psycopg[binary]==3.3.6
+voyageai==0.5.0
