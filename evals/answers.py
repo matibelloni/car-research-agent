@@ -59,6 +59,8 @@ Valid sources:
   figure, and a list of URLs at the end of the answer counts for none.
 - For recalls from the Argentine consumer protection agency: "Defensa del
   Consumidor" plus the publication date. These have no URL, and that's fine.
+- For owner's manual facts: the manual and the page label (e.g. "Manual del 
+  Fiat Cronos 2021, p. G-14"), or the manual alone when it has no page label.
 
 First list every data point and whether a valid source sits right after it.
 Then score:
@@ -207,6 +209,21 @@ CITATIONS_CALIBRATION = [
         f"suele fallar después de los 70.000 km [{THP}].",
         (5, 5),
     ),
+    (
+        "manual citation",
+        "¿Cada cuántos km se cambia la correa de accesorios del Fiat Cronos 2021?",
+        "Según el manual del Fiat Cronos 2021, la correa de accesorios se cambia "
+        "cada 48 meses o cada 60.000 km, lo que ocurra primero (Manual del Fiat "
+        "Cronos 2021, p. G-14).",
+        (5, 5),
+    ),
+    (
+        "manual fact without citation",
+        "¿Cada cuántos km se cambia la correa de accesorios del Fiat Cronos 2021?",
+        "La correa de accesorios se cambia cada 48 meses o cada 60.000 km, lo que "
+        "ocurra primero.",
+        (1, 1),
+    ),
 ]
 
 COMPARABILITY_CALIBRATION = [
@@ -303,7 +320,9 @@ def calibrate() -> None:
             mismatches += not ok
             expected = str(low) if low == high else f"{low}-{high}"
             got = ev.score if ev else None
-            print(f"  {'OK' if ok else 'MISMATCH':<9} {label:<30} expected {expected:<4} got {got}")
+            print(
+                f"  {'OK' if ok else 'MISMATCH':<9} {label:<30} expected {expected:<4} got {got}"
+            )
             if not ok:
                 print(f"    judge: {ev.reasoning if ev else 'judge failed'}")
     total = sum(len(cases) for cases in CALIBRATION.values())
