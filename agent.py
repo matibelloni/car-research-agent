@@ -7,7 +7,7 @@ from langfuse import get_client
 from pydantic import BaseModel
 from rich import print as rprint
 
-from tools import TOOLS, convert_units, get_recalls_ar, search_web
+from tools import TOOLS, convert_units, get_recalls_ar, search_web, search_manual_tool
 
 load_dotenv()
 
@@ -95,10 +95,35 @@ def handle_get_recalls_ar(input: dict, trace) -> Generator[dict, None, dict]:
         span.end()
 
 
+def handle_search_manual(input: dict, trace) -> Generator[dict, None, dict]:
+    manual = input["manual"]
+    query = input["query"]
+    yield {"type": "manual_search", "manual": manual, "query": query}
+    span = trace.start_observation(
+        name="search", as_type="span", input={"manual": manual, "query": query}
+    )
+    try:
+        result = search_manual_tool(manual, query)
+        span.update(output=result.get("error") or f"{len(result['sections'])} sections")
+        return {
+            "content": json.dumps(result, ensure_ascii=False),
+            "is_error": "error" in result,
+        }
+    except Exception as e:
+        span.update(level="ERROR", status_message=str(e))
+        return {
+            "content": f"Manual search failed: {e}. Search the web instead.",
+            "is_error": True,
+        }
+    finally:
+        span.end()
+
+
 HANDLERS: dict[str, ToolHandler] = {
     "search_web": handle_search_web,
     "convert_units": handle_convert_units,
     "get_recalls_ar": handle_get_recalls_ar,
+    "search_manual": handle_search_manual,
 }
 
 
@@ -123,8 +148,14 @@ Rules:
     ("around 28-30 mpg") need a source too. Never group sources at the end.
   - For recalls from get_recalls_ar, "Defensa del Consumidor" and the publication
     date (e.g. "Defensa del Consumidor, 29/01/2026").
+  - For owner's manual sections from search_manual, the manual and the page
+    label (e.g. "Manual del Fiat Cronos 2021, p. G-14"). If a section has no
+    page label, cite the manual alone.
 - If the sources contradict each other, mention it instead of picking one.
 - Don't make up figures. If you didn't find a fact, say you didn't find it.
+- If search_manual's sections don't answer the question, say the manual doesn't
+  cover it and call search_web before answering. Never end with advice from your
+  own knowledge instead.
 - Always answer in the same language as the user's question.
 - Normalize all units to the metric system. When a source gives a non-metric value
   (mph, mi, mpg, gal, hp, lb, in, psi, °F), call convert_units to get the metric
@@ -262,6 +293,9 @@ def run_agent(question: str, verbose: bool = False) -> AgentResult:
         if verbose and event["type"] == "searching":
             rprint(f"  🔍 {event['query']}")
 
+        elif verbose and event["type"] == "manual_search":
+            rprint(f"  📖 {event['manual']}: {event['query']}")
+
         elif event["type"] == "result":
             return AgentResult(
                 answer=event["answer"],
@@ -274,11 +308,18 @@ def run_agent(question: str, verbose: bool = False) -> AgentResult:
 
 
 if __name__ == "__main__":
-    result = run_agent(
+    questions = [
         # question="Is a 2015 Golf or a 2016 Focus better for city driving?",
-        question="¿Hay recalls de airbags para el Volkswagen Gol en Argentina?",
-        verbose=True,
-    )
-    rprint(f"Tokens: {result.tokens} | Searches: {result.searches}")
-    rprint(f"Answer: {result.answer}")
+        # question="¿Hay recalls de airbags para el Volkswagen Gol en Argentina?",
+        # question="¿Cada cuántos km se cambia la correa de accesorios del Fiat Cronos 2021?",
+        # "¿Cuánto cuesta el service de los 10.000 km del Fiat Cronos 2021?",
+        "¿Cada cuántos km se cambia la correa de accesorios del Fiat Cronos 2021?",
+    ]
+    for question in questions:
+        for run in range(1, 4):
+            rprint(f"\n[bold]{question} — run {run}[/bold]")
+            result = run_agent(question=question, verbose=True)
+            first_line = (result.answer or result.error or "").split("\n")[0]
+            rprint(f"Tokens: {result.tokens} | Searches: {result.searches}")
+            rprint(f"Answer: {first_line}")
     langfuse.flush()
