@@ -60,7 +60,7 @@ The agent loop exists **once**, as a generator that emits `searching`, `token` a
 
 ## Measuring quality
 
-There are two eval suites in [`evals/`](evals/), both on hand-written datasets.
+The eval suites in [`evals/`](evals/) all run on hand-written datasets.
 
 ### Answer quality — `evals/answers.py`
 
@@ -100,6 +100,23 @@ Checks how the agent uses `get_recalls_ar`, mostly with deterministic checks; th
 
 Latest run (12 cases × 3 runs, 2026-10-05): lookup **36/36**, total **30/30**, behavior **9/9**. Cases where a check doesn't apply (e.g. no total for an unknown brand) aren't counted.
 
+### Owner's manual, end to end — `evals/manual.py`
+
+Questions about a manual, run through the whole agent:
+
+- **Route** (deterministic) — manual questions cite the expected page label and make no web search; price and owner-opinion questions, which the manual can't answer, make at least one web search
+- **Facts** (LLM judge, Haiku 4.5) — every fact of the case is stated, with the same figures. Facts are copied from the chunks' text, so web cases have none
+
+| Case | Route | All facts |
+|---|---|---|
+| Cronos — accessory belts (G-14) | 3/3 | 1/3 |
+| Cronos — taxi use (G-18 / G-14) | 3/3 | 1/3 |
+| Cronos — brake fluid (G-14) | 3/3 | 1/3 |
+| Cronos — 10,000 km service price (web) | 3/3 | n/a |
+| Cronos — owners on highway consumption (web) | 3/3 | n/a |
+
+*Baseline, 3 runs per case, 2026-10-18, 103,562 tokens in total. The main interval of every manual case is stated in every run. What gets dropped is the second fact: the severe-use halving for the belts, the clutch fluid for the brake fluid, and the list of checks done more often for taxi use.*
+
 ### Calibrating the judges
 
 Each suite ships hand-written answers with a known verdict. Before trusting a judge on the agent, run it on those: if it disagrees, the criterion gets fixed first.
@@ -131,6 +148,8 @@ python -m evals.answers                  # answer quality suite
 python -m evals.recalls                  # recalls suite (or pass case ids to run only those)
 python -m evals.answers --calibrate      # check a judge against hand-written answers
 python -m evals.recalls --calibrate
+python -m evals.manual                   # owner's manual suite, end to end
+python -m evals.manual --calibrate
 ```
 
 Rebuilding the recalls dataset (`data/recalls_clean.json` is committed, so this is only needed to refresh it):
