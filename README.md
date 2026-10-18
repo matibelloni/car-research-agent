@@ -117,6 +117,17 @@ Questions about a manual, run through the whole agent:
 
 *Baseline, 3 runs per case, 2026-10-18, 103,562 tokens in total. The main interval of every manual case is stated in every run. What gets dropped is the second fact: the severe-use halving for the belts, the clutch fluid for the brake fluid, and the list of checks done more often for taxi use.*
 
+### Maintenance tables — `scripts/extract_maintenance_llm.py`
+
+The maintenance plan is a grid of marks, and its meaning is in the columns, so plain PDF text loses it. The first extractor reads Fiat's grid with pdfplumber and only works for that layout. The generic one sends the plan's pages to Claude as a PDF, asks for each row's structure (every revision / some revisions / its own interval / footnote), and builds the same sentences in code. Checked against the grid extractor on the Cronos (27 rows, footnotes compared as one text):
+
+| Model | Rows identical | Runs | Tokens per run |
+|---|---|---|---|
+| Haiku 4.5 | 19/27 — the same 8 rows' revision columns wrong in every run | 3 | ~11,400 |
+| Sonnet 5.5 | **27/27** | 3 | ~14,400 |
+
+Haiku's errors are all shifted or skipped columns (e.g. 1ª/3ª/7ª instead of 2ª/4ª/8ª), never text, so it reads the table but not its grid. Sonnet is the default.
+
 ### Calibrating the judges
 
 Each suite ships hand-written answers with a known verdict. Before trusting a judge on the agent, run it on those: if it disagrees, the criterion gets fixed first.
