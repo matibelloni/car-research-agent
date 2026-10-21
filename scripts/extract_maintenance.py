@@ -44,26 +44,28 @@ def row_to_sentence(header: list, row: list) -> str:
 def attach_footnotes(sentences: list[str]) -> list[str]:
     """Append to each task the footnotes its markers point to.
 
-    Footnotes are the rows from the first one that starts with a marker. They
-    stay at the end too: the model reads a condition more reliably on the same
-    line as the interval it changes than thousands of characters below it.
+    Footnotes are the rows that start with a marker, wherever they are: a table
+    spread over several pages can have them under each page. One row may hold
+    several notes. They stay where they are too: the model reads a condition
+    more reliably on the same line as the interval it changes than thousands of
+    characters below it.
     """
-    start = next(
-        (n for n, s in enumerate(sentences) if FOOTNOTE_MARKER.match(s)), len(sentences)
-    )
-    tasks, footnotes = sentences[:start], sentences[start:]
-    notes = {
-        FOOTNOTE_MARKER.match(note).group(): note
-        for note in FOOTNOTE_START.split(" ".join(footnotes))
-        if FOOTNOTE_MARKER.match(note)
-    }
+    notes = {}
+    for row in sentences:
+        if FOOTNOTE_MARKER.match(row):
+            for note in FOOTNOTE_START.split(row):
+                if marker := FOOTNOTE_MARKER.match(note):
+                    notes[marker.group()] = note
     resolved = []
-    for task in tasks:
+    for sentence in sentences:
+        if FOOTNOTE_MARKER.match(sentence):
+            resolved.append(sentence)
+            continue
         # The regex matches whole markers, so "(**)" never resolves as "(*)".
-        markers = dict.fromkeys(FOOTNOTE_MARKER.findall(task))
+        markers = dict.fromkeys(FOOTNOTE_MARKER.findall(sentence))
         attached = [notes[marker] for marker in markers if marker in notes]
-        resolved.append(" ".join([task, *attached]))
-    return resolved + footnotes
+        resolved.append(" ".join([sentence, *attached]))
+    return resolved
 
 
 def table_sentences(pdf_path: str, first_page: int, last_page: int) -> list[str]:

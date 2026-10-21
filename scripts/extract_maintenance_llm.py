@@ -12,6 +12,7 @@ Usage:
 import base64
 import io
 import sys
+from pathlib import Path
 from typing import Literal
 
 import anthropic
@@ -19,6 +20,7 @@ from dotenv import load_dotenv
 from pydantic import BaseModel, Field
 from pypdf import PdfReader, PdfWriter
 
+from brands import normalize
 from scripts.extract_maintenance import attach_footnotes, format_km
 
 load_dotenv()
@@ -31,20 +33,34 @@ MAX_TOKENS = 16000
 claude = anthropic.Anthropic(max_retries=3)
 
 
+class EngineInterval(BaseModel):
+    engines: list[str] = Field(
+        description=(
+            "The engine column headers this interval sits under, copied verbatim; or "
+            "the engines the cell itself names. Empty when the table has no engine "
+            "columns"
+        )
+    )
+    interval: str = Field(
+        description="The interval text, copied verbatim, e.g. 'cada 30.000 km'"
+    )
+
+
 class Task(BaseModel):
     text: str = Field(description="The row's task text, copied verbatim")
-    schedule: Literal["all", "revisions", "interval", "footnote"] = Field(
+    schedule: Literal["all", "revisions", "interval", "footnote", "heading"] = Field(
         description=(
             "all: marked in every revision column. revisions: marked in some "
             "revision columns. interval: the row states its own interval in words "
-            "instead of marks. footnote: a note that spans the whole table width."
+            "instead of marks. footnote: a note that spans the whole table width. "
+            "heading: a row that only names the group of tasks below it."
         )
     )
     revisions: list[int] = Field(
         description="For 'revisions': the numbers of the marked revision columns"
     )
-    interval: str | None = Field(
-        description="For 'interval': the interval text, copied verbatim"
+    intervals: list[EngineInterval] = Field(
+        description="For 'interval': one entry per distinct interval in the row"
     )
 
 
@@ -52,15 +68,25 @@ class MaintenancePlan(BaseModel):
     header: str = Field(
         description="The text of the table's top-left header cell, copied verbatim"
     )
-    revision_interval_km: int = Field(
-        description="Kilometres between two consecutive revisions, from the header"
+    revision_interval_km: int | None = Field(
+        description=(
+            "Kilometres between two consecutive revisions, from the header; null "
+            "when the table has no revision columns"
+        )
+    )
+    engine_columns: list[str] = Field(
+        description=(
+            "The headers of the columns that split intervals by engine, copied "
+            "verbatim; empty when there are none"
+        )
     )
     tasks: list[Task] = Field(description="Every row, in reading order across pages")
 
 
 PROMPT = """The attached pages hold the scheduled-maintenance table of a car's \
-owner's manual. Rows are tasks; most columns are numbered revisions, and a mark \
-in a column means the task is done at that revision.
+owner's manual. Rows are tasks. In some tables most columns are numbered \
+revisions, and a mark in a column means the task is done at that revision. In \
+others the columns are engines, and each cell states an interval in words.
 
 Return the table's structure:
 - Copy every text verbatim, in the manual's language, including markers such as \
@@ -68,9 +94,14 @@ Return the table's structure:
 turn line breaks into spaces.
 - When the table continues across pages and the header repeats, give the header once \
 and every row once, in order.
+- With engine columns, give one interval per cell: a cell that spans several engine \
+columns is one interval listing all of them. When a cell names engines itself \
+(e.g. "Motor X - 120.000 km"), give one interval per engine it names, with those \
+names as its engines.
+- A cell that spans several rows applies to each of them: repeat it on every row.
 - Footnotes under the table (explaining markers like (*)) are rows too, with \
 schedule "footnote".
-- Leave revisions empty and interval null when they don't apply."""
+- Leave revisions and intervals empty when they don't apply."""
 
 
 def pages_pdf(pdf_path: str, first_page: int, last_page: int) -> bytes:
@@ -118,22 +149,65 @@ def extract_plan(
     return response.parsed_output, tokens
 
 
-def task_to_sentence(task: Task, interval_km: int) -> str:
-    if task.schedule == "footnote":
+def intervals_text(intervals: list[EngineInterval], engine_columns: list[str]) -> str:
+    """'cada 30.000 km' when one interval covers every engine, else one per engine."""
+    if len(intervals) == 1 and set(intervals[0].engines) in (set(), set(engine_columns)):
+        return intervals[0].interval
+    return "; ".join(f"{i.interval} ({', '.join(i.engines)})" for i in intervals)
+
+
+def task_to_sentence(task: Task, plan: MaintenancePlan) -> str:
+    if task.schedule in ("footnote", "heading"):
         return task.text
     text = task.text.rstrip(".")
     if task.schedule == "interval":
-        return f"{text}: {task.interval}."
+        return f"{text}: {intervals_text(task.intervals, plan.engine_columns)}."
     if task.schedule == "all":
         return f"{text}: en todas las revisiones."
-    points = ", ".join(f"{n}ª ({format_km(n * interval_km)} km)" for n in task.revisions)
+    points = ", ".join(
+        f"{n}ª ({format_km(n * plan.revision_interval_km)} km)" for n in task.revisions
+    )
     return f"{text}: en las revisiones {points}."
 
 
 def plan_to_sentences(plan: MaintenancePlan) -> list[str]:
-    return [plan.header] + [
-        task_to_sentence(task, plan.revision_interval_km) for task in plan.tasks
-    ]
+    return [plan.header] + [task_to_sentence(task, plan) for task in plan.tasks]
+
+
+def filter_engines(plan: MaintenancePlan, engines: list[str]) -> MaintenancePlan:
+    """Keep only the intervals of the given engines, named as given.
+
+    An interval matches an engine when one of its engine names contains it, e.g.
+    "1.6 16V" in "Motores Nafta 1.2 12V / 1.6 16V / 1.6 THP". Intervals with no
+    engine names apply to every engine and stay. A row left with no interval is
+    dropped, and engines that end up with the same interval are merged.
+    """
+
+    def matches(names: list[str]) -> list[str]:
+        haystack = [" ".join(normalize(name).split()) for name in names]
+        return [e for e in engines if any(normalize(e) in h for h in haystack)]
+
+    tasks = []
+    for task in plan.tasks:
+        if task.schedule != "interval":
+            tasks.append(task)
+            continue
+        by_interval: dict[str, list[str]] = {}
+        for interval in task.intervals:
+            names = matches(interval.engines) if interval.engines else []
+            if interval.engines and not names:
+                continue
+            kept = by_interval.setdefault(interval.interval, [])
+            kept += [name for name in names if name not in kept]
+        if by_interval:
+            intervals = [
+                EngineInterval(engines=names, interval=text)
+                for text, names in by_interval.items()
+            ]
+            tasks.append(task.model_copy(update={"intervals": intervals}))
+    return plan.model_copy(
+        update={"engine_columns": matches(plan.engine_columns), "tasks": tasks}
+    )
 
 
 def maintenance_sentences(
@@ -141,6 +215,18 @@ def maintenance_sentences(
 ) -> list[str]:
     plan, _ = extract_plan(pdf_path, first_page, last_page, model)
     return attach_footnotes(plan_to_sentences(plan))
+
+
+def load_or_extract_plan(
+    pdf_path: Path, first_page: int, last_page: int, cache_path: Path
+) -> MaintenancePlan:
+    """The plan as the model read it, saved so that rechunking doesn't call it again."""
+    if cache_path.exists():
+        return MaintenancePlan.model_validate_json(cache_path.read_text(encoding="utf-8"))
+    plan, tokens = extract_plan(str(pdf_path), first_page, last_page)
+    cache_path.write_text(plan.model_dump_json(indent=2), encoding="utf-8")
+    print(f"{cache_path.name}: extracted with {DEFAULT_MODEL}, {tokens} tokens")
+    return plan
 
 
 def schedule_of(sentence: str) -> str:
