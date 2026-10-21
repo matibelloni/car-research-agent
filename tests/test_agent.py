@@ -87,13 +87,45 @@ def final_result(events):
 # ---------- tests ----------
 
 
-def test_answers_without_tools(monkeypatch):
-    script(monkeypatch, message([text_block("Hello")], "end_turn"))
-    result = final_result(agent.run_agent_stream("hi"))
+def test_answers_without_tools_on_a_model_that_cant_be_forced(monkeypatch):
+    monkeypatch.setattr(agent, "MODEL", "claude-sonnet-5-5")
+    fake = script(monkeypatch, message([text_block("Hello")], "end_turn"))
+    events = list(agent.run_agent_stream("hi"))
+    result = final_result(events)
     assert result["answer"] == "Hello"
     assert result["error"] is None
     assert result["tokens"] == 150
     assert result["searches"] == 0
+    assert {"type": "retry"} not in events
+    assert fake.tool_choices == [{"type": "auto"}]
+
+
+def test_first_answer_without_tools_is_retried_with_a_forced_tool(monkeypatch):
+    fake = script(
+        monkeypatch,
+        message([text_block("I have no tools for prices")], "end_turn"),
+        message([tool_block("search_web", {"query": "service price"})], "tool_use"),
+        message([text_block("It costs $100 [url]")], "end_turn"),
+    )
+    monkeypatch.setattr(agent, "search_web", lambda q: "fake results")
+
+    events = list(agent.run_agent_stream("price?"))
+
+    assert fake.tool_choices == [{"type": "auto"}, {"type": "any"}, {"type": "auto"}]
+    assert events.index({"type": "retry"}) < events.index(
+        {"type": "searching", "query": "service price"}
+    )
+    result = final_result(events)
+    assert result["answer"] == "It costs $100 [url]"
+    assert result["tokens"] == 450  # the discarded answer counts too
+    # The discarded answer never reaches the model's history.
+    assert all(
+        block.text != "I have no tools for prices"
+        for msg in fake.sent[2]
+        if msg["role"] == "assistant"
+        for block in msg["content"]
+        if block.type == "text"
+    )
 
 
 def test_searches_then_answers(monkeypatch):
@@ -115,18 +147,18 @@ def test_searches_then_answers(monkeypatch):
     assert fake.calls == 2
 
 
-def test_first_call_must_use_a_tool_and_later_ones_may_stop(monkeypatch):
+def test_no_retry_when_the_first_call_uses_a_tool(monkeypatch):
     fake = script(
         monkeypatch,
         message([tool_block("search_web", {"query": "golf 2015"})], "tool_use"),
-        message([tool_block("search_web", {"query": "golf 2015 city"})], "tool_use"),
         message([text_block("The Golf uses 7 L/100km")], "end_turn"),
     )
     monkeypatch.setattr(agent, "search_web", lambda q: "fake results")
 
-    list(agent.run_agent_stream("golf?"))
+    events = list(agent.run_agent_stream("golf?"))
 
-    assert fake.tool_choices == [{"type": "any"}, {"type": "auto"}, {"type": "auto"}]
+    assert {"type": "retry"} not in events
+    assert fake.tool_choices == [{"type": "auto"}, {"type": "auto"}]
 
 
 def test_failed_search_does_not_kill_the_agent(monkeypatch):

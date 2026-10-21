@@ -248,6 +248,9 @@
           );
           answerText = "";
           renderAnswer();
+        } else if (event.type === "retry") {
+          answerText = ""; // the agent answered without tools and is trying again
+          renderAnswer();
         } else if (event.type === "token") {
           answerText += event.text;
           renderAnswer();

@@ -176,6 +176,42 @@ MODEL = "claude-haiku-4-5"
 MAX_ITERATIONS = 10
 TOKEN_BUDGET = 50_000
 MAX_OUTPUT_TOKENS = 2000
+# Models that accept tool_choice "any". Opus 5.5, Sonnet 5.5, Fable 5.1 and
+# Mythos 5.1 reject it with a 400:
+# https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools#forcing-tool-use
+FORCED_TOOL_MODELS = {"claude-haiku-4-5"}
+
+
+def call_model(
+    messages: list, tool_choice: dict, trace, name: str
+) -> Generator[dict, None, anthropic.types.Message]:
+    """One streamed call: yields its tokens and returns the final message."""
+    gen = trace.start_observation(name=name, as_type="generation", model=MODEL)
+    try:
+        with claude.messages.stream(
+            model=MODEL,
+            max_tokens=MAX_OUTPUT_TOKENS,
+            tools=TOOLS,
+            tool_choice=tool_choice,
+            messages=messages,
+            system=SYSTEM,
+        ) as stream:
+            for text in stream.text_stream:
+                yield {
+                    "type": "token",
+                    "text": text,
+                }
+            response = stream.get_final_message()
+        gen.update(
+            usage_details={
+                "input": response.usage.input_tokens,
+                "output": response.usage.output_tokens,
+            },
+            output=response.stop_reason,
+        )
+    finally:
+        gen.end()
+    return response
 
 
 def run_agent_stream(question: str) -> Iterator[dict]:
@@ -185,36 +221,28 @@ def run_agent_stream(question: str) -> Iterator[dict]:
         used_tokens = 0
         searches = 0
         for i in range(MAX_ITERATIONS):
-            gen = root.start_observation(
-                name=f"llm-call-{i + 1}", as_type="generation", model=MODEL
+            response = yield from call_model(
+                messages, {"type": "auto"}, root, f"llm-call-{i + 1}"
             )
-            try:
-                with claude.messages.stream(
-                    model=MODEL,
-                    max_tokens=MAX_OUTPUT_TOKENS,
-                    tools=TOOLS,
-                    # The first call must use a tool: some runs answered "I have
-                    # no tools for that" without trying any. Then it's free to stop.
-                    tool_choice={"type": "any"} if i == 0 else {"type": "auto"},
-                    messages=messages,
-                    system=SYSTEM,
-                ) as stream:
-                    for text in stream.text_stream:
-                        yield {
-                            "type": "token",
-                            "text": text,
-                        }
-                    response = stream.get_final_message()
-                gen.update(
-                    usage_details={
-                        "input": response.usage.input_tokens,
-                        "output": response.usage.output_tokens,
-                    },
-                    output=response.stop_reason,
-                )
-            finally:
-                gen.end()
             used_tokens += response.usage.input_tokens + response.usage.output_tokens
+
+            # Some runs answered a price question with "I have no tools for that"
+            # without trying any. Forcing a tool on every first call fixed that
+            # but sent price questions to the manual only, so the call is
+            # repeated with a forced tool only when it used none.
+            if (
+                i == 0
+                and response.stop_reason == "end_turn"
+                and MODEL in FORCED_TOOL_MODELS
+                and used_tokens <= TOKEN_BUDGET
+            ):
+                root.update(metadata={"forced_tool_retry": True})
+                yield {"type": "retry"}  # the streamed text is discarded
+                response = yield from call_model(
+                    messages, {"type": "any"}, root, "llm-call-1-forced"
+                )
+                used_tokens += response.usage.input_tokens + response.usage.output_tokens
+
             messages.append({"role": "assistant", "content": response.content})
 
             if used_tokens > TOKEN_BUDGET:
