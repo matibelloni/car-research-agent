@@ -21,6 +21,9 @@ from agent import langfuse, run_agent_stream
 from evals.judge import ask_judge, judge_model
 
 RUNS = 3
+# Haiku failed the calibration cases where the halving is stated in passing or
+# as a figure the answer says it computed; Sonnet passed every case 3 of 3.
+FACTS_JUDGE = "claude-sonnet-5-5"
 
 # "page" is the page label a correct answer cites, or a tuple when more than one
 # page answers the question. Every fact is copied from a chunk's text.
@@ -80,6 +83,7 @@ CASES = [
     },
 ]
 
+BELTS = CASES[0]
 SEVERE_USE = CASES[1]
 BRAKE_FLUID = CASES[2]
 
@@ -138,6 +142,49 @@ CALIBRATION = [
         "intervalo se reduce a la mitad.",
         [True, False],
     ),
+    # Two Sonnet answers the judge failed: both say the belts' interval is halved
+    # under severe use, one in passing and one with a figure it says it computed.
+    (
+        "halving in passing",
+        BELTS,
+        "Según el manual, las correas de los órganos auxiliares del motor (las de "
+        "accesorios) se sustituyen **cada 48 meses o cada 60.000 km, lo que ocurra "
+        "primero** (Manual del Fiat Cronos 2021, p. G-14).\n\n"
+        "Otros datos del plan de mantenimiento:\n"
+        "- **Control visual:** se hace en las revisiones de 20.000, 40.000, 80.000, "
+        "100.000, 140.000 y 160.000 km (Manual del Fiat Cronos 2021, p. G-14).\n"
+        "- **Uso severo:** con remolque, caminos polvorientos, arenosos o con barro, "
+        "o uso severo similar, el manual indica controlar la correa y el tensor con "
+        "más frecuencia. En caminos polvorientos, arenosos o con barro pide revisar "
+        "el rodamiento del tensor y las correas (aire acondicionado, bomba de agua, "
+        "alternador) cada 10.000 km o 12 meses y cambiarlas si hace falta (Manual "
+        "del Fiat Cronos 2021, p. G-14 y p. G-18).\n"
+        "- **Intervalos a la mitad:** una nota del plan indica que ciertos "
+        "elementos, entre ellos esta sustitución, se cambian o controlan en la "
+        "mitad de los plazos para uso severo o inactividad prolongada (Manual del "
+        "Fiat Cronos 2021, p. G-14).",
+        [True, True],
+    ),
+    (
+        "computed halving",
+        BELTS,
+        "Según el manual, la correa de accesorios (llamada \"correas de los órganos "
+        "auxiliares del motor\") se **sustituye cada 48 meses o cada 60.000 km, lo "
+        "que ocurra primero** (Manual del Fiat Cronos 2021, p. G-14).\n\n"
+        "Otros datos del mismo plan de mantenimiento:\n"
+        "- **Control visual:** se hace en las revisiones de 20.000, 40.000, 80.000, "
+        "100.000, 140.000 y 160.000 km (Manual del Fiat Cronos 2021, p. G-14).\n"
+        "- **Caminos polvorientos, arenosos o con barro:** el manual indica "
+        "controlar el rodamiento del tensor y las correas (aire acondicionado, "
+        "bomba de agua, alternador) cada 10.000 km o 12 meses. Si hace falta, se "
+        "reemplazan (Manual del Fiat Cronos 2021, p. G-14).\n"
+        "- **Uso severo** (remolque, taxi, entregas, etc.): el manual indica que "
+        "los elementos marcados con (*) se sustituyen o controlan a la mitad de los "
+        "plazos (Manual del Fiat Cronos 2021, p. G-14). Para las correas de "
+        "accesorios, eso equivale a unos 24 meses o 30.000 km. Esa cifra es mi "
+        "cálculo a partir de esa regla. El manual no la da expresamente.",
+        [True, True],
+    ),
 ]
 
 
@@ -180,14 +227,14 @@ def judge_facts(case: dict, answer: str) -> list[bool] | None:
     """One verdict per fact, or None when the judge fails or miscounts them."""
     facts = "\n".join(f"{n}. {fact}" for n, fact in enumerate(case["facts"], start=1))
     prompt = JUDGE_PROMPT.format(question=case["question"], facts=facts, answer=answer)
-    verdict = ask_judge(prompt, FactsVerdict)
+    verdict = ask_judge(prompt, FactsVerdict, FACTS_JUDGE)
     if verdict is None or len(verdict.facts) != len(case["facts"]):
         return None
     return [fact.stated for fact in verdict.facts]
 
 
 def calibrate() -> None:
-    print(f"Judge: {judge_model()}")
+    print(f"Judge: {judge_model(FACTS_JUDGE)}")
     for label, case, answer, expected in CALIBRATION:
         got = judge_facts(case, answer)
         status = "OK" if got == expected else "MISMATCH"

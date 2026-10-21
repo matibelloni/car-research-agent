@@ -105,7 +105,7 @@ Latest run (12 cases × 3 runs, 2026-10-05): lookup **36/36**, total **30/30**, 
 Questions about a manual, run through the whole agent:
 
 - **Route** (deterministic) — manual questions cite the expected page label and make no web search; price and owner-opinion questions, which the manual can't answer, make at least one web search
-- **Facts** (LLM judge, Haiku 4.5) — every fact of the case is stated, with the same figures. Facts are copied from the chunks' text, so web cases have none
+- **Facts** (LLM judge, Sonnet 5.5) — every fact of the case is stated, with the same figures. Facts are copied from the chunks' text, so web cases have none
 
 | Case | Route | All facts | Baseline route | Baseline facts |
 |---|---|---|---|---|
