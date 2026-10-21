@@ -133,14 +133,79 @@ CASES = [
         "question": "cada cuánto se cambia el filtro de nafta",
         "evidence": "filtro de combustible. (*): en las revisiones",
     },
+    # Peugeot 208. Some phrases keep the PDF's word breaks ("refri geración"),
+    # since they must match the chunk's text.
+    {
+        "id": "208-tire-pressure",
+        "manual": "peugeot-208-2024",
+        "question": "qué presión llevan los neumáticos del 208",
+        "evidence": "185/65 R15 88H 29 (1) 33 (2) 36 (3)",
+    },
+    {
+        "id": "208-accessory-belt",
+        "manual": "peugeot-208-2024",
+        "question": "cada cuántos km se cambia la correa de accesorios",
+        "evidence": "Sustitución de la correa de los órgaños auxiliares del motor*: 120.000 km",
+    },
+    {
+        "id": "208-brake-fluid",
+        "manual": "peugeot-208-2024",
+        "question": "cada cuánto se cambia el líquido de frenos",
+        "evidence": "Sustitución del fluido de los frenos: 2 años",
+    },
+    {
+        "id": "208-severe-use",
+        "manual": "peugeot-208-2024",
+        "question": "uso el auto de remis, tengo que hacerle el service más seguido?",
+        "evidence": "remolque, taxi, entregas puerta a puerta",
+    },
+    {
+        "id": "208-oil-consumption",
+        "manual": "peugeot-208-2024",
+        "question": "cuánto aceite es normal que consuma el motor",
+        "evidence": "aproximada mente 400 g",
+    },
+    {
+        "id": "208-coolant-capacity",
+        "manual": "peugeot-208-2024",
+        "question": "cuántos litros de refrigerante lleva el motor",
+        "evidence": "Capacidad del sistema de refri geración",
+    },
+    {
+        "id": "208-fuel-tank",
+        "manual": "peugeot-208-2024",
+        "question": "de cuántos litros es el tanque",
+        "evidence": "Capacidad del depósito: aproximadamente 47 litros",
+    },
+    {
+        "id": "208-warranty",
+        "manual": "peugeot-208-2024",
+        "question": "cuánto dura la garantía del auto",
+        "evidence": "treinta y seis (36) meses o 100.000 km",
+    },
+    # The heading: Android Auto's section mentions it too, without the ®.
+    {
+        "id": "208-bluetooth",
+        "manual": "peugeot-208-2024",
+        "question": "cómo conecto el celular por bluetooth",
+        "evidence": "Vincular un teléfono Bluetooth®",
+    },
+    {
+        "id": "208-engine-light",
+        "manual": "peugeot-208-2024",
+        "question": "se prendió y titila la luz de motor, qué hago",
+        "evidence": "Fallo del sistema de gestión del motor",
+    },
 ]
 
+# Cases without "manual" are about the Cronos. Each manual is searched on its
+# own, as search_manual does.
+DEFAULT_MANUAL = "fiat-cronos-2021"
 
-def load_chunks() -> list[dict]:
-    chunks = []
-    for path in sorted(MANUALS_DIR.glob("*.chunks.json")):
-        chunks += json.loads(path.read_text(encoding="utf-8"))
-    return chunks
+
+def load_chunks(manual: str) -> list[dict]:
+    path = MANUALS_DIR / f"{manual}.chunks.json"
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 def is_relevant(chunk: dict, evidence: str | list[str]) -> bool:
@@ -256,10 +321,10 @@ def reranked_retriever(first_stage, chunks: list[dict], model: str):
     return search
 
 
-def evaluate(name: str, search, chunks: list[dict]) -> None:
+def evaluate(name: str, search, chunks: list[dict], cases: list[dict]) -> None:
     ranks = []
     print(f"== {name} ==")
-    for case in CASES:
+    for case in cases:
         if case["evidence"] is None:  # needs a "nothing found" rule, measured later
             continue
         ranked = search(case["question"])
@@ -284,12 +349,15 @@ def evaluate(name: str, search, chunks: list[dict]) -> None:
 
 
 if __name__ == "__main__":
-    all_chunks = load_chunks()
-    bm25 = bm25_retriever(all_chunks)
-    voyage = voyage_retriever(all_chunks, "voyage-4")
-    evaluate("BM25", bm25, all_chunks)
-    evaluate("voyage-4", voyage, all_chunks)
-    evaluate("hybrid (RRF)", hybrid_retriever(bm25, voyage), all_chunks)
-    reranked = reranked_retriever(voyage, all_chunks, "rerank-3")
-    evaluate("voyage-4 + rerank-3", reranked, all_chunks)
-    print(f"  rerank tokens: {reranked.usage['tokens']}")
+    for manual in dict.fromkeys(case.get("manual", DEFAULT_MANUAL) for case in CASES):
+        print(f"\n######## {manual}")
+        cases = [c for c in CASES if c.get("manual", DEFAULT_MANUAL) == manual]
+        chunks = load_chunks(manual)
+        bm25 = bm25_retriever(chunks)
+        voyage = voyage_retriever(chunks, "voyage-4")
+        evaluate("BM25", bm25, chunks, cases)
+        evaluate("voyage-4", voyage, chunks, cases)
+        evaluate("hybrid (RRF)", hybrid_retriever(bm25, voyage), chunks, cases)
+        reranked = reranked_retriever(voyage, chunks, "rerank-3")
+        evaluate("voyage-4 + rerank-3", reranked, chunks, cases)
+        print(f"  rerank tokens: {reranked.usage['tokens']}")
