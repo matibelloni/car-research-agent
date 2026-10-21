@@ -47,11 +47,13 @@ MANUALS = {
         # Chapter numbers on the page edge and figure callouts like "21 38".
         "skip_lines": [re.compile(r"^[\d .]{1,7}$")],
         "page_label": None,
+        # Short booklet prefixes, like the Cronos's "G-14": a long label such as
+        # "Mantenimiento y Garantía, p. 22" was cut down to "p. 22" in answers.
         "page_numbering": [
             (5, 218, 1, "{}"),
-            (219, 238, 1, "Audio y Telemática, p. {}"),
-            (239, 254, 1, "Suplemento, p. {}"),
-            (258, 315, 2, "Mantenimiento y Garantía, p. {}"),
+            (219, 238, 1, "AT-{}"),  # Audio y Telemática
+            (239, 254, 1, "S-{}"),  # Suplemento
+            (258, 315, 2, "MG-{}"),  # Mantenimiento y Garantía
         ],
         "maintenance": {
             "pages": (278, 283),
@@ -78,7 +80,4 @@ MANUALS = {
 def citation(manual: str, page_label: str | None) -> str:
     """How an answer cites a section, e.g. "Manual del Fiat Cronos 2021, p. G-14"."""
     title = MANUALS[manual]["title"]
-    if page_label is None:
-        return title
-    # Booklet labels already say where the page is: "Mantenimiento y Garantía, p. 22".
-    return f"{title}, {page_label}" if ", p. " in page_label else f"{title}, p. {page_label}"
+    return title if page_label is None else f"{title}, p. {page_label}"

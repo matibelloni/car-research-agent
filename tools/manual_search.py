@@ -65,7 +65,7 @@ def search_manual_tool(manual: str, query: str) -> dict:
             "available_manuals": AVAILABLE_MANUALS,
         }
     # The citation is built here, so the model copies it instead of composing it
-    # from a page label (booklet labels like "Mantenimiento y Garantía, p. 22").
+    # from the manual's id and a page label.
     sections = [
         {
             "heading": section["heading"],

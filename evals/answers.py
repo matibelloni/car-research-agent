@@ -222,8 +222,7 @@ CITATIONS_CALIBRATION = [
         "manual booklet citation",
         "¿Cada cuánto se cambia el filtro de aceite del Peugeot 208?",
         "Según el plan de mantenimiento, el filtro de aceite del motor se sustituye "
-        "cada 10.000 km o 1 año (Manual del Peugeot 208 2024, Mantenimiento y "
-        "Garantía, p. 22).",
+        "cada 10.000 km o 1 año (Manual del Peugeot 208 2024, p. MG-22).",
         (5, 5),
     ),
     (

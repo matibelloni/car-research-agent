@@ -87,7 +87,7 @@ CASES = [
         "id": "208-accessory-belts",
         "question": "¿Cada cuántos km se cambia la correa de accesorios del Peugeot 208 1.6?",
         "route": "manual",
-        "page": "Mantenimiento y Garantía, p. 22",
+        "page": "MG-22",
         "facts": [
             "With the 1.6 16V engine, the accessory drive belt is replaced every "
             "80,000 km or 4 years, whichever comes first.",
@@ -113,7 +113,7 @@ CASES = [
         "id": "208-severe-use",
         "question": "Uso mi Peugeot 208 de remis, ¿tengo que hacerle el service más seguido?",
         "route": "manual",
-        "page": "Mantenimiento y Garantía, p. 19",
+        "page": "MG-19",
         "facts": [
             "Taxi use counts as severe use.",
             "Under severe use, the engine oil and oil filter, the fuel filter and the "
@@ -126,7 +126,7 @@ CASES = [
         "id": "208-spark-plugs",
         "question": "¿Cada cuánto se cambian las bujías del Peugeot 208 1.6?",
         "route": "manual",
-        "page": "Mantenimiento y Garantía, p. 22",
+        "page": "MG-22",
         "facts": [
             "The spark plugs are replaced every 20,000 km or 4 years on the engines "
             "of note (**): 1.2 12V Nafta and 1.6 THP CDTX/FDTX/CDTR/FDTR.",
@@ -141,7 +141,7 @@ CASES = [
         "id": "208-brake-fluid",
         "question": "¿Cada cuánto se cambia el líquido de frenos del Peugeot 208?",
         "route": "manual",
-        "page": ("Mantenimiento y Garantía, p. 22", "Mantenimiento y Garantía, p. 39"),
+        "page": ("MG-22", "MG-39"),
         "facts": ["The brake fluid is replaced every 2 years, regardless of mileage."],
     },
     {
@@ -276,8 +276,7 @@ CALIBRATION = [
         "y 1.6 THP CDTX/FDTX/CDTR/FDTR, y 40.000 km o 4 años para los de la nota "
         "(***), Motores Nafta y 1.6 THP 16V CDTM/FDTM. El manual no aclara cuál "
         "corresponde al 1.6 16V: confirmalo con tu versión de motor en un "
-        "concesionario (Manual del Peugeot 208 2024, Mantenimiento y Garantía, "
-        "p. 22).",
+        "concesionario (Manual del Peugeot 208 2024, p. MG-22).",
         [True, True, True],
     ),
     (
@@ -287,7 +286,7 @@ CALIBRATION = [
         "Nafta y 1.6 THP CDTX/FDTX/CDTR/FDTR, y 40.000 km o 4 años para los de la "
         "nota (***), Motores Nafta y 1.6 THP 16V CDTM/FDTM. Para tu 1.6 16V "
         "corresponde cambiarlas cada 40.000 km o 4 años (Manual del Peugeot 208 "
-        "2024, Mantenimiento y Garantía, p. 22).",
+        "2024, p. MG-22).",
         [True, True, False],
     ),
 ]
