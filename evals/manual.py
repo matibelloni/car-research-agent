@@ -81,11 +81,82 @@ CASES = [
         "page": None,
         "facts": [],
     },
+    # The interval depends on the engine. The second fact isn't in the plan
+    # (p. 22) but in the severe-use section (p. 19), another chunk.
+    {
+        "id": "208-accessory-belts",
+        "question": "¿Cada cuántos km se cambia la correa de accesorios del Peugeot 208 1.6?",
+        "route": "manual",
+        "page": "Mantenimiento y Garantía, p. 22",
+        "facts": [
+            "With the 1.6 16V engine, the accessory drive belt is replaced every "
+            "80,000 km or 4 years, whichever comes first.",
+            "Under severe use (e.g. taxi), it is replaced at half the indicated "
+            "interval.",
+        ],
+    },
+    # The manual gives pressures in psi; the agent converts them.
+    {
+        "id": "208-tire-pressure",
+        "question": "¿Qué presión llevan las cubiertas del Peugeot 208 con llantas 16?",
+        "route": "manual",
+        "page": "211",
+        "facts": [
+            "With 195/55 R16 tyres, the front tyres take 29 psi with the driver and "
+            "one passenger, 33 psi with more occupants and luggage, and 36 psi to "
+            "reduce fuel consumption.",
+            "The rear tyres take 29 psi with the driver and one passenger, and 36 psi "
+            "with more occupants and luggage or to reduce fuel consumption.",
+        ],
+    },
+    {
+        "id": "208-severe-use",
+        "question": "Uso mi Peugeot 208 de remis, ¿tengo que hacerle el service más seguido?",
+        "route": "manual",
+        "page": "Mantenimiento y Garantía, p. 19",
+        "facts": [
+            "Taxi use counts as severe use.",
+            "Under severe use, the engine oil and oil filter, the fuel filter and the "
+            "engine air filter are replaced at half the indicated intervals.",
+        ],
+    },
+    # Ambiguous in the manual: notes (**) and (***) name engines, but neither the
+    # 1.6 16V. A correct answer gives both values with their condition.
+    {
+        "id": "208-spark-plugs",
+        "question": "¿Cada cuánto se cambian las bujías del Peugeot 208 1.6?",
+        "route": "manual",
+        "page": "Mantenimiento y Garantía, p. 22",
+        "facts": [
+            "The spark plugs are replaced every 20,000 km or 4 years on the engines "
+            "of note (**): 1.2 12V Nafta and 1.6 THP CDTX/FDTX/CDTR/FDTR.",
+            "They are replaced every 40,000 km or 4 years on the engines of note "
+            "(***): Motores Nafta and 1.6 THP 16V CDTM/FDTM.",
+            "The answer does not state that one of the two intervals is the one for "
+            "the 1.6 16V.",
+        ],
+    },
+    {
+        "id": "208-brake-fluid",
+        "question": "¿Cada cuánto se cambia el líquido de frenos del Peugeot 208?",
+        "route": "manual",
+        "page": "Mantenimiento y Garantía, p. 22",
+        "facts": ["The brake fluid is replaced every 2 years, regardless of mileage."],
+    },
+    {
+        "id": "208-service-price",
+        "question": "¿Cuánto cuesta el service de los 10.000 km del Peugeot 208?",
+        "route": "web",
+        "page": None,
+        "facts": [],
+    },
 ]
 
 BELTS = CASES[0]
 SEVERE_USE = CASES[1]
 BRAKE_FLUID = CASES[2]
+TIRE_PRESSURE_208 = CASES[6]
+SPARK_PLUGS_208 = CASES[8]
 
 # Hand-written answers with a known verdict per fact. If the judge disagrees,
 # fix the prompt before trusting it on the agent.
@@ -185,6 +256,39 @@ CALIBRATION = [
         "cálculo a partir de esa regla. El manual no la da expresamente.",
         [True, True],
     ),
+    # The psi figures converted with convert_units, as the system prompt asks.
+    (
+        "pressures in kPa",
+        TIRE_PRESSURE_208,
+        "Con llantas 16 (195/55 R16), adelante van 200 kPa con el conductor y un "
+        "acompañante, 228 kPa con más ocupantes y equipaje, y 248 kPa para reducir "
+        "el consumo. Atrás van 200 kPa con el conductor y un acompañante, y 248 kPa "
+        "con más ocupantes y equipaje o para reducir el consumo (Manual del Peugeot "
+        "208 2024, p. 211).",
+        [True, True],
+    ),
+    (
+        "both plug intervals",
+        SPARK_PLUGS_208,
+        "La tabla da dos intervalos para la columna de motores nafta 1.2 y 1.6: "
+        "20.000 km o 4 años para los motores de la nota (**), que son 1.2 12V Nafta "
+        "y 1.6 THP CDTX/FDTX/CDTR/FDTR, y 40.000 km o 4 años para los de la nota "
+        "(***), Motores Nafta y 1.6 THP 16V CDTM/FDTM. El manual no aclara cuál "
+        "corresponde al 1.6 16V: confirmalo con tu versión de motor en un "
+        "concesionario (Manual del Peugeot 208 2024, Mantenimiento y Garantía, "
+        "p. 22).",
+        [True, True, True],
+    ),
+    (
+        "plug interval picked",
+        SPARK_PLUGS_208,
+        "El manual da 20.000 km o 4 años para los motores de la nota (**), 1.2 12V "
+        "Nafta y 1.6 THP CDTX/FDTX/CDTR/FDTR, y 40.000 km o 4 años para los de la "
+        "nota (***), Motores Nafta y 1.6 THP 16V CDTM/FDTM. Para tu 1.6 16V "
+        "corresponde cambiarlas cada 40.000 km o 4 años (Manual del Peugeot 208 "
+        "2024, Mantenimiento y Garantía, p. 22).",
+        [True, True, False],
+    ),
 ]
 
 
@@ -238,7 +342,7 @@ def calibrate() -> None:
     for label, case, answer, expected in CALIBRATION:
         got = judge_facts(case, answer)
         status = "OK" if got == expected else "MISMATCH"
-        print(f"{status:<9} {label:<18} expected {expected} got {got}")
+        print(f"{status:<9} {label:<20} expected {expected} got {got}")
 
 
 def cites_page(answer: str, page: str | tuple[str, ...]) -> bool:
