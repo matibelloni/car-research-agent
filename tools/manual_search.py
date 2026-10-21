@@ -19,7 +19,7 @@ FIRST_STAGE_SQL = """
     LIMIT %s
 """
 
-AVAILABLE_MANUALS = ["fiat-cronos-2021"]
+AVAILABLE_MANUALS = ["fiat-cronos-2021", "peugeot-208-2024"]
 
 MANUAL_SEARCH_TOOL = {
     "name": "search_manual",
