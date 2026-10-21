@@ -217,6 +217,15 @@ CITATIONS_CALIBRATION = [
         "Cronos 2021, p. G-14).",
         (5, 5),
     ),
+    # A booklet with its own page numbers: the page goes after the booklet's name.
+    (
+        "manual booklet citation",
+        "¿Cada cuánto se cambia el filtro de aceite del Peugeot 208?",
+        "Según el plan de mantenimiento, el filtro de aceite del motor se sustituye "
+        "cada 10.000 km o 1 año (Manual del Peugeot 208 2024, Mantenimiento y "
+        "Garantía, p. 22).",
+        (5, 5),
+    ),
     (
         "manual fact without citation",
         "¿Cada cuántos km se cambia la correa de accesorios del Fiat Cronos 2021?",

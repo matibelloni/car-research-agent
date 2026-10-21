@@ -110,7 +110,7 @@ def handle_search_manual(input: dict, trace) -> Generator[dict, None, dict]:
             or {
                 "count": len(result["sections"]),
                 "sections": [
-                    {"page_label": s["page_label"], "heading": s["heading"]}
+                    {"citation": s["citation"], "heading": s["heading"]}
                     for s in result["sections"]
                 ],
             }
@@ -158,9 +158,8 @@ Rules:
     ("around 28-30 mpg") need a source too. Never group sources at the end.
   - For recalls from get_recalls_ar, "Defensa del Consumidor" and the publication
     date (e.g. "Defensa del Consumidor, 29/01/2026").
-  - For owner's manual sections from search_manual, the manual and the page
-    label (e.g. "Manual del Fiat Cronos 2021, p. G-14"). If a section has no
-    page label, cite the manual alone.
+  - For owner's manual sections from search_manual, the section's citation
+    field, exactly as given (e.g. "Manual del Fiat Cronos 2021, p. G-14").
 - If the sources contradict each other, mention it instead of picking one.
 - Don't make up figures. If you didn't find a fact, say you didn't find it.
 - If search_manual's sections don't answer the question, say the manual doesn't

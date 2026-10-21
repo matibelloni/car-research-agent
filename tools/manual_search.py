@@ -3,6 +3,8 @@ import os
 import psycopg
 import voyageai
 
+from manuals import citation
+
 EMBEDDING_MODEL = "voyage-4"
 RERANK_MODEL = "rerank-3"
 RERANK_CANDIDATES = 30
@@ -23,7 +25,7 @@ MANUAL_SEARCH_TOOL = {
     "name": "search_manual",
     "description": (
         "Searches the official owner's manual of a car sold in Argentina and returns "
-        "the most relevant sections, each with its heading, text and page label. Use it "
+        "the most relevant sections, each with its heading, text and citation. Use it "
         "before searching the web for questions the manual can answer: maintenance "
         "intervals, warning lights, fluids and capacities, tire pressures, and how to "
         "use the car's features. The manual never contains prices, owner opinions, "
@@ -31,8 +33,8 @@ MANUAL_SEARCH_TOOL = {
         "directly. Only the manuals listed in 'manual' are available. "
         "The sections are related to the question but may not contain the answer: if "
         "none of them answers it, say the manual does not cover it and search the web. "
-        "Never fill gaps with general knowledge as if it came from the manual. Cite the "
-        "page label of every section you use."
+        "Never fill gaps with general knowledge as if it came from the manual. Cite "
+        "every section you use with its citation, exactly as given."
     ),
     "input_schema": {
         "type": "object",
@@ -62,8 +64,14 @@ def search_manual_tool(manual: str, query: str) -> dict:
             "message": f"Manual '{manual}' not available.",
             "available_manuals": AVAILABLE_MANUALS,
         }
+    # The citation is built here, so the model copies it instead of composing it
+    # from a page label (booklet labels like "Mantenimiento y Garantía, p. 22").
     sections = [
-        {key: section[key] for key in ("heading", "content", "page_label")}
+        {
+            "heading": section["heading"],
+            "content": section["content"],
+            "citation": citation(manual, section["page_label"]),
+        }
         for section in search_manual(query, manual)
     ]
     if not sections:
