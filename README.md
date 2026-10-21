@@ -110,20 +110,25 @@ Questions about a manual, run through the whole agent:
 | Case | Route | All facts | Baseline route | Baseline facts |
 |---|---|---|---|---|
 | Cronos — accessory belts (G-14) | 5/5 | 0/5 | 3/3 | 1/3 |
-| Cronos — taxi use (G-18 / G-14) | 5/5 | 1/5 | 3/3 | 1/3 |
+| Cronos — taxi use (G-18 / G-14) | 5/5 | 0/5 | 3/3 | 1/3 |
 | Cronos — brake fluid (G-14) | 5/5 | 1/5 | 3/3 | 1/3 |
 | Cronos — 10,000 km service price (web) | 5/5 | n/a | 3/3 | n/a |
 | Cronos — owners on highway consumption (web) | 2/3, 3/3 | n/a | 3/3 | n/a |
 
-*Latest: 5 runs per case, 2026-10-21, 153,446 tokens for the four cases above; highway consumption is the two earlier 3-run passes. Baseline: 3 runs per case, 2026-10-18, 103,562 tokens. The taxi-use case is stricter than in the baseline: its second fact now names the checks (brake pads, engine oil and filter, air filter) instead of "checks such as", and the judge asks for every named item. Re-judged that way, the run before had 0/3 too.*
+*Latest: Haiku 4.5 as the agent, 5 runs per case, 2026-10-21, 153,446 tokens for the four cases above, facts re-judged by Sonnet 5.5; highway consumption is the two earlier 3-run passes. Baseline: 3 runs per case, 2026-10-18, 103,562 tokens, judged by Haiku 4.5. The taxi-use case is stricter than in the baseline: its second fact now names the checks (brake pads, engine oil and filter, air filter) instead of "checks such as", and the judge asks for every named item. Re-judged that way, the run before had 0/3 too.*
 
 The main interval is stated in every run. The second fact is what goes missing, and each case misses it for a different reason:
 
-- **Accessory belts — a Haiku limit, not the data.** The maintenance plan now attaches each footnote to the tasks that carry its marker (`attach_footnotes`), so "Sustitución de las correas (\*): cada 48 meses…" is followed by the (\*) note that halves it under severe use. Haiku still quotes the (\*\*) note, the dusty-road check of the *visual inspection* row, in 8 of 8 runs. Sonnet 5.5 as the agent states the halving in 3 of 3; the judge passed only 1, reading "the manual doesn't give the figure, this is my calculation" as not stating it.
+- **Accessory belts — a Haiku limit, not the data.** The maintenance plan now attaches each footnote to the tasks that carry its marker (`attach_footnotes`), so "Sustitución de las correas (\*): cada 48 meses…" is followed by the (\*) note that halves it under severe use. Haiku still quotes the (\*\*) note, the dusty-road check of the *visual inspection* row, in 8 of 8 runs. Sonnet 5.5 as the agent states the halving in 3 of 3. A Haiku judge passed only 1 of those, so the facts judge is now Sonnet, calibrated on the two answers it failed.
 - **Taxi use — retrieval.** The agent never sends "remis" or "taxi" to `search_manual`: it rewrites the question as "intervalos de mantenimiento service". That query returns G-11 and G-14, not G-18, where the list of checks is. The only run that got G-18 (a query with "uso intensivo remis") stated the list and missed G-14's taxi footnote instead.
 - **Brake fluid — completeness.** The clutch fluid is in the same line as the interval; the agent drops it in 4 of 5 runs.
 
 Tried and dropped: an instruction in the tool result instead of the system prompt, since it only applies when the agent has the manual's sections in front of it. "Answer only from these sections…" made the agent skip the web search on the price question. A softer version ("if these sections answer the question, include every condition…; if they don't, search the web") got brake fluid to 3/3 once, but still lost the web search on the price question in 1 of 3 runs and made the agent apply the severe-use halving to the brake fluid, which has no marker. Attaching the footnotes costs some retrieval: G-14 grew from 5,397 to 8,983 chars, and rerank MRR went from 0.97 to 0.95 (fuel filter from rank 1 to 2, still in the top 3).
+
+Known limitations:
+
+- **Answers that need two different sections.** `search_manual` returns the top 3, and the taxi-use answer needs both G-14 (taxi counts as severe use) and G-18 (the checks done more often). With the agent's rewritten queries they never come back together. Next experiment: raise `TOP_K`, and measure what it costs in tokens and in irrelevant sections.
+- **A run without tools.** On the owner-opinions question, 1 of 6 runs answered "I have no tools to access owner opinions" without calling any tool, `search_web` included. It wasn't the tool result's wording: the run never got one.
 
 ### Maintenance tables — `scripts/extract_maintenance_llm.py`
 
