@@ -140,11 +140,35 @@ Tried and dropped: an instruction in the tool result instead of the system promp
 
 **Decision: Haiku stays.** Sonnet answers the manual questions completely, but it costs about 3× more per question, is slower, and drops below Haiku's range on citations, the metric the agent's sourcing rules exist for. The manual's secondary facts are the price of that choice, documented below.
 
+#### Peugeot 208
+
+Its maintenance plan has a column per engine instead of revision marks, so the LLM extractor reads (engines, interval) per cell and a deterministic step keeps the 208's engines (1.6 16V, 1.0 Turbo 200). Its headings are bold mixed-case lines, found by font; its booklets restart their page numbers, so their labels get a prefix: MG-22 is page 22 of *Mantenimiento y Garantía*. `search_manual` returns each section's citation built in code ("Manual del Peugeot 208 2024, p. MG-22"), and the agent copies it.
+
+| Retrieval (voyage-4 + rerank-3) | Recall@3 | Recall@5 | MRR | Cases |
+|---|---|---|---|---|
+| Cronos | 1.00 | 1.00 | 0.95 | 19 |
+| Peugeot 208 | 0.90 | 0.90 | 0.91 | 10 |
+
+| Case (208) | Route | All facts |
+|---|---|---|
+| Accessory belts, 1.6 (MG-22; severe use on MG-19) | 3/3 | 0/3 |
+| Tyre pressure, 16" wheels (211) | 3/3 | 1/3 |
+| Taxi use (MG-19) | 0/3 | 0/3 |
+| Spark plugs, 1.6 (MG-22) | 3/3 | 0/3 |
+| Brake fluid (MG-22 / MG-39) | 3/3 | 3/3 |
+| 10,000 km service price (web) | 5/5 | n/a |
+
+*Haiku 4.5, 3 runs per case (5 for the price question), 2026-10-21, facts judged by Sonnet 5.5. Retrieval searches each manual on its own, as the tool does. With the longer label "Mantenimiento y Garantía, p. 22", Haiku cut the citation down to "p. 22" in 2 of 9 runs; with "MG-22" it copied it in 12 of 12. The same run checked the citation field on the Cronos: every route passed, 3/3 per case.*
+
+The belts' severe-use halving is on another page (MG-19), and taxi use fails like the Cronos's: Haiku asks the manual "intervalos de mantenimiento service" and gets MG-18, not MG-19. The tyre answers that fail misread the load conditions ("conductor solo" for driver plus one passenger), and one wrapped the manual citation in a made-up link to example.com.
+
 Known limitations:
 
 - **Secondary facts from the manual.** With the facts on the same line as the interval, Haiku still drops them (clutch fluid) or picks the wrong footnote (belts); Sonnet states all of them in 9 of 9. It's a capability limit of the agent model, not of the data or retrieval.
-- **Answers that need two different sections.** The taxi-use answer needs G-14 (taxi counts as severe use) and G-18 (the checks done more often). Haiku makes one generic query and `search_manual` returns the top 3, so it gets one or the other; Sonnet gets both by querying twice. Possible next experiment with Haiku: raise `TOP_K`, and measure what it costs in tokens and in irrelevant sections.
-- **A run without tools.** On the owner-opinions question, 1 of 6 runs answered "I have no tools to access owner opinions" without calling any tool, `search_web` included. It wasn't the tool result's wording: the run never got one.
+- **Answers that need two different sections.** The taxi-use answer needs G-14 (taxi counts as severe use) and G-18 (the checks done more often), MG-22 and MG-19 on the 208. Haiku makes one generic query and `search_manual` returns the top 3, so it gets one or the other; Sonnet gets both by querying twice. Possible next experiment with Haiku: raise `TOP_K`, and measure what it costs in tokens and in irrelevant sections.
+- **Ambiguous manuals.** The 208's spark plugs have two intervals tied to engine codes in notes (\*\*) and (\*\*\*), and neither names the 1.6 16V. A correct answer gives both with their condition; Haiku picks 40,000 km for the 1.6 16V in every run.
+- **The user's words vs. the manual's.** "Se prendió y titila la luz de motor" ranks the engine self-diagnosis light, the section that answers it, 8th: the manual never says "luz de motor".
+- **Runs without tools.** About 2 of 23 runs answered a price or owner-opinion question with "I have no tools for that" without calling any. Forcing a tool (`tool_choice: any`) on every first call left 0 of 15 runs without tools, but price questions then went to the manual and stopped there: route 3/5 on both. Now the first call is repeated with a forced tool only when it used none, on models that accept forcing (Haiku 4.5): route 5/5 on the three web cases, 0 of 15 without tools. The retry didn't fire in those 15 runs, so so far only the tests cover it; the trace marks it (`llm-call-1-forced`) to count it.
 
 ### Maintenance tables — `scripts/extract_maintenance_llm.py`
 
