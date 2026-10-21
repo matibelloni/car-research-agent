@@ -96,7 +96,7 @@ Checks how the agent uses `get_recalls_ar`, mostly with deterministic checks; th
 
 - **Lookup** (deterministic) — the agent called the tool with the expected brand and keyword (e.g. "brake" → `freno`, "Hilux" → Toyota)
 - **Total** (deterministic) — the answer states how many recalls the lookup found
-- **Behavior** (LLM judge, some cases) — no invented recalls when there are none, and never claiming the user's specific car is affected
+- **Behavior** (LLM judge, some cases) — no invented recalls when there are none; for a brand the data doesn't cover, saying so and marking any recall found on the web as from another market; and never claiming the user's specific car is affected
 
 Latest run (12 cases × 3 runs, 2026-10-05): lookup **36/36**, total **30/30**, behavior **9/9**. Cases where a check doesn't apply (e.g. no total for an unknown brand) aren't counted.
 

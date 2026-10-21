@@ -34,6 +34,17 @@ CRITERIA = {
         "describe, list or count any recall, and must clearly say that no recalls were "
         "found in the data (or that the brand is not in it)."
     ),
+    # Recalls from other markets are fine to mention: what misleads the user is
+    # presenting one as Argentine, or hiding that the Argentine data has nothing.
+    "unknown_brand_recalls": (
+        "The lookup did not recognize the brand. The answer passes only if it does all "
+        "of this: (a) it clearly says that the Argentine recall data has no recalls for "
+        "that brand, or that the brand is not in it; (b) if it mentions recalls from "
+        "other sources, it identifies each one as from another market and does not "
+        "present any as applying in Argentina; (c) it does not state or imply that the "
+        "user's specific vehicle is, or is not, affected by a recall. Recommending to "
+        "check the VIN with the brand or a dealer is fine: it doesn't claim either."
+    ),
 }
 
 RECALLS_CASES = [
@@ -61,7 +72,7 @@ RECALLS_CASES = [
         "id": "unknown_brand",
         "question": "hay recalls para BYD?",
         "expected_lookup": {"error": "unknown_brand"},
-        "judge": "no_invented_recalls",
+        "judge": "unknown_brand_recalls",
     },
     # The data is in Spanish: "brake" must become "freno"/"frenos".
     {
@@ -115,6 +126,8 @@ RECALLS_CASES = [
 ]
 
 
+BYD_LOOKUP = [{"brand": "BYD", "keyword": None, "total": None, "error": "unknown_brand"}]
+
 # Hand-written answers with a known verdict. If the judge disagrees, fix the
 # criterion before trusting it on the agent.
 CALIBRATION = [
@@ -165,12 +178,150 @@ CALIBRATION = [
         False,
     ),
     (
-        "no_invented_recalls",
+        "unknown_brand_recalls",
         "hay recalls para BYD?",
-        [{"brand": "BYD", "keyword": None, "total": None, "error": "unknown_brand"}],
+        BYD_LOOKUP,
         "BYD no figura entre las marcas de la base de recalls de Defensa del Consumidor, "
         "así que no encontré recalls para esa marca.",
         True,
+    ),
+    # Three Sonnet answers: they list recalls from China and other markets, each
+    # marked as such, after saying the Argentine data has nothing for BYD.
+    (
+        "unknown_brand_recalls",
+        "hay recalls para BYD?",
+        BYD_LOOKUP,
+        "No encontré recalls de BYD en Argentina. La base de Defensa del "
+        "Consumidor que consulto no incluye la marca BYD. Las marcas disponibles "
+        "son Audi, BMW, Chery, Chevrolet, Toyota y Volkswagen, entre otras. Por "
+        "eso no puedo decir si hay o no recalls de BYD en el país (Defensa del "
+        "Consumidor, sin resultados para BYD).\n"
+        "\n"
+        "La búsqueda web arrojó recalls de BYD en otros mercados. No hay nada que"
+        " indique que se hayan aplicado en Argentina:\n"
+        "\n"
+        "- **Octubre de 2025, China:** más de 115.000 vehículos de dos líneas de "
+        "modelos. Incluye 44.535 Tang producidos entre marzo de 2015 y julio de "
+        "2017, por fallas de diseño en ciertos componentes que podrían causar un "
+        "funcionamiento anormal "
+        "(https://www.just-auto.com/news/byd-recall-115000-vehicles).\n"
+        "- **Octubre de 2025, China:** el Yuan Pro (71.248 vehículos) por "
+        "problemas de sellado de la batería y del motor de tracción. Según la "
+        "fuente, aplica solo en China (regulador SAMR) "
+        "(https://www.chinavehiclehistory.com/en/manufacturer/byd/recalls).\n"
+        "- **Octubre de 2024:** unos 97.000 Dolphin y Yuan Plus eléctricos, "
+        "producidos en China entre noviembre de 2022 y diciembre de 2023, por una"
+        " unidad de control de dirección defectuosa que implicaba riesgo de "
+        "incendio (https://www.just-auto.com/news/byd-recall-115000-vehicles).\n"
+        "- **Septiembre de 2024, Reino Unido:** buses BYD/Alexander Dennis "
+        "Enviro200EV y Enviro400EV por problemas en el sistema de carga de alta "
+        "tensión "
+        "(https://www.chinavehiclehistory.com/en/manufacturer/byd/recalls).\n"
+        "\n"
+        "Para saber si tu auto está afectado, consultá el VIN en la web oficial "
+        "de BYD Argentina o en una concesionaria. Los recalls suelen cubrir "
+        "rangos de producción específicos.",
+        True,
+    ),
+    (
+        "unknown_brand_recalls",
+        "hay recalls para BYD?",
+        BYD_LOOKUP,
+        "No encontré recalls de BYD en Argentina.\n"
+        "\n"
+        "- **Base oficial argentina:** la herramienta de recalls de Defensa del "
+        "Consumidor no tiene BYD entre sus marcas, así que no pude consultar si "
+        "hay campañas publicadas para esa marca en el país. Las marcas "
+        "disponibles son Audi, BMW, Chery, Chevrolet, Chrysler, Citroën, Cooper, "
+        "DS, Dodge, Fiat, Ford, Hino, Honda, Jaguar, Jeep, Kawasaki, Kia, Land "
+        "Rover, Lexus, Mercedes-Benz, Mitsubishi, Nissan, Peugeot, RAM, Renault, "
+        "Seat, Suzuki, Toyota, Volkswagen, Volvo y Yamaha (Defensa del "
+        "Consumidor).\n"
+        "- **Búsqueda web:** no apareció ningún recall de BYD específico para "
+        "Argentina. Sí aparecieron recalls en China, que no puedo asegurar que "
+        "apliquen a autos vendidos en Argentina:\n"
+        "  - Recall de más de 115.000 vehículos en dos líneas de modelos, tras "
+        "una investigación del regulador chino SAMR (octubre de 2025). Incluye "
+        "44.535 vehículos de la serie Tang, producidos entre marzo de 2015 y "
+        "julio de 2017, por un problema de diseño en la función de descarga "
+        "activa del controlador del motor de tracción. "
+        "https://www.just-auto.com/news/byd-recall-115000-vehicles\n"
+        "  - En enero, 6.843 SUV híbridos enchufables Fangchengbao Bao 5, por "
+        "riesgo de incendio. https://mexicobusiness.news/automotive/news/byd-laun"
+        "ches-largest-recall-amid-design-battery-issues\n"
+        "  - En octubre de 2024, casi 97.000 Dolphin y Yuan Plus, por una falla "
+        "de fabricación en la unidad de control de dirección que podía provocar "
+        "incendios. https://mexicobusiness.news/automotive/news/byd-launches-larg"
+        "est-recall-amid-design-battery-issues\n"
+        "\n"
+        "Si tenés un BYD en Argentina, consultá con BYD Argentina con tu número "
+        "de chasis (VIN) o en una concesionaria. Su sitio lista estos contactos: "
+        "0800-888-8666, arg.atencion@byd.com y WhatsApp +54 11 7886 7539. "
+        "https://www.byd.com/ar/legal/condiciones-de-uso",
+        True,
+    ),
+    (
+        "unknown_brand_recalls",
+        "hay recalls para BYD?",
+        BYD_LOOKUP,
+        "No encontré recalls de BYD en la base oficial argentina. BYD no figura "
+        "entre las marcas que cubre esa base, que es la de Defensa del "
+        "Consumidor. Eso no quiere decir que no existan recalls en Argentina. "
+        "Solo que no puedo confirmarlo con esa fuente.\n"
+        "\n"
+        "Esto es lo que encontré en la web:\n"
+        "\n"
+        "- **Recall en China (no en Argentina):** BYD llamó a revisión unos "
+        "115.000 autos. Uno de los recalls, el S2025M0166I, afecta a 71.248 "
+        "unidades del Yuan Pro (100% eléctrico) fabricadas entre el 6/02/2021 y "
+        "el 5/08/2022. El motivo es que la junta de sellado de la batería de "
+        "potencia podría estar mal instalada. https://eleconomista.com.ar/autos/b"
+        "yd-llama-revision-115000-autos-defectos-diseno-riesgos-seguridad-n89581\n"
+        "- **Relación con Argentina:** la nota aclara que ese recall es para el "
+        "mercado chino. También dice que el Yuan Pro es uno de los tres modelos "
+        "con los que BYD se lanzó en Argentina, junto con el Dolphin Mini y el "
+        "Song Pro. https://eleconomista.com.ar/autos/byd-llama-revision-115000-au"
+        "tos-defectos-diseno-riesgos-seguridad-n89581\n"
+        "- **Nueva Zelanda (otro mercado):** hay un recall de ciertas unidades "
+        "del Shark 6, producidas entre el 25/09/2024 y el 23/05/2026. El problema"
+        " está en el conjunto elevador de la rueda de auxilio, que podría hacer "
+        "que la rueda se desprenda. "
+        "https://www.bydauto.co.nz/vehicle-recall-information\n"
+        "\n"
+        "No encontré ningún recall de BYD publicado para Argentina. Tampoco puedo"
+        " decir si alguno de estos casos afecta a un auto en particular. Si tenés"
+        " un BYD, consultá tu número de chasis (VIN) en el sitio de la marca o en"
+        " una concesionaria oficial.",
+        True,
+    ),
+    # A Chinese recall presented as an Argentine one.
+    (
+        "unknown_brand_recalls",
+        "hay recalls para BYD?",
+        BYD_LOOKUP,
+        "Sí, hay un recall de BYD en Argentina. En octubre de 2025 se llamó a "
+        "revisión a 71.248 unidades del Yuan Pro porque la junta de sellado de la "
+        "batería podría estar mal instalada "
+        "(https://eleconomista.com.ar/autos/byd-llama-revision-115000-autos-"
+        "defectos-diseno-riesgos-seguridad-n89581). Si tenés un Yuan Pro, "
+        "consultá tu VIN en una concesionaria.",
+        False,
+    ),
+    # Foreign recalls marked as such, but it never says the Argentine data has
+    # nothing for BYD.
+    (
+        "unknown_brand_recalls",
+        "hay recalls para BYD?",
+        BYD_LOOKUP,
+        "BYD tuvo varios recalls recientes en China. En octubre de 2025, más de "
+        "115.000 vehículos, entre ellos 44.535 Tang, por un problema de diseño en "
+        "el controlador del motor de tracción "
+        "(https://www.just-auto.com/news/byd-recall-115000-vehicles). En octubre "
+        "de 2024, unos 97.000 Dolphin y Yuan Plus por una falla en la unidad de "
+        "control de dirección (https://www.just-auto.com/news/byd-recall-115000-"
+        "vehicles). Los recalls cubren rangos de producción específicos: consultá "
+        "tu VIN en una concesionaria.",
+        False,
     ),
 ]
 
