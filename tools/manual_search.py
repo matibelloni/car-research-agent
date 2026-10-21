@@ -71,7 +71,15 @@ def search_manual_tool(manual: str, query: str) -> dict:
             "sections": [],
             "message": "The manual has no section about this. Search the web instead.",
         }
-    return {"sections": sections}
+    return {
+        "sections": sections,
+        "note": (
+            "If these sections answer the question, include every condition or "
+            "footnote in them that changes the values you give (e.g. severe use "
+            "halving an interval, related items replaced at the same time). If they "
+            "don't answer it, say the manual doesn't cover it and search the web."
+        ),
+    }
 
 
 def first_stage(
