@@ -81,7 +81,19 @@ class FontRules:
         return position < RUNNING_HEADER_POSITION and self.key(line) in self.running_headers
 
     def is_heading(self, line: dict) -> bool:
-        return "bold" in line["font"].lower() and line["size"] > self.body_size
+        # A word of 3+ letters: figure callouts ("A B", "AA") are bold and big too.
+        has_word = re.search(r"[^\W\d_]{3,}", line["text"])
+        return bool(has_word) and is_bold(line["font"]) and line["size"] > self.body_size
+
+
+BOLD_NAMES = re.compile(r"bold|semibold|black|heavy", re.IGNORECASE)
+FIGURE_NUMBER = re.compile(r"^\d(?=[A-ZÁÉÍÓÚÑ])")  # "5Consejos": a figure's number
+
+
+def is_bold(font: str) -> bool:
+    """By name: "Arial-BoldMT", "Lato-Black", or a weight of 600+ ("MuseoSans-700")."""
+    weights = [int(w) for w in re.findall(r"(?<!\d)(\d{3})(?!\d)", font)]
+    return bool(BOLD_NAMES.search(font)) or any(600 <= w <= 900 for w in weights)
 
 
 def manual_lines(manual: str, config: dict, pages: list[dict]) -> list[dict]:
@@ -134,6 +146,7 @@ def chunk_pages(pages: list[dict], lines: list[dict], config: dict) -> list[dict
     current = None
     previous_line = ""
     last_was_heading = False
+    last_heading_size = None
     for page in pages:
         label = page_label(config, page)
         for position, line in enumerate(by_number[page["page"]]["lines"]):
@@ -144,16 +157,22 @@ def chunk_pages(pages: list[dict], lines: list[dict], config: dict) -> list[dict
                 continue
             if rules:
                 heading = rules.is_heading(line)
+                if heading:
+                    text = FIGURE_NUMBER.sub("", text)
+                # A heading in another size right after one is a subheading.
+                wrapped = last_was_heading and line["size"] == last_heading_size
             else:
                 continues_heading = last_was_heading and previous_line.endswith("-")
                 heading = continues_heading or is_heading(text, previous_line)
+                wrapped = last_was_heading
             if heading:
-                if last_was_heading:  # heading wrapped over several lines
+                if wrapped:  # heading wrapped over several lines
                     current["heading_lines"].append(text)
                 else:
                     current = {"heading_lines": [text], "body": []}
                     sections.append(current)
                 last_was_heading = True
+                last_heading_size = line["size"]
             else:
                 if current is not None:
                     current["body"].append((text, page["page"], label))
