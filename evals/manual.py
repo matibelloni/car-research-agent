@@ -112,6 +112,14 @@ CALIBRATION = [
         "momento (Manual del Fiat Cronos 2021, p. G-14).",
         [False, True],
     ),
+    (
+        "equivalent wording",
+        BRAKE_FLUID,
+        "El manual indica cambiar el líquido de frenos cada 2 años o 40 mil km, lo "
+        "primero que se cumpla, y aprovechar para cambiar el del embrague "
+        "hidráulico si lo tiene (Manual del Fiat Cronos 2021, p. G-14).",
+        [True, True],
+    ),
 ]
 
 
@@ -163,7 +171,7 @@ def calibrate() -> None:
     for label, case, answer, expected in CALIBRATION:
         got = judge_facts(case, answer)
         status = "OK" if got == expected else "MISMATCH"
-        print(f"{status:<9} {label:<16} expected {expected} got {got}")
+        print(f"{status:<9} {label:<18} expected {expected} got {got}")
 
 
 def cites_page(answer: str, page: str | tuple[str, ...]) -> bool:
