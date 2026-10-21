@@ -19,6 +19,7 @@ from pydantic import BaseModel
 
 from agent import langfuse, run_agent_stream
 from evals.judge import ask_judge, judge_model
+from manuals import MANUALS
 
 RUNS = 3
 # Haiku failed the calibration cases where the halving is stated in passing or
@@ -424,7 +425,9 @@ def score(case: dict, run: dict) -> dict:
     else:
         route_ok = run["searches"] >= 1
         if case.get("no_manual_citation"):
-            route_ok = route_ok and "Manual del" not in run["answer"]
+            # Our manuals' titles: advice like "check your Manual del Propietario" is fine.
+            titles = [m["title"] for m in MANUALS.values()]
+            route_ok = route_ok and not any(t in run["answer"] for t in titles)
     facts = None
     if case["facts"] and run["answer"]:
         facts = judge_facts(case, run["answer"])
