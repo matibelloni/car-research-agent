@@ -54,10 +54,12 @@ class FakeMessages:
         self.calls = 0
         # Messages of each call, copied before the agent appends more.
         self.sent = []
+        self.tool_choices = []
 
     def stream(self, **kwargs):
         self.calls += 1
         self.sent.append(list(kwargs["messages"]))
+        self.tool_choices.append(kwargs.get("tool_choice"))
         next_item = self.responses.pop(0)
         if isinstance(next_item, Exception):
             raise next_item
@@ -111,6 +113,20 @@ def test_searches_then_answers(monkeypatch):
     assert {"type": "searching", "query": "golf 2015"} in events
     assert final_result(events)["searches"] == 1
     assert fake.calls == 2
+
+
+def test_first_call_must_use_a_tool_and_later_ones_may_stop(monkeypatch):
+    fake = script(
+        monkeypatch,
+        message([tool_block("search_web", {"query": "golf 2015"})], "tool_use"),
+        message([tool_block("search_web", {"query": "golf 2015 city"})], "tool_use"),
+        message([text_block("The Golf uses 7 L/100km")], "end_turn"),
+    )
+    monkeypatch.setattr(agent, "search_web", lambda q: "fake results")
+
+    list(agent.run_agent_stream("golf?"))
+
+    assert fake.tool_choices == [{"type": "any"}, {"type": "auto"}, {"type": "auto"}]
 
 
 def test_failed_search_does_not_kill_the_agent(monkeypatch):

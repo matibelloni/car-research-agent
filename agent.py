@@ -193,6 +193,9 @@ def run_agent_stream(question: str) -> Iterator[dict]:
                     model=MODEL,
                     max_tokens=MAX_OUTPUT_TOKENS,
                     tools=TOOLS,
+                    # The first call must use a tool: some runs answered "I have
+                    # no tools for that" without trying any. Then it's free to stop.
+                    tool_choice={"type": "any"} if i == 0 else {"type": "auto"},
                     messages=messages,
                     system=SYSTEM,
                 ) as stream:
