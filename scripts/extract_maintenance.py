@@ -10,6 +10,9 @@ import pdfplumber
 
 TABLE_SETTINGS = {"text_x_tolerance": 1}  # the default merges words in this PDF
 HEADER_PREFIX = "REVISIONES"
+FOOTNOTE_MARKER = re.compile(r"\(\*+\)")  # (*), (**), (***)...
+# Where a footnote starts: at the text's start or after another one's last sentence.
+FOOTNOTE_START = re.compile(r"(?<=[.:;]) (?=\(\*+\))")
 
 
 def clean(text: str) -> str:
@@ -38,7 +41,33 @@ def row_to_sentence(header: list, row: list) -> str:
     return f"{task}: en las revisiones {points}."
 
 
-def maintenance_sentences(pdf_path: str, first_page: int, last_page: int) -> list[str]:
+def attach_footnotes(sentences: list[str]) -> list[str]:
+    """Append to each task the footnotes its markers point to.
+
+    Footnotes are the rows from the first one that starts with a marker. They
+    stay at the end too: the model reads a condition more reliably on the same
+    line as the interval it changes than thousands of characters below it.
+    """
+    start = next(
+        (n for n, s in enumerate(sentences) if FOOTNOTE_MARKER.match(s)), len(sentences)
+    )
+    tasks, footnotes = sentences[:start], sentences[start:]
+    notes = {
+        FOOTNOTE_MARKER.match(note).group(): note
+        for note in FOOTNOTE_START.split(" ".join(footnotes))
+        if FOOTNOTE_MARKER.match(note)
+    }
+    resolved = []
+    for task in tasks:
+        # The regex matches whole markers, so "(**)" never resolves as "(*)".
+        markers = dict.fromkeys(FOOTNOTE_MARKER.findall(task))
+        attached = [notes[marker] for marker in markers if marker in notes]
+        resolved.append(" ".join([task, *attached]))
+    return resolved + footnotes
+
+
+def table_sentences(pdf_path: str, first_page: int, last_page: int) -> list[str]:
+    """One sentence per row, footnotes as they are in the table."""
     if first_page > last_page:
         raise ValueError(f"Empty page range: {first_page} to {last_page}")
     sentences = []
@@ -52,6 +81,10 @@ def maintenance_sentences(pdf_path: str, first_page: int, last_page: int) -> lis
                     sentences.append(clean(header[0]))
                 sentences += [row_to_sentence(header, row) for row in rows]
     return sentences
+
+
+def maintenance_sentences(pdf_path: str, first_page: int, last_page: int) -> list[str]:
+    return attach_footnotes(table_sentences(pdf_path, first_page, last_page))
 
 
 if __name__ == "__main__":

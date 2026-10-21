@@ -19,7 +19,7 @@ from dotenv import load_dotenv
 from pydantic import BaseModel, Field
 from pypdf import PdfReader, PdfWriter
 
-from scripts.extract_maintenance import format_km
+from scripts.extract_maintenance import attach_footnotes, format_km
 
 load_dotenv()
 
@@ -140,7 +140,7 @@ def maintenance_sentences(
     pdf_path: str, first_page: int, last_page: int, model: str = DEFAULT_MODEL
 ) -> list[str]:
     plan, _ = extract_plan(pdf_path, first_page, last_page, model)
-    return plan_to_sentences(plan)
+    return attach_footnotes(plan_to_sentences(plan))
 
 
 def schedule_of(sentence: str) -> str:
@@ -163,10 +163,11 @@ def split_footnotes(sentences: list[str]) -> tuple[list[str], str]:
 
 def compare(pdf_path: str, first_page: int, last_page: int, model: str) -> None:
     """Diff this extractor against the table-grid one, line by line."""
-    from scripts.extract_maintenance import maintenance_sentences as grid_sentences
+    # Before attaching footnotes: this compares how each one reads the table.
+    from scripts.extract_maintenance import table_sentences
 
     expected, expected_notes = split_footnotes(
-        grid_sentences(pdf_path, first_page, last_page)
+        table_sentences(pdf_path, first_page, last_page)
     )
     plan, tokens = extract_plan(pdf_path, first_page, last_page, model)
     got, got_notes = split_footnotes(plan_to_sentences(plan))
