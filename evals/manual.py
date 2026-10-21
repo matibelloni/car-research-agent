@@ -240,7 +240,7 @@ def main(case_ids: list[str]) -> None:
                 evidence.append(
                     f"    searches={run['searches']} facts={result['facts']}"
                 )
-                evidence.append(f"    answer: {run['answer'][:400]}")
+                evidence.append(f"    answer: {run['answer']}")
             elif case["facts"] and result["facts"] is None:
                 evidence.append("    judge failed")
         total_tokens += case_tokens
