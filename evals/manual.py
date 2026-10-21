@@ -151,6 +151,42 @@ CASES = [
         "page": None,
         "facts": [],
     },
+    # Model years: search_manual resolves the closest manual and adds a note
+    # when its year isn't the one asked about, or none was given.
+    {
+        "id": "cronos-2024-brake-fluid",
+        "question": "¿Cada cuánto se cambia el líquido de frenos del Fiat Cronos 2024?",
+        "route": "manual",
+        "page": "G-14",
+        "facts": [
+            "The brake fluid is replaced every 24 months or every 40,000 km, "
+            "whichever comes first.",
+            "The answer says the information comes from the 2021 manual and that it "
+            "may differ for a 2024 car.",
+        ],
+    },
+    # No manual for this model: it must go to the web, not answer from another
+    # car's manual.
+    {
+        "id": "etios-oil",
+        "question": "¿Cada cuánto se cambia el aceite del Toyota Etios 2020?",
+        "route": "web",
+        "page": None,
+        "facts": [],
+        "no_manual_citation": True,
+    },
+    {
+        "id": "208-oil-no-year",
+        "question": "¿Cada cuánto cambio el aceite del 208?",
+        "route": "manual",
+        "page": "MG-22",
+        "facts": [
+            "The engine oil is replaced every 10,000 km or 1 year, whichever comes "
+            "first.",
+            "The answer says it uses the 2024 manual because no model year was "
+            "given, and that it may differ for other years.",
+        ],
+    },
 ]
 
 BELTS = CASES[0]
@@ -158,6 +194,7 @@ SEVERE_USE = CASES[1]
 BRAKE_FLUID = CASES[2]
 TIRE_PRESSURE_208 = CASES[6]
 SPARK_PLUGS_208 = CASES[8]
+CRONOS_2024 = CASES[11]
 
 # Hand-written answers with a known verdict per fact. If the judge disagrees,
 # fix the prompt before trusting it on the agent.
@@ -289,6 +326,24 @@ CALIBRATION = [
         "2024, p. MG-22).",
         [True, True, False],
     ),
+    (
+        "other year said",
+        CRONOS_2024,
+        "No tengo el manual del Cronos 2024: según el manual del Fiat Cronos 2021, "
+        "el líquido de frenos se cambia cada 24 meses o cada 40.000 km, lo que "
+        "ocurra primero (Manual del Fiat Cronos 2021, p. G-14). Puede haber "
+        "diferencias con el modelo 2024, así que conviene confirmarlo.",
+        [True, True],
+    ),
+    # The citation names the 2021 manual, but the answer never says it isn't
+    # the 2024 one.
+    (
+        "other year unsaid",
+        CRONOS_2024,
+        "El líquido de frenos del Fiat Cronos 2024 se cambia cada 24 meses o cada "
+        "40.000 km, lo que ocurra primero (Manual del Fiat Cronos 2021, p. G-14).",
+        [True, False],
+    ),
 ]
 
 
@@ -368,6 +423,8 @@ def score(case: dict, run: dict) -> dict:
         route_ok = run["searches"] == 0 and cites_page(run["answer"], case["page"])
     else:
         route_ok = run["searches"] >= 1
+        if case.get("no_manual_citation"):
+            route_ok = route_ok and "Manual del" not in run["answer"]
     facts = None
     if case["facts"] and run["answer"]:
         facts = judge_facts(case, run["answer"])
