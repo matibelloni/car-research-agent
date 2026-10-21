@@ -1,5 +1,11 @@
+"""Embed manual chunks with Voyage and load them into pgvector.
+
+Usage: python -m scripts.load_manual [manual id ...]   # every manual when none is given
+"""
+
 import json
 import os
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -35,10 +41,14 @@ def embed_chunks(client: voyageai.Client, chunks: list[dict]) -> list[list[float
     return embeddings
 
 
-def main() -> None:
+def main(manual_ids: list[str]) -> None:
+    """Embeds and loads the given manuals, or every one when none is given."""
     client = voyageai.Client()  # reads VOYAGE_API_KEY
+    paths = [MANUALS_DIR / f"{m}.chunks.json" for m in manual_ids] or sorted(
+        MANUALS_DIR.glob("*.chunks.json")
+    )
     with psycopg.connect(os.environ["DATABASE_URL"]) as conn:
-        for path in sorted(MANUALS_DIR.glob("*.chunks.json")):
+        for path in paths:
             manual_id = path.name.removesuffix(".chunks.json")
             chunks = json.loads(path.read_text(encoding="utf-8"))
 
@@ -62,4 +72,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])
