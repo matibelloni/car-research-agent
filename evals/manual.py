@@ -47,8 +47,8 @@ CASES = [
         "facts": [
             "Taxi use counts as severe use: items marked (*) must be replaced or "
             "checked at half the indicated intervals.",
-            "Under severe use, checks such as front brake pads, engine oil and oil "
-            "filter, and the air filter must be done more often than the scheduled "
+            "Under severe use, the front brake pads, the engine oil and oil filter, "
+            "and the air filter must be checked more often than the scheduled "
             "maintenance plan says.",
         ],
     },
@@ -80,6 +80,7 @@ CASES = [
     },
 ]
 
+SEVERE_USE = CASES[1]
 BRAKE_FLUID = CASES[2]
 
 # Hand-written answers with a known verdict per fact. If the judge disagrees,
@@ -120,6 +121,23 @@ CALIBRATION = [
         "hidráulico si lo tiene (Manual del Fiat Cronos 2021, p. G-14).",
         [True, True],
     ),
+    # An agent answer the judge once passed: it lists other items but never the
+    # engine oil and oil filter.
+    (
+        "partial item list",
+        SEVERE_USE,
+        "Sí, según el manual del Fiat Cronos 2021, si usás tu vehículo como remis, "
+        "debés hacer el servicio más seguido. El plan de mantenimiento incluye una "
+        'nota que dice: "Elementos que se deben sustituir/controlar en la mitad de '
+        "los plazos indicados, para vehículos utilizados sobre todo en caminos "
+        "polvorientos, arenosos, con barro o en condiciones severas de uso "
+        '(remolque, taxi, entrega a domicilio, etc.)" (Manual del Fiat Cronos 2021, '
+        "p. G-14). Esto significa que para varios componentes como el cartucho del "
+        "filtro de aire del motor, el filtro de combustible, las pastillas de freno, "
+        "las zapatas de freno traseras y el filtro de aire acondicionado, el "
+        "intervalo se reduce a la mitad.",
+        [True, False],
+    ),
 ]
 
 
@@ -143,6 +161,8 @@ in another language or use other words; what matters is the content.
   means the fact is NOT stated.
 - A fact is stated only if all its parts are there: a fact with an interval and
   a "whichever comes first" condition needs both.
+- A fact that names several items is stated only if every one of them is in the
+  answer. Other items in the answer don't make up for a missing one.
 - Facts are independent: judge each one on its own.
 
 Return exactly one verdict per fact, in the same order.
