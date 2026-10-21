@@ -17,7 +17,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 MANUALS_DIR = Path(__file__).resolve().parent.parent / "data" / "manuals"
-TOP_K = 5
+RECALL_AT = (3, 5)  # 3 is how many sections search_manual returns
 BM25_K1 = 1.5  # how fast repeated terms stop adding score
 BM25_B = 0.75  # how much long chunks are penalized
 EMBEDDING_BATCH = 100  # chunks per request, well under the API's per-request limits
@@ -275,9 +275,12 @@ def evaluate(name: str, search, chunks: list[dict]) -> None:
         label = f"rank {rank:>3}" if rank else "NO CHUNK"
         print(f"  {label}  {case['id']}")
     found = [rank for rank in ranks if rank]
-    recall = sum(1 for rank in found if rank <= TOP_K) / len(ranks)
+    recalls = "   ".join(
+        f"recall@{k}: {sum(1 for rank in found if rank <= k) / len(ranks):.2f}"
+        for k in RECALL_AT
+    )
     mrr = sum(1 / rank for rank in found) / len(ranks)
-    print(f"  recall@{TOP_K}: {recall:.2f}   MRR: {mrr:.2f}   ({len(ranks)} cases)")
+    print(f"  {recalls}   MRR: {mrr:.2f}   ({len(ranks)} cases)")
 
 
 if __name__ == "__main__":
