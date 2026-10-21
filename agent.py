@@ -104,7 +104,17 @@ def handle_search_manual(input: dict, trace) -> Generator[dict, None, dict]:
     )
     try:
         result = search_manual_tool(manual, query)
-        span.update(output=result.get("error") or f"{len(result['sections'])} sections")
+        # Which sections the model got, without their text, to read off the trace.
+        span.update(
+            output=result.get("error")
+            or {
+                "count": len(result["sections"]),
+                "sections": [
+                    {"page_label": s["page_label"], "heading": s["heading"]}
+                    for s in result["sections"]
+                ],
+            }
+        )
         return {
             "content": json.dumps(result, ensure_ascii=False),
             "is_error": "error" in result,
