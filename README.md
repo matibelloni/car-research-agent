@@ -162,12 +162,25 @@ Its maintenance plan has a column per engine instead of revision marks, so the L
 
 The belts' severe-use halving is on another page (MG-19), and taxi use fails like the Cronos's: Haiku asks the manual "intervalos de mantenimiento service" and gets MG-18, not MG-19. The tyre answers that fail misread the load conditions ("conductor solo" for driver plus one passenger), and one wrapped the manual citation in a made-up link to example.com.
 
+#### Model years and models without a manual
+
+`search_manual` takes the model as the user names it and an optional year, and resolves the manual in code, like `get_recalls_ar` does with brands: the model or an alias as a whole word, ignoring case and accents ("208" doesn't match "2008"), then the manual with the closest model year. The result always names the manual it used, with a note when its year isn't the one asked about or none was given. A model without a manual gets `unknown_model` and the list of available models, and the agent goes to the web.
+
+| Case | Route | All facts |
+|---|---|---|
+| Cronos 2024, brake fluid (2021 manual, G-14) | 3/3 | 3/3 |
+| Toyota Etios 2020, oil change (web, no manual cited) | 3/3 | n/a |
+| 208 without a year, oil change (MG-22) | 3/3 | 0/3 |
+
+*Haiku 4.5, 3 runs per case, 2026-10-21. Each "all facts" includes saying which manual year the answer comes from; two calibration cases cover that fact (6/6 in 3 runs).* Haiku passes on the "another year" note every time ("el manual disponible es de 2021, no de 2024") but never on the "no year given" one: the intervals are right, and the answer doesn't say they come from the 2024 manual.
+
 Known limitations:
 
 - **Secondary facts from the manual.** With the facts on the same line as the interval, Haiku still drops them (clutch fluid) or picks the wrong footnote (belts); Sonnet states all of them in 9 of 9. It's a capability limit of the agent model, not of the data or retrieval.
 - **Answers that need two different sections.** The taxi-use answer needs G-14 (taxi counts as severe use) and G-18 (the checks done more often), MG-22 and MG-19 on the 208. Haiku makes one generic query and `search_manual` returns the top 3, so it gets one or the other; Sonnet gets both by querying twice. Possible next experiment with Haiku: raise `TOP_K`, and measure what it costs in tokens and in irrelevant sections.
 - **Ambiguous manuals.** The 208's spark plugs have two intervals tied to engine codes in notes (\*\*) and (\*\*\*), and neither names the 1.6 16V. A correct answer gives both with their condition; Haiku picks 40,000 km for the 1.6 16V in every run.
 - **The user's words vs. the manual's.** "Se prendió y titila la luz de motor" ranks the engine self-diagnosis light, the section that answers it, 8th: the manual never says "luz de motor".
+- **The "no year given" note.** For a question without a model year, `search_manual` notes which year's manual it used; Haiku answers from it without saying so, 0 of 3 runs.
 - **Runs without tools.** About 2 of 23 runs answered a price or owner-opinion question with "I have no tools for that" without calling any. Forcing a tool (`tool_choice: any`) on every first call left 0 of 15 runs without tools, but price questions then went to the manual and stopped there: route 3/5 on both. Now the first call is repeated with a forced tool only when it used none, on models that accept forcing (Haiku 4.5): route 5/5 on the three web cases, 0 of 15 without tools. The retry didn't fire in those 15 runs, so so far only the tests cover it; the trace marks it (`llm-call-1-forced`) to count it.
 
 ### Maintenance tables — `scripts/extract_maintenance_llm.py`
