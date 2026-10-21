@@ -136,11 +136,12 @@ CASES = [
             "the 1.6 16V.",
         ],
     },
+    # The recommended products table (p. 39) gives the interval too.
     {
         "id": "208-brake-fluid",
         "question": "¿Cada cuánto se cambia el líquido de frenos del Peugeot 208?",
         "route": "manual",
-        "page": "Mantenimiento y Garantía, p. 22",
+        "page": ("Mantenimiento y Garantía, p. 22", "Mantenimiento y Garantía, p. 39"),
         "facts": ["The brake fluid is replaced every 2 years, regardless of mileage."],
     },
     {
