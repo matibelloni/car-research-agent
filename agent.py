@@ -96,14 +96,17 @@ def handle_get_recalls_ar(input: dict, trace) -> Generator[dict, None, dict]:
 
 
 def handle_search_manual(input: dict, trace) -> Generator[dict, None, dict]:
-    manual = input["manual"]
+    model = input["model"]
+    year = input.get("year")
     query = input["query"]
-    yield {"type": "manual_search", "manual": manual, "query": query}
+    yield {"type": "manual_search", "model": model, "year": year, "query": query}
     span = trace.start_observation(
-        name="search", as_type="span", input={"manual": manual, "query": query}
+        name="search",
+        as_type="span",
+        input={"model": model, "year": year, "query": query},
     )
     try:
-        result = search_manual_tool(manual, query)
+        result = search_manual_tool(model, query, year)
         # Which sections the model got, without their text, to read off the trace.
         span.update(
             output=result.get("error")
@@ -334,7 +337,8 @@ def run_agent(question: str, verbose: bool = False) -> AgentResult:
             rprint(f"  🔍 {event['query']}")
 
         elif verbose and event["type"] == "manual_search":
-            rprint(f"  📖 {event['manual']}: {event['query']}")
+            year = f" {event['year']}" if event["year"] else ""
+            rprint(f"  📖 {event['model']}{year}: {event['query']}")
 
         elif event["type"] == "result":
             return AgentResult(

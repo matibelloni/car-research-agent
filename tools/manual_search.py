@@ -3,7 +3,7 @@ import os
 import psycopg
 import voyageai
 
-from manuals import citation
+from manuals import MANUALS, citation, resolve_manual
 
 EMBEDDING_MODEL = "voyage-4"
 RERANK_MODEL = "rerank-3"
@@ -19,8 +19,6 @@ FIRST_STAGE_SQL = """
     LIMIT %s
 """
 
-AVAILABLE_MANUALS = ["fiat-cronos-2021", "peugeot-208-2024"]
-
 MANUAL_SEARCH_TOOL = {
     "name": "search_manual",
     "description": (
@@ -30,7 +28,10 @@ MANUAL_SEARCH_TOOL = {
         "intervals, warning lights, fluids and capacities, tire pressures, and how to "
         "use the car's features. The manual never contains prices, owner opinions, "
         "reliability data or comparisons with other cars: for those, use search_web "
-        "directly. Only the manuals listed in 'manual' are available. "
+        "directly. Only some models have a manual: for any other, the result says so "
+        "and lists the available ones, and you search the web instead. The result "
+        "names the manual it used; when it has a note about the model year, tell the "
+        "user that the manual is for another year, or that they gave none. "
         "The sections are related to the question but may not contain the answer: if "
         "none of them answers it, say the manual does not cover it and search the web. "
         "Never fill gaps with general knowledge as if it came from the manual. Cite "
@@ -39,10 +40,16 @@ MANUAL_SEARCH_TOOL = {
     "input_schema": {
         "type": "object",
         "properties": {
-            "manual": {
+            "model": {
                 "type": "string",
-                "enum": AVAILABLE_MANUALS,
-                "description": "The manual to search, as 'brand-model-year'.",
+                "description": (
+                    "The car model as the user names it, with the brand if they "
+                    "give it, e.g. 'Cronos', 'Peugeot 208'."
+                ),
+            },
+            "year": {
+                "type": "integer",
+                "description": "Optional. The model year the user asks about.",
             },
             "query": {
                 "type": "string",
@@ -52,18 +59,19 @@ MANUAL_SEARCH_TOOL = {
                 ),
             },
         },
-        "required": ["manual", "query"],
+        "required": ["model", "query"],
     },
 }
 
 
-def search_manual_tool(manual: str, query: str) -> dict:
-    if manual not in AVAILABLE_MANUALS:
-        return {
-            "error": "unknown_manual",
-            "message": f"Manual '{manual}' not available.",
-            "available_manuals": AVAILABLE_MANUALS,
-        }
+def search_manual_tool(model: str, query: str, year: int | None = None) -> dict:
+    resolved = resolve_manual(model, year)
+    if "error" in resolved:
+        return resolved
+    manual = resolved["manual"]
+    used = {"manual": MANUALS[manual]["title"]}
+    if resolved["note"]:
+        used["note"] = resolved["note"]
     # The citation is built here, so the model copies it instead of composing it
     # from the manual's id and a page label.
     sections = [
@@ -76,10 +84,11 @@ def search_manual_tool(manual: str, query: str) -> dict:
     ]
     if not sections:
         return {
+            **used,
             "sections": [],
             "message": "The manual has no section about this. Search the web instead.",
         }
-    return {"sections": sections}
+    return {**used, "sections": sections}
 
 
 def first_stage(
