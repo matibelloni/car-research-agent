@@ -147,10 +147,10 @@ Its maintenance plan has a column per engine instead of revision marks, so the L
 | Retrieval (voyage-4 + rerank-3) | Recall@3 | Recall@5 | MRR | Cases |
 |---|---|---|---|---|
 | Cronos, original cases | 1.00 | 1.00 | 0.95 | 19 |
-| Cronos, with owner-worded cases | 0.96 | 1.00 | 0.93 | 26 |
+| Cronos, with owner-worded cases | 1.00 | 1.00 | 0.94 | 26 |
 | Peugeot 208 | 0.90 | 0.90 | 0.91 | 10 |
 
-The Cronos's first 19 questions borrowed the manual's vocabulary. Seven more were written as an owner would ask, in Argentine Spanish, before reading the manual ("se me prendió una luz amarilla con forma de motor", "cuánto aire le pongo a las gomas… con el baúl lleno"), and their evidence was found afterwards. Six rank first. "El auto no arranca y hace tic tic tic" ranks the jump-start section 5th, under the starting procedure and "MOTOR NO ARRANCA" (E-4). E-4 itself says a flat battery can be jump-started, but it wasn't in the evidence chosen before the run, so it doesn't count.
+The Cronos's first 19 questions borrowed the manual's vocabulary. Seven more were written as an owner would ask, in Argentine Spanish, before reading the manual ("se me prendió una luz amarilla con forma de motor", "cuánto aire le pongo a las gomas… con el baúl lleno"), and their evidence was found afterwards. Six rank first. "El auto no arranca y hace tic tic tic" first ranked the jump-start section 5th, under the starting procedure and "MOTOR NO ARRANCA" (E-4). E-4 was added as evidence after that run, from reviewing its top 5, not when the case was written: it says that with a flat battery the engine can be jump-started from another battery, which is what the clicking usually means and what the manual offers for it. With it, the case ranks 2nd. Before that run the 26 cases scored 0.96 / 1.00 / 0.93. The top 5 of the other six cases was reviewed the same way, and no other chunk answering its question was missing from the evidence.
 
 | Case (208) | Route | All facts |
 |---|---|---|

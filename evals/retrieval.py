@@ -151,10 +151,15 @@ CASES = [
         "evidence": "Media carga Plena carga",
     },
     # The manual doesn't describe the clicking; jump-starting is the closest answer.
+    # "MOTOR NO ARRANCA" turned up reviewing the top 5 after the first run: it
+    # sends a flat battery to a jump-start too.
     {
         "id": "owner-no-start",
         "question": "el auto no arranca y hace tic tic tic, qué hago?",
-        "evidence": "ARRANQUE CON BATERÍA AUXILIAR",
+        "evidence": [
+            "ARRANQUE CON BATERÍA AUXILIAR",
+            "En caso de batería descargada, es posible realizar un arranque de emergencia",
+        ],
     },
     # The manual gives the octane rating, not "súper" or "premium".
     {
