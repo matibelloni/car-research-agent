@@ -107,15 +107,23 @@ Questions about a manual, run through the whole agent:
 - **Route** (deterministic) — manual questions cite the expected page label and make no web search; price and owner-opinion questions, which the manual can't answer, make at least one web search
 - **Facts** (LLM judge, Haiku 4.5) — every fact of the case is stated, with the same figures. Facts are copied from the chunks' text, so web cases have none
 
-| Case | Route | All facts |
-|---|---|---|
-| Cronos — accessory belts (G-14) | 3/3 | 1/3 |
-| Cronos — taxi use (G-18 / G-14) | 3/3 | 1/3 |
-| Cronos — brake fluid (G-14) | 3/3 | 1/3 |
-| Cronos — 10,000 km service price (web) | 3/3 | n/a |
-| Cronos — owners on highway consumption (web) | 3/3 | n/a |
+| Case | Route | All facts | Baseline route | Baseline facts |
+|---|---|---|---|---|
+| Cronos — accessory belts (G-14) | 5/5 | 0/5 | 3/3 | 1/3 |
+| Cronos — taxi use (G-18 / G-14) | 5/5 | 1/5 | 3/3 | 1/3 |
+| Cronos — brake fluid (G-14) | 5/5 | 1/5 | 3/3 | 1/3 |
+| Cronos — 10,000 km service price (web) | 5/5 | n/a | 3/3 | n/a |
+| Cronos — owners on highway consumption (web) | 2/3, 3/3 | n/a | 3/3 | n/a |
 
-*Baseline, 3 runs per case, 2026-10-18, 103,562 tokens in total. The main interval of every manual case is stated in every run. What gets dropped is the second fact: the severe-use halving for the belts, the clutch fluid for the brake fluid, and the list of checks done more often for taxi use.*
+*Latest: 5 runs per case, 2026-10-21, 153,446 tokens for the four cases above; highway consumption is the two earlier 3-run passes. Baseline: 3 runs per case, 2026-10-18, 103,562 tokens. The taxi-use case is stricter than in the baseline: its second fact now names the checks (brake pads, engine oil and filter, air filter) instead of "checks such as", and the judge asks for every named item. Re-judged that way, the run before had 0/3 too.*
+
+The main interval is stated in every run. The second fact is what goes missing, and each case misses it for a different reason:
+
+- **Accessory belts — a Haiku limit, not the data.** The maintenance plan now attaches each footnote to the tasks that carry its marker (`attach_footnotes`), so "Sustitución de las correas (\*): cada 48 meses…" is followed by the (\*) note that halves it under severe use. Haiku still quotes the (\*\*) note, the dusty-road check of the *visual inspection* row, in 8 of 8 runs. Sonnet 5.5 as the agent states the halving in 3 of 3; the judge passed only 1, reading "the manual doesn't give the figure, this is my calculation" as not stating it.
+- **Taxi use — retrieval.** The agent never sends "remis" or "taxi" to `search_manual`: it rewrites the question as "intervalos de mantenimiento service". That query returns G-11 and G-14, not G-18, where the list of checks is. The only run that got G-18 (a query with "uso intensivo remis") stated the list and missed G-14's taxi footnote instead.
+- **Brake fluid — completeness.** The clutch fluid is in the same line as the interval; the agent drops it in 4 of 5 runs.
+
+Tried and dropped: an instruction in the tool result instead of the system prompt, since it only applies when the agent has the manual's sections in front of it. "Answer only from these sections…" made the agent skip the web search on the price question. A softer version ("if these sections answer the question, include every condition…; if they don't, search the web") got brake fluid to 3/3 once, but still lost the web search on the price question in 1 of 3 runs and made the agent apply the severe-use halving to the brake fluid, which has no marker. Attaching the footnotes costs some retrieval: G-14 grew from 5,397 to 8,983 chars, and rerank MRR went from 0.97 to 0.95 (fuel filter from rank 1 to 2, still in the top 3).
 
 ### Maintenance tables — `scripts/extract_maintenance_llm.py`
 
