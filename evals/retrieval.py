@@ -133,6 +133,59 @@ CASES = [
         "question": "cada cuánto se cambia el filtro de nafta",
         "evidence": "filtro de combustible. (*): en las revisiones",
     },
+    # Written as an owner would ask, with Argentine words, before reading the
+    # manual: the cases above borrowed its vocabulary. The evidence was found
+    # afterwards.
+    {
+        "id": "owner-engine-light",
+        "question": "se me prendió una luz amarilla con forma de motor en el tablero, puedo seguir andando?",
+        "evidence": [
+            "En estas condiciones, se puede seguir manejando",
+            "Si la luz de aviso queda prendida o si se enciende durante la marcha",
+        ],
+    },
+    # The manual gives the same pressure at half and full load.
+    {
+        "id": "owner-tire-pressure-load",
+        "question": "cuánto aire le pongo a las gomas si salgo a la ruta con la familia y el baúl lleno?",
+        "evidence": "Media carga Plena carga",
+    },
+    # The manual doesn't describe the clicking; jump-starting is the closest answer.
+    {
+        "id": "owner-no-start",
+        "question": "el auto no arranca y hace tic tic tic, qué hago?",
+        "evidence": "ARRANQUE CON BATERÍA AUXILIAR",
+    },
+    # The manual gives the octane rating, not "súper" or "premium".
+    {
+        "id": "owner-fuel-octane",
+        "question": "qué nafta le cargo, súper o premium?",
+        "evidence": [
+            "octano (RON) no inferior a 95",
+            "índice de octano no inferior a 95",
+        ],
+    },
+    {
+        "id": "owner-trailer",
+        "question": "puedo enganchar un trailer? cuánto peso aguanta?",
+        "evidence": [
+            "Cargas remolcables (remolque sin freno) 400",
+            "GANCHO DE REMOLQUE REMOLQUE DE ACOPLADOS",
+        ],
+    },
+    {
+        "id": "owner-spare-wheel",
+        "question": "cómo saco la rueda de auxilio?",
+        "evidence": [
+            "Quitar la rueda de repuesto del interior del compartimiento de equipajes",
+            "La rueda de repuesto está ubicada debajo de la alfombra",
+        ],
+    },
+    {
+        "id": "owner-tire-rotation",
+        "question": "cada cuánto hay que rotar las cubiertas?",
+        "evidence": "Cada 10.000 km, garantizar la rotación de los neumáticos",
+    },
     # Peugeot 208. Some phrases keep the PDF's word breaks ("refri geración"),
     # since they must match the chunk's text.
     {
