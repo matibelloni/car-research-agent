@@ -3,73 +3,30 @@
 Usage: python -m scripts.chunk_manuals
 """
 
+import bisect
 import json
 import re
 import statistics
+from collections import Counter
 from pathlib import Path
 
+from manuals import MANUALS
 from scripts.extract_maintenance import attach_footnotes, maintenance_sentences
 from scripts.extract_maintenance_llm import (
     filter_engines,
     load_or_extract_plan,
     plan_to_sentences,
 )
+from scripts.extract_manuals import load_or_extract_lines
 
 MANUALS_DIR = Path(__file__).resolve().parent.parent / "data" / "manuals"
 MAX_CHUNK_CHARS = 2000
 
-# Per manual:
-# - skip_lines: lines that aren't content (page numbers, chapter tabs).
-# - page_label: regex for the printed page number, read from the page's lines.
-# - page_numbering: for manuals whose numbering restarts in each booklet, ranges
-#   of PDF pages (first, last, printed number of the first, label template).
-#   Pages outside every range get no label.
-# - maintenance: PDF pages (first, last) of the scheduled-maintenance table,
-#   which is replaced by one sentence per task, read from the table grid
-#   ("grid", Fiat's layout only) or by Claude ("llm", cached next to the PDF).
-# - engines: the engines the car has, when the table has a column per engine.
-# - excluded_pages: PDF pages about other vehicles.
-MANUALS = {
-    "fiat-cronos-2021": {
-        "skip_lines": [
-            re.compile(r"^[A-I]-\d+$"),  # printed page number, e.g. "B-33"
-            re.compile(r"^[A-I]$"),  # chapter letter printed on the page edge
-        ],
-        "page_label": re.compile(r"^[A-I]-\d+$"),
-        "page_numbering": [],
-        "maintenance": {
-            "pages": (254, 257),
-            "extractor": "grid",
-            "heading": "PLAN DE MANTENIMIENTO PROGRAMADO",
-        },
-        "engines": [],
-        "excluded_pages": [],
-    },
-    "peugeot-208-2024": {
-        # Page numbers, chapter numbers on the page edge, figure callouts like "21 38".
-        "skip_lines": [re.compile(r"^[\d .]{1,7}$")],
-        "page_label": None,
-        "page_numbering": [
-            (5, 218, 1, "{}"),
-            (219, 238, 1, "Audio y Telemática, p. {}"),
-            (239, 254, 1, "Suplemento, p. {}"),
-            (258, 315, 2, "Mantenimiento y Garantía, p. {}"),
-        ],
-        "maintenance": {
-            "pages": (278, 283),
-            "extractor": "llm",
-            "heading": "Mantenimiento periódico - Vehículos Particulares + Partner",
-        },
-        # The ones the body of the manual mentions; the maintenance booklet
-        # covers every Peugeot.
-        "engines": ["1.6 16V", "1.0 Turbo 200"],
-        # Hybrids, utility vans, Expert and Boxer.
-        "excluded_pages": range(285, 294),
-    },
-}
-
 DOT_LEADERS = re.compile(r"(\. ){3,}")  # table of contents and index lines
 CALLOUTS = {"ADVERTENCIA", "¡ATENCIÓN!", "NOTA"}  # uppercase labels, not headings
+# A line repeated this often among the first lines of a page is the running header.
+RUNNING_HEADER_PAGES = 5
+RUNNING_HEADER_POSITION = 3
 
 
 def page_label(config: dict, page: dict) -> str | None:
@@ -93,11 +50,68 @@ def is_heading(line: str, previous_line: str) -> bool:
     return not (previous_line.endswith("-") and previous_line != previous_line.upper())
 
 
-def join_lines(lines: list[str]) -> str:
-    text = ""
+class FontRules:
+    """Headings, page numbers and running headers, told apart by font.
+
+    The body is the most frequent size; a heading is bold and bigger than it.
+    Page numbers are digit-only lines in the font most such lines use, and a
+    running header is a line repeated near the top of many pages in one font.
+    """
+
+    def __init__(self, pages: list[dict]):
+        sizes, number_fonts, tops = Counter(), Counter(), Counter()
+        for page in pages:
+            for position, line in enumerate(page["lines"]):
+                sizes[line["size"]] += len(line["text"])
+                if line["text"].isdigit():
+                    number_fonts[line["font"]] += 1
+                if position < RUNNING_HEADER_POSITION:
+                    tops[self.key(line)] += 1
+        self.body_size = sizes.most_common(1)[0][0]
+        self.page_number_font = number_fonts.most_common(1)[0][0] if number_fonts else None
+        self.running_headers = {k for k, n in tops.items() if n >= RUNNING_HEADER_PAGES}
+
+    @staticmethod
+    def key(line: dict) -> tuple:
+        return line["text"], line["font"], line["size"]
+
+    def is_noise(self, line: dict, position: int) -> bool:
+        if line["text"].isdigit() and line["font"] == self.page_number_font:
+            return True
+        return position < RUNNING_HEADER_POSITION and self.key(line) in self.running_headers
+
+    def is_heading(self, line: dict) -> bool:
+        return "bold" in line["font"].lower() and line["size"] > self.body_size
+
+
+def manual_lines(manual: str, config: dict, pages: list[dict]) -> list[dict]:
+    """Per page, its lines as {"text", "font", "size"}; no fonts for "uppercase"."""
+    if config["headings"] == "font":
+        return load_or_extract_lines(MANUALS_DIR / f"{manual}.pdf")
+    return [
+        {
+            "page": page["page"],
+            "lines": [
+                {"text": line.strip(), "font": None, "size": None}
+                for line in page["text"].splitlines()
+                if line.strip()
+            ],
+        }
+        for page in pages
+    ]
+
+
+def join_lines(lines: list[str]) -> tuple[str, list[int]]:
+    """The lines as one text, and where each line starts in it."""
+    text, starts = "", []
     for line in lines:
-        text = text[:-1] + line if text.endswith("-") else f"{text} {line}"
-    return text.strip()
+        if text.endswith("-"):  # word hyphenated across lines
+            text = text[:-1]
+        elif text:
+            text += " "
+        starts.append(len(text))
+        text += line
+    return text, starts
 
 
 def split_text(text: str) -> list[str]:
@@ -112,51 +126,50 @@ def split_text(text: str) -> list[str]:
     return parts + [current] if current else parts
 
 
-def is_noise(line: str, config: dict) -> bool:
-    return bool(DOT_LEADERS.search(line)) or any(
-        pattern.match(line) for pattern in config["skip_lines"]
-    )
-
-
-def chunk_pages(pages: list[dict], config: dict) -> list[dict]:
-    chunks = []
+def chunk_pages(pages: list[dict], lines: list[dict], config: dict) -> list[dict]:
+    """Chunks of the given pages; each part of a section gets the page it starts on."""
+    by_number = {page["page"]: page for page in lines}
+    rules = FontRules([by_number[p["page"]] for p in pages]) if config["headings"] == "font" else None
+    sections = []
     current = None
     previous_line = ""
     last_was_heading = False
     for page in pages:
-        lines = [line.strip() for line in page["text"].splitlines() if line.strip()]
         label = page_label(config, page)
-        for line in lines:
-            if is_noise(line, config):
+        for position, line in enumerate(by_number[page["page"]]["lines"]):
+            text = line["text"]
+            if DOT_LEADERS.search(text) or any(p.match(text) for p in config["skip_lines"]):
                 continue
-            continues_heading = last_was_heading and previous_line.endswith("-")
-            if continues_heading or is_heading(line, previous_line):
+            if rules and rules.is_noise(line, position):
+                continue
+            if rules:
+                heading = rules.is_heading(line)
+            else:
+                continues_heading = last_was_heading and previous_line.endswith("-")
+                heading = continues_heading or is_heading(text, previous_line)
+            if heading:
                 if last_was_heading:  # heading wrapped over several lines
-                    current["heading_lines"].append(line)
+                    current["heading_lines"].append(text)
                 else:
-                    current = {
-                        "heading_lines": [line],
-                        "body_lines": [],
-                        "page": page["page"],
-                        "page_label": label,
-                    }
-                    chunks.append(current)
+                    current = {"heading_lines": [text], "body": []}
+                    sections.append(current)
                 last_was_heading = True
             else:
                 if current is not None:
-                    current["body_lines"].append(line)
+                    current["body"].append((text, page["page"], label))
                 last_was_heading = False
-            previous_line = line
-    return [
-        {
-            "heading": join_lines(chunk["heading_lines"]),
-            "text": part,
-            "page": chunk["page"],
-            "page_label": chunk["page_label"],
-        }
-        for chunk in chunks
-        for part in split_text(join_lines(chunk["body_lines"]))
-    ]
+            previous_line = text
+    chunks = []
+    for section in sections:
+        heading, _ = join_lines(section["heading_lines"])
+        text, starts = join_lines([line for line, _, _ in section["body"]])
+        cursor = 0
+        for part in split_text(text):
+            cursor = text.find(part, cursor)
+            _, page, label = section["body"][bisect.bisect_right(starts, cursor) - 1]
+            chunks.append({"heading": heading, "text": part, "page": page, "page_label": label})
+            cursor += len(part)
+    return chunks
 
 
 def maintenance_chunk(manual: str, config: dict, pages: list[dict]) -> dict:
@@ -211,7 +224,10 @@ def main() -> None:
             if not first <= page["page"] <= last
             and page["page"] not in config["excluded_pages"]
         ]
-        chunks = chunk_pages(prose, config) + [maintenance_chunk(manual, config, pages)]
+        lines = manual_lines(manual, config, pages)
+        chunks = chunk_pages(prose, lines, config) + [
+            maintenance_chunk(manual, config, pages)
+        ]
         chunks_path = pages_path.with_name(
             pages_path.name.replace(".pages.", ".chunks.")
         )

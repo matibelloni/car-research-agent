@@ -6,6 +6,7 @@ Usage: python scripts/extract_manuals.py [page numbers to print]
 import json
 import statistics
 import sys
+from collections import Counter
 from pathlib import Path
 
 from pypdf import PdfReader
@@ -20,6 +21,51 @@ def extract_pages(pdf_path: Path) -> list[dict]:
         {"page": number, "text": page.extract_text()}
         for number, page in enumerate(reader.pages, start=1)
     ]
+
+
+def page_lines(page) -> list[dict]:
+    """The page's lines in pypdf's reading order, each with its main font and size."""
+    lines = []
+    text, weights = [], Counter()
+
+    def visit(fragment, cm, tm, font_dict, font_size):
+        font = font_dict.get("/BaseFont", "") if font_dict else ""
+        # Drop the subset prefix, e.g. "KZOCVT+Arial-BoldMT" -> "Arial-BoldMT".
+        font = str(font).lstrip("/").split("+")[-1]
+        size = round(abs(font_size * (tm[3] or tm[0])), 1)
+        for n, part in enumerate(fragment.split("\n")):
+            if n:
+                lines.append(("".join(text), weights.copy()))
+                text.clear()
+                weights.clear()
+            text.append(part)
+            if part.strip():
+                weights[(font, size)] += len(part.strip())
+
+    page.extract_text(visitor_text=visit)
+    lines.append(("".join(text), weights))
+    return [
+        {"text": line.strip(), "font": font, "size": size}
+        for line, weights in lines
+        if line.strip() and weights
+        for (font, size), _ in [weights.most_common(1)[0]]
+    ]
+
+
+def load_or_extract_lines(pdf_path: Path) -> list[dict]:
+    """Per page, its lines with fonts, for manuals whose headings are told by font."""
+    lines_path = pdf_path.with_suffix(".lines.json")
+    if lines_path.exists():
+        return json.loads(lines_path.read_text(encoding="utf-8"))
+    reader = PdfReader(pdf_path)
+    pages = [
+        {"page": number, "lines": page_lines(page)}
+        for number, page in enumerate(reader.pages, start=1)
+    ]
+    lines_path.write_text(
+        json.dumps(pages, ensure_ascii=False, indent=1), encoding="utf-8"
+    )
+    return pages
 
 
 def load_or_extract(pdf_path: Path) -> list[dict]:
