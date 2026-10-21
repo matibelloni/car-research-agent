@@ -120,14 +120,30 @@ Questions about a manual, run through the whole agent:
 The main interval is stated in every run. The second fact is what goes missing, and each case misses it for a different reason:
 
 - **Accessory belts — a Haiku limit, not the data.** The maintenance plan now attaches each footnote to the tasks that carry its marker (`attach_footnotes`), so "Sustitución de las correas (\*): cada 48 meses…" is followed by the (\*) note that halves it under severe use. Haiku still quotes the (\*\*) note, the dusty-road check of the *visual inspection* row, in 8 of 8 runs. Sonnet 5.5 as the agent states the halving in 3 of 3. A Haiku judge passed only 1 of those, so the facts judge is now Sonnet, calibrated on the two answers it failed.
-- **Taxi use — retrieval.** The agent never sends "remis" or "taxi" to `search_manual`: it rewrites the question as "intervalos de mantenimiento service". That query returns G-11 and G-14, not G-18, where the list of checks is. The only run that got G-18 (a query with "uso intensivo remis") stated the list and missed G-14's taxi footnote instead.
+- **Taxi use — Haiku's single generic query.** Haiku makes one `search_manual` call and rewrites the question as "intervalos de mantenimiento service", without "remis" or "taxi". That query returns G-11 and G-14, not G-18, where the list of checks is. The only Haiku run that got G-18 (a query with "uso intensivo remis") stated the list and missed G-14's taxi footnote instead. Sonnet makes two calls, one about severe use and one about taxi use, and states both facts in 3 of 3.
 - **Brake fluid — completeness.** The clutch fluid is in the same line as the interval; the agent drops it in 4 of 5 runs.
 
 Tried and dropped: an instruction in the tool result instead of the system prompt, since it only applies when the agent has the manual's sections in front of it. "Answer only from these sections…" made the agent skip the web search on the price question. A softer version ("if these sections answer the question, include every condition…; if they don't, search the web") got brake fluid to 3/3 once, but still lost the web search on the price question in 1 of 3 runs and made the agent apply the severe-use halving to the brake fluid, which has no marker. Attaching the footnotes costs some retrieval: G-14 grew from 5,397 to 8,983 chars, and rerank MRR went from 0.97 to 0.95 (fuel filter from rank 1 to 2, still in the top 3).
 
+#### Haiku vs Sonnet as the agent
+
+| | Haiku 4.5 | Sonnet 5.5 |
+|---|---|---|
+| Manual facts: belts / taxi use / brake fluid | 0/5 · 0/5 · 1/5 | **3/3 · 3/3 · 3/3** |
+| Manual route (4 cases) | 20/20 | 12/12 |
+| Answers — citations (3 × 5 questions) | **4.20** (3.80 – 4.60) | 3.40 (3.00 – 3.80) |
+| Answers — comparability (3 × 5 questions) | 4.47 (4.40 – 4.60) | 4.87 (4.60 – 5.00) |
+| USD per manual question | **$0.007 – $0.010** | $0.023 – $0.044 |
+| Median latency per manual question | **4.0 – 10.1 s** | 7.9 – 18.5 s |
+
+*Manual: Haiku 5 runs per case, Sonnet 3, 2026-10-21; ranges are across the four cases (price question included), facts judged by Sonnet 5.5 for both. Answers: Haiku from 2026-10-05, Sonnet 2026-10-21, same judges. USD from input and output tokens at the [list prices](https://platform.claude.com/docs/en/about-claude/pricing) ($1 / $5 per MTok for Haiku 4.5, $2 / $10 for Sonnet 5.5), agent only. Latency from question to result. A system-prompt change for Sonnet's citations (each URL in the figure's own sentence) left citations at 3.40 and comparability at 4.20, with one answer over the output-token limit; it was reverted.*
+
+**Decision: Haiku stays.** Sonnet answers the manual questions completely, but it costs about 3× more per question, is slower, and drops below Haiku's range on citations, the metric the agent's sourcing rules exist for. The manual's secondary facts are the price of that choice, documented below.
+
 Known limitations:
 
-- **Answers that need two different sections.** `search_manual` returns the top 3, and the taxi-use answer needs both G-14 (taxi counts as severe use) and G-18 (the checks done more often). With the agent's rewritten queries they never come back together. Next experiment: raise `TOP_K`, and measure what it costs in tokens and in irrelevant sections.
+- **Secondary facts from the manual.** With the facts on the same line as the interval, Haiku still drops them (clutch fluid) or picks the wrong footnote (belts); Sonnet states all of them in 9 of 9. It's a capability limit of the agent model, not of the data or retrieval.
+- **Answers that need two different sections.** The taxi-use answer needs G-14 (taxi counts as severe use) and G-18 (the checks done more often). Haiku makes one generic query and `search_manual` returns the top 3, so it gets one or the other; Sonnet gets both by querying twice. Possible next experiment with Haiku: raise `TOP_K`, and measure what it costs in tokens and in irrelevant sections.
 - **A run without tools.** On the owner-opinions question, 1 of 6 runs answered "I have no tools to access owner opinions" without calling any tool, `search_web` included. It wasn't the tool result's wording: the run never got one.
 
 ### Maintenance tables — `scripts/extract_maintenance_llm.py`
